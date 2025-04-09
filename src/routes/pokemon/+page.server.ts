@@ -1,29 +1,43 @@
-export const load = async () => {
-	const pokemons = await fetchPokemons();
-	return { pokemons };
+import { error } from '@sveltejs/kit';
+import type {
+	PokemonListItem,
+	PokemonListResponse,
+	TransformedPokemon
+} from '$lib/interfaces/pokemon.interface';
+
+export async function load() {
+	try {
+		const pokemons = await fetchPokemons();
+		return pokemons;
+	} catch (err) {
+		console.log(err);
+		throw error(500, 'Error when loading the pokemon list');
+	}
 }
 
 async function fetchPokemons() {
-	const response = await fetch('https://pokeapi.co/api/v2/pokemon');
+	const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=12');
 
 	if (!response.ok) {
 		throw new Error('No se pudo cargar el Pokémon');
 	}
 
-	const data = await response.json();
+	const data: PokemonListResponse = await response.json();
+	const transformedPokemons = await Promise.all(data.results.map(transformPokemon));
+
 	return {
 		...data,
-		results: data.results.map(transformPokemon)
+		results: transformedPokemons
 	};
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function transformPokemon(pokemon: any) {
+async function transformPokemon(pokemon: PokemonListItem): Promise<TransformedPokemon> {
 	const id = extractIdFromUrl(pokemon.url);
 	return {
 		...pokemon,
-    id: id,
-		sprite: getSpriteFromId(id)
+		id: id,
+		sprite: getSpriteFromId(id),
+		types: await getPokemonProperty(id, 'types')
 	};
 }
 
@@ -34,4 +48,21 @@ function extractIdFromUrl(url: string): string {
 
 function getSpriteFromId(id: string): string {
 	return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
+}
+
+async function getPokemonProperty(id: string, key: string) {
+	const data = await fetchPokemonData(id);
+	return data[key];
+}
+
+async function fetchPokemonData(id: string) {
+	const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
+
+	if (!response.ok) {
+		throw new Error('No se pudo cargar el Pokémon');
+	}
+
+	const data = await response.json();
+
+	return data;
 }
