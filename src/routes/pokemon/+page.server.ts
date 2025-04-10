@@ -4,8 +4,9 @@ import type {
 	PokemonListResponse,
 	TransformedPokemon
 } from '$lib/interfaces/pokemon.interface';
+import type { PageServerLoad } from './$types';
 
-export async function load() {
+export const load: PageServerLoad = async () => {
 	try {
 		const pokemons = await fetchPokemons();
 		return pokemons;
@@ -13,7 +14,7 @@ export async function load() {
 		console.log(err);
 		throw error(500, 'Error when loading the pokemon list');
 	}
-}
+};
 
 async function fetchPokemons() {
 	const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=12');

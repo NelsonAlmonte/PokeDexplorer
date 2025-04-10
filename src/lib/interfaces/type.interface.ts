@@ -7,3 +7,8 @@ export interface TypeItem {
 	name: string;
 	url: string;
 }
+
+export interface TypeColor {
+	text: string;
+	bg: string;
+}

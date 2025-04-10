@@ -1,0 +1,42 @@
+export const typeColorClasses = {
+	text: {
+		fire: 'text-fire-500',
+		water: 'text-water-500',
+		grass: 'text-grass-500',
+		electric: 'text-electric-500',
+		ice: 'text-ice-500',
+		fighting: 'text-fighting-500',
+		poison: 'text-poison-500',
+		ground: 'text-ground-500',
+		flying: 'text-flying-500',
+		psychic: 'text-psychic-500',
+		bug: 'text-bug-500',
+		rock: 'text-rock-500',
+		ghost: 'text-ghost-500',
+		dragon: 'text-dragon-500',
+		dark: 'text-dark-500',
+		steel: 'text-steel-500',
+		fairy: 'text-fairy-500',
+		normal: 'text-normal-500'
+	},
+	bg: {
+		fire: 'bg-fire-600/25',
+		water: 'bg-water-600/25',
+		grass: 'bg-grass-600/25',
+		electric: 'bg-electric-600/25',
+		ice: 'bg-ice-600/25',
+		fighting: 'bg-fighting-600/25',
+		poison: 'bg-poison-600/25',
+		ground: 'bg-ground-600/25',
+		flying: 'bg-flying-600/25',
+		psychic: 'bg-psychic-600/25',
+		bug: 'bg-bug-600/25',
+		rock: 'bg-rock-600/25',
+		ghost: 'bg-ghost-600/25',
+		dragon: 'bg-dragon-600/25',
+		dark: 'bg-dark-600/25',
+		steel: 'bg-steel-600/25',
+		fairy: 'bg-fairy-600/25',
+		normal: 'bg-normal-600/25'
+	}
+};
