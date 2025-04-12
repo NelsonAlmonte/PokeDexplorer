@@ -183,4 +183,64 @@
   --color-fairy-700: oklch(0.49 0.07 348.70 / 1);
   --color-fairy-800: oklch(0.37 0.05 349.43 / 1);
   --color-fairy-900: oklch(0.25 0.03 347.99 / 1);
+
+  --color-hp-100: var(--color-fighting-100);
+  --color-hp-200: var(--color-fighting-200);
+  --color-hp-300: var(--color-fighting-300);
+  --color-hp-400: var(--color-fighting-400);
+  --color-hp-500: var(--color-fighting-500);
+  --color-hp-600: var(--color-fighting-600);
+  --color-hp-700: var(--color-fighting-700);
+  --color-hp-800: var(--color-fighting-800);
+  --color-hp-900: var(--color-fighting-900);
+
+  --color-attack-100: var(--color-fire-100);
+  --color-attack-200: var(--color-fire-200);
+  --color-attack-300: var(--color-fire-300);
+  --color-attack-400: var(--color-fire-400);
+  --color-attack-500: var(--color-fire-500);
+  --color-attack-600: var(--color-fire-600);
+  --color-attack-700: var(--color-fire-700);
+  --color-attack-800: var(--color-fire-800);
+  --color-attack-900: var(--color-fire-900);
+
+  --color-defense-100: var(--color-steel-100);
+  --color-defense-200: var(--color-steel-200);
+  --color-defense-300: var(--color-steel-300);
+  --color-defense-400: var(--color-steel-400);
+  --color-defense-500: var(--color-steel-500);
+  --color-defense-600: var(--color-steel-600);
+  --color-defense-700: var(--color-steel-700);
+  --color-defense-800: var(--color-steel-800);
+  --color-defense-900: var(--color-steel-900);
+
+  --color-special-attack-100: var(--color-dragon-100);
+  --color-special-attack-200: var(--color-dragon-200);
+  --color-special-attack-300: var(--color-dragon-300);
+  --color-special-attack-400: var(--color-dragon-400);
+  --color-special-attack-500: var(--color-dragon-500);
+  --color-special-attack-600: var(--color-dragon-600);
+  --color-special-attack-700: var(--color-dragon-700);
+  --color-special-attack-800: var(--color-dragon-800);
+  --color-special-attack-900: var(--color-dragon-900);
+
+  --color-special-defense-100: var(--color-grass-100);
+  --color-special-defense-200: var(--color-grass-200);
+  --color-special-defense-300: var(--color-grass-300);
+  --color-special-defense-400: var(--color-grass-400);
+  --color-special-defense-500: var(--color-grass-500);
+  --color-special-defense-600: var(--color-grass-600);
+  --color-special-defense-700: var(--color-grass-700);
+  --color-special-defense-800: var(--color-grass-800);
+  --color-special-defense-900: var(--color-grass-900);
+
+  --color-speed-100: var(--color-electric-100);
+  --color-speed-200: var(--color-electric-200);
+  --color-speed-300: var(--color-electric-300);
+  --color-speed-400: var(--color-electric-400);
+  --color-speed-500: var(--color-electric-500);
+  --color-speed-600: var(--color-electric-600);
+  --color-speed-700: var(--color-electric-700);
+  --color-speed-800: var(--color-electric-800);
+  --color-speed-900: var(--color-electric-900);
 }

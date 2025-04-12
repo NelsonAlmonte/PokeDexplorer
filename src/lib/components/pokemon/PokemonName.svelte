@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { typeColorClasses } from '$lib/constants/typeColorClasses';
+	import { typeColorClasses } from '$lib/constants/type/typeColorClasses';
 	import type { TransformedPokemon } from '$lib/interfaces/pokemon.interface';
 	import { Heading } from 'flowbite-svelte';
 	let { data } = $props();

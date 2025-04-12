@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Types } from '$lib/interfaces/type.interface';
 	import TypeIcon from './TypeIcon.svelte';
-	import { typeColorClasses } from '$lib/constants/typeColorClasses';
+	import { typeColorClasses } from '$lib/constants/type/typeColorClasses';
 	let { data } = $props();
 	const type: Types = data;
 	const typeTextKey = type.type.name as keyof typeof typeColorClasses.text;

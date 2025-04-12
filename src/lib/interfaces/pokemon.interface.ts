@@ -1,3 +1,4 @@
+import type { Stats } from './stat.interface';
 import type { Types } from './type.interface';
 
 export interface PokemonListResponse {
@@ -16,4 +17,5 @@ export interface TransformedPokemon extends PokemonListItem {
 	id: string;
 	sprite: string;
 	types: Types[];
+	stats: Stats[];
 }

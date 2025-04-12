@@ -17,7 +17,7 @@ export const load: PageServerLoad = async () => {
 };
 
 async function fetchPokemons() {
-	const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=12');
+	const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=1');
 
 	if (!response.ok) {
 		throw new Error('No se pudo cargar el Pokémon');
@@ -38,7 +38,8 @@ async function transformPokemon(pokemon: PokemonListItem): Promise<TransformedPo
 		...pokemon,
 		id: id,
 		sprite: getSpriteFromId(id),
-		types: await getPokemonProperty(id, 'types')
+		types: await getPokemonProperty(id, 'types'),
+		stats: await getPokemonProperty(id, 'stats')
 	};
 }
 
@@ -52,8 +53,14 @@ function getSpriteFromId(id: string): string {
 }
 
 async function getPokemonProperty(id: string, key: string) {
-	const data = await fetchPokemonData(id);
-	return data[key];
+	if (getPokemonFromLocalStorage(id)) {
+		const data = getPokemonFromLocalStorage(id);
+		return data[key];
+	} else {
+		const data = await fetchPokemonData(id);
+		savePokemonToLocalStorage(id, data);
+		return data[key];
+	}
 }
 
 async function fetchPokemonData(id: string) {
@@ -66,4 +73,12 @@ async function fetchPokemonData(id: string) {
 	const data = await response.json();
 
 	return data;
+}
+
+function savePokemonToLocalStorage(id, pokemon): void {
+	localStorage.setItem(id, pokemon);
+}
+
+function getPokemonFromLocalStorage(id: string) {
+	return localStorage.getItem(id);
 }
