@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { Types } from '$lib/interfaces/type.interface';
 	import { typeColorClasses } from '$lib/constants/type/typeColorClasses';
+
 	let { data } = $props();
 	const type: Types = data;
 	const typeFromKey = type.type.name as keyof typeof typeColorClasses.from;

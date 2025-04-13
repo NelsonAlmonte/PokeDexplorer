@@ -1,7 +1,8 @@
 <script lang="ts">
-	import { typeColorClasses } from '$lib/constants/type/typeColorClasses';
 	import type { TransformedPokemon } from '$lib/interfaces/pokemon.interface';
+	import { typeColorClasses } from '$lib/constants/type/typeColorClasses';
 	import { Heading } from 'flowbite-svelte';
+
 	let { data } = $props();
 	const pokemon: TransformedPokemon = data;
 	const typeText = pokemon.types[0].type.name as keyof typeof typeColorClasses.text;
