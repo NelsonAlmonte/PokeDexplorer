@@ -9,7 +9,7 @@
 </script>
 
 <span
-	class="pointer-events-none absolute {typeColorClassText} start-0 end-0 top-0 mt-2 text-center text-4xl font-bold tracking-widest capitalize opacity-20 select-none"
+	class="pointer-events-none absolute {typeColorClassText} start-0 end-0 mt-2 text-center text-4xl font-bold tracking-widest capitalize opacity-20 select-none"
 >
 	{pokemon.name}
 </span>

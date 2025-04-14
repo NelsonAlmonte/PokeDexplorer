@@ -1,18 +1,18 @@
 <script lang="ts">
 	import type { NamedApiResourceList, Pokemon } from 'pokeapi-typescript';
 	import PokemonList from '$lib/components/pokemon/PokemonList.svelte';
-	import { pokemons } from '$lib/store/pokemon.store.js';
+	import { pokemonsStore } from '$lib/store/pokemon.store.js';
 	import { fetchPokemons } from '$lib/api/pokemon.api.js';
 	import { Button } from 'flowbite-svelte';
 
 	let { data }: { data: NamedApiResourceList<Pokemon> } = $props();
 
-	if (!$pokemons.results.length) pokemons.set(data);
+	if (!$pokemonsStore.results.length) pokemonsStore.set(data);
 
 	async function loadMore() {
-		const offset = $pokemons.results.length;
+		const offset = $pokemonsStore.results.length;
 		const newPokemons = await fetchPokemons(offset);
-		pokemons.update((currentPokemons) => {
+		pokemonsStore.update((currentPokemons) => {
 			const combinedPokemons = {
 				count: newPokemons.count,
 				next: newPokemons.next,
@@ -24,7 +24,7 @@
 	}
 </script>
 
-<PokemonList pokemons={$pokemons} />
+<PokemonList pokemons={$pokemonsStore} />
 
 <div class="my-10 flex items-center justify-center">
 	<Button color="blue" onclick={loadMore}>Load more Pokémons</Button>

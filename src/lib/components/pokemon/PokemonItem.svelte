@@ -8,7 +8,6 @@
 	import { Card } from 'flowbite-svelte';
 
 	let { pokemon }: { pokemon: Pokemon } = $props();
-	console.log(pokemon);
 </script>
 
 <Card class="relative mt-40 rounded-3xl" size="none">

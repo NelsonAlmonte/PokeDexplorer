@@ -10,7 +10,7 @@
 	const icon = icons[iconKey];
 </script>
 
-<div class="{typeColorClassText} absolute inset-0 z-0 w-100 overflow-hidden opacity-10">
+<div class="{typeColorClassText} absolute inset-0 z-0 w-full overflow-hidden opacity-10">
 	<div class="h-full w-full -translate-x-1/2">
 		{@html icon}
 	</div>

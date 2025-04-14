@@ -1,18 +1,18 @@
-import type { Pokemon } from "$lib/types/pokemon";
-import type { PageServerLoad } from "./$types";
+import type { Pokemon } from 'pokeapi-typescript';
+import type { PageServerLoad } from './$types';
 
-export const load: PageServerLoad = async ({params}) => {
-	const pokemon: Pokemon = await fetchPokemon(params.id);
-	return { pokemon };
-}
+export const load: PageServerLoad = async ({ params, parent, fetch }) => {
+	const { results } = await parent();
+	const pokemons = results;
+	const id = +params.id;
 
-async function fetchPokemon(id: string): Promise<Pokemon> {
-	const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
+	let pokemon = pokemons.find((p) => p.id === id);
 
-	if (!response.ok) {
-		throw new Error('No se pudo cargar el Pokémon');
+	if (!pokemon) {
+		const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
+		if (!res.ok) throw new Error('No se pudo cargar el Pokémon');
+		pokemon = (await res.json()) as Pokemon;
 	}
 
-	const data = await response.json();
-	return data;
-}
+	return { pokemon };
+};
