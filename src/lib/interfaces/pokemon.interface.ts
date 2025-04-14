@@ -3,8 +3,8 @@ import type { Types } from './type.interface';
 
 export interface PokemonListResponse {
 	count: number;
-	next: string | null;
-	previous: string | null;
+	next: string;
+	previous: string;
 	results: TransformedPokemon[];
 }
 

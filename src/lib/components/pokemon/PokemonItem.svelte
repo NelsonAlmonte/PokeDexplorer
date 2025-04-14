@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { TransformedPokemon } from '$lib/interfaces/pokemon.interface';
+	import type { Pokemon } from 'pokeapi-typescript';
 	import PokemonName from '$lib/components/pokemon/PokemonName.svelte';
 	import TypeItem from '$lib/components/type/TypeItem.svelte';
 	import LightBeam from '$lib/components/pokemon/LightBeam.svelte';
@@ -7,7 +7,7 @@
 	import StatItem from '$lib/components/stat/StatItem.svelte';
 	import { Card } from 'flowbite-svelte';
 
-	let { pokemon }: { pokemon: TransformedPokemon } = $props();
+	let { pokemon }: { pokemon: Pokemon } = $props();
 </script>
 
 <a href="/pokemon/{pokemon.id}">
@@ -16,7 +16,11 @@
 		<TypeIconBackground data={pokemon.types[0]} />
 		<div class="z-20">
 			<div class="flex items-center justify-center">
-				<img class="-mt-40 w-70" src={pokemon.sprite} alt={pokemon.name} />
+				<img
+					class="-mt-40 w-70"
+					src={pokemon.sprites.other['official-artwork'].front_default}
+					alt={pokemon.name}
+				/>
 			</div>
 			<div class="relative mb-8">
 				<PokemonName data={pokemon} />

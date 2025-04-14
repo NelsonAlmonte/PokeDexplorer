@@ -1,17 +1,13 @@
-import type {
-	PokemonListItem,
-	PokemonListResponse,
-	TransformedPokemon
-} from '$lib/interfaces/pokemon.interface';
+import type { NamedApiResource, NamedApiResourceList, Pokemon } from 'pokeapi-typescript';
 
-export async function fetchPokemons(offset: number) {
+const pokemonCache: Record<string, Pokemon> = {};
+
+export async function fetchPokemons(offset: number): Promise<NamedApiResourceList<Pokemon>> {
 	const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=12&offset=${offset}`);
 
-	if (!response.ok) {
-		throw new Error('No se pudo cargar el Pokémon');
-	}
+	if (!response.ok) throw new Error('No se pudo cargar el Pokémon');
 
-	const data: PokemonListResponse = await response.json();
+	const data: NamedApiResourceList<NamedApiResource<Pokemon>> = await response.json();
 	const transformedPokemons = await Promise.all(data.results.map(transformPokemon));
 
 	return {
@@ -20,15 +16,11 @@ export async function fetchPokemons(offset: number) {
 	};
 }
 
-async function transformPokemon(pokemon: PokemonListItem): Promise<TransformedPokemon> {
+async function transformPokemon(pokemon: NamedApiResource<Pokemon>): Promise<Pokemon> {
 	const id = extractIdFromUrl(pokemon.url);
-	return {
-		...pokemon,
-		id: id,
-		sprite: getSpriteFromId(id),
-		types: await getPokemonProperty(id, 'types'),
-		stats: await getPokemonProperty(id, 'stats')
-	};
+	const pokemonData = await fetchPokemonData(id);
+
+	return pokemonData;
 }
 
 function extractIdFromUrl(url: string): string {
@@ -36,23 +28,15 @@ function extractIdFromUrl(url: string): string {
 	return segments[segments.length - 1];
 }
 
-function getSpriteFromId(id: string): string {
-	return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
-}
+async function fetchPokemonData(id: string): Promise<Pokemon> {
+	if (pokemonCache[id]) return pokemonCache[id];
 
-async function getPokemonProperty(id: string, key: string) {
-	const data = await fetchPokemonData(id);
-	return data[key];
-}
-
-async function fetchPokemonData(id: string) {
 	const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
 
-	if (!response.ok) {
-		throw new Error('No se pudo cargar el Pokémon');
-	}
+	if (!response.ok) throw new Error('No se pudo cargar el Pokémon');
 
 	const data = await response.json();
+	pokemonCache[id] = data;
 
 	return data;
 }
