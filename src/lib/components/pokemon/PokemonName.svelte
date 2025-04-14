@@ -1,10 +1,9 @@
 <script lang="ts">
-	import type { TransformedPokemon } from '$lib/interfaces/pokemon.interface';
+	import type { Pokemon } from 'pokeapi-typescript';
 	import { typeColorClasses } from '$lib/constants/type/typeColorClasses';
 	import { Heading } from 'flowbite-svelte';
 
-	let { data } = $props();
-	const pokemon: TransformedPokemon = data;
+	let { pokemon }: { pokemon: Pokemon } = $props();
 	const typeText = pokemon.types[0].type.name as keyof typeof typeColorClasses.text;
 	const typeColorClassText = typeColorClasses.text[typeText];
 </script>
@@ -14,6 +13,8 @@
 >
 	{pokemon.name}
 </span>
-<Heading class="relative text-center capitalize" tag="h3">
-	{pokemon.name}
-</Heading>
+<a href="/pokemon/{pokemon.id}">
+	<Heading class="relative text-center capitalize" tag="h3">
+		{pokemon.name}
+	</Heading>
+</a>

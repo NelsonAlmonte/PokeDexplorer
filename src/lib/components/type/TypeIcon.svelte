@@ -1,8 +1,8 @@
 <script lang="ts">
-	import type { Types } from '$lib/interfaces/type.interface';
+	import type { PokemonType } from 'pokeapi-typescript';
 	import { icons } from '$lib/constants/type/typeIconSVGs';
-	let { data } = $props();
-	const type: Types = data;
+
+	let { type }: { type: PokemonType } = $props();
 	const iconKey = type.type.name as keyof typeof icons;
 	const icon = icons[iconKey];
 </script>
