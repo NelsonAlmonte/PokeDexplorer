@@ -9,30 +9,33 @@
 	<title>PokeDexplorer</title>
 </svelte:head>
 
-<div class="container mx-auto mt-5 max-w-screen-xl">
-	<div class="px-4">
-		<Navbar class="rounded-3xl" rounded color="dark">
-			<NavBrand href="/">
-				<img
-					src="https://flowbite-svelte.com/images/flowbite-svelte-icon-logo.svg"
-					class="me-3 h-6 sm:h-9"
-					alt="Flowbite Logo"
-				/>
-				<span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white"
-					>PokeDexplorer</span
-				>
-			</NavBrand>
+<div class="container mx-auto max-w-screen-xl">
+	<Navbar
+		class="fixed start-0 top-0 z-50 w-full py-2.5"
+		navContainerClass="px-2 md:px-0 max-w-screen-xl"
+	>
+		<NavBrand href="/pokemon">
+			<img
+				src="https://flowbite-svelte.com/images/flowbite-svelte-icon-logo.svg"
+				class="me-3 h-6 sm:h-9"
+				alt="Flowbite Logo"
+			/>
+			<span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white"
+				>PokeDexplorer</span
+			>
+		</NavBrand>
+		<div>
 			<NavHamburger />
 			<NavUl>
-				<NavLi href="/">Home</NavLi>
-				<NavLi href="/pokemon">Pokemon</NavLi>
-				<NavLi href="/docs/components/navbar">Navbar</NavLi>
-				<NavLi href="/pricing">Pricing</NavLi>
-				<NavLi href="/contact">Contact</NavLi>
+				<NavLi class="!text-white" href="/pokemon">Home</NavLi>
+				<NavLi class="!text-white" href="/pokemon">Pokemon</NavLi>
+				<NavLi class="!text-white" href="/docs/components/navbar">Navbar</NavLi>
+				<NavLi class="!text-white" href="/pricing">Pricing</NavLi>
+				<NavLi class="!text-white" href="/contact">Contact</NavLi>
 			</NavUl>
-		</Navbar>
-	</div>
-	<div class="p-4">
-		{@render children()}
-	</div>
+		</div>
+	</Navbar>
+</div>
+<div class="container mx-auto mt-20 max-w-screen-xl px-4 xl:px-0">
+	{@render children()}
 </div>
