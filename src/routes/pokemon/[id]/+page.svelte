@@ -8,8 +8,9 @@
 	import { Card, Heading } from 'flowbite-svelte';
 
 	let { data }: PageProps = $props();
-	const pokemon = data.pokemon;
-	console.log(pokemon);
+	console.log(data);
+	const pokemon = data.info.pokemon;
+	const pokemonSpecies = data.info['pokemon-species'];
 </script>
 
 <LightBeam type={pokemon.types[0]} />
@@ -36,7 +37,7 @@
 			<TypeItem {type} />
 		{/each}
 	</div>
-	<div class="mb-8 grid grid-cols-3 gap-4">
+	<div class="mb-8 grid w-full grid-cols-3 gap-4">
 		<Card class="relative w-full rounded-3xl" size="none">
 			<Heading class="z-20 mb-4 text-center" tag="h4">Basic information</Heading>
 			<LightBeam type={pokemon.types[0]} />

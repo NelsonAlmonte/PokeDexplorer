@@ -1,5 +1,11 @@
+import type { Pokemon, PokemonSpecies } from 'pokeapi-typescript';
 import type { Stats } from './stat.interface';
 import type { Types } from './type.interface';
+
+export type PokemonInfo = {
+	pokemon: Pokemon;
+	'pokemon-species': PokemonSpecies;
+};
 
 export interface PokemonListResponse {
 	count: number;
