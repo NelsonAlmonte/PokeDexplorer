@@ -38,6 +38,7 @@
 		"vite": "^6.2.5"
 	},
 	"dependencies": {
+		"@lucide/svelte": "^0.488.0",
 		"pokeapi-typescript": "^3.0.3"
 	}
 }

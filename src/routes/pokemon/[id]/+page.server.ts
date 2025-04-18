@@ -1,31 +1,33 @@
-import type { Pokemon, PokemonSpecies } from 'pokeapi-typescript';
+import type { Pokemon } from 'pokeapi-typescript';
 import type { PageServerLoad } from './$types';
-import type { PokemonInfo } from '$lib/interfaces/pokemon.interface';
+import type { PokemonProfile, PokemonSpeciesUpdated } from '$lib/types/pokemon.type';
 
-const ENDPOINTS = ['pokemon-species' as keyof PokemonInfo];
+const ENDPOINTS = ['pokemon-species' as keyof PokemonProfile];
 
 export const load: PageServerLoad = async ({ params, parent }) => {
 	const { results } = await parent();
 	const pokemons = results;
 	const id = +params.id;
-	const info: PokemonInfo = { pokemon: {} as Pokemon, 'pokemon-species': {} as PokemonSpecies };
+	const profile: PokemonProfile = {
+		pokemon: {} as Pokemon,
+		'pokemon-species': {} as PokemonSpeciesUpdated
+	};
 
 	const pokemon = pokemons.find((p) => p.id === id);
 
 	if (!pokemon) {
-		const res = await doFecth('pokemon', id);
-		if (!res.ok) throw new Error('No se pudo cargar el Pokémon');
-		info['pokemon'] = (await res.json()) as Pokemon;
+		const data = await doFecth('pokemon', id);
+		profile.pokemon = data as Pokemon;
 	} else {
-		info['pokemon'] = pokemon;
+		profile.pokemon = pokemon;
 	}
 
 	for (const endpoint of ENDPOINTS) {
 		const response = await doFecth(endpoint, id);
-		info[endpoint] = response;
+		profile[endpoint] = response;
 	}
 
-	return { info };
+	return { profile };
 };
 
 async function doFecth(endpoint: string, id: number) {

@@ -4,7 +4,7 @@
 	import TypeItem from '$lib/components/type/TypeItem.svelte';
 	import LightBeam from '$lib/components/pokemon/LightBeam.svelte';
 	import TypeIconBackground from '$lib/components/type/TypeIconBackground.svelte';
-	import StatItem from '$lib/components/stat/StatItem.svelte';
+	import StatList from '$lib/components/stat/StatList.svelte';
 	import { Card } from 'flowbite-svelte';
 
 	let { pokemon }: { pokemon: Pokemon } = $props();
@@ -29,10 +29,6 @@
 				<TypeItem {type} />
 			{/each}
 		</div>
-		<div class="grid grid-cols-2 gap-4">
-			{#each pokemon.stats as stat}
-				<StatItem {stat} type={pokemon.types[0]} />
-			{/each}
-		</div>
+		<StatList {pokemon} />
 	</div>
 </Card>

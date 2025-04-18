@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { PokemonType } from 'pokeapi-typescript';
-	import { icons } from '$lib/constants/type/typeIconSVGs';
+	import { icons } from '$lib/constants/type/type-icon-svg';
 
 	let { type }: { type: PokemonType } = $props();
 	const iconKey = type.type.name as keyof typeof icons;

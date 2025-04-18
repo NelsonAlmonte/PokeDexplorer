@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { PokemonType } from 'pokeapi-typescript';
 	import TypeIcon from './TypeIcon.svelte';
-	import { typeColorClasses } from '$lib/constants/type/typeColorClasses';
+	import { typeColorClasses } from '$lib/constants/type/type-color-classes';
 
 	let { type }: { type: PokemonType } = $props();
 	const typeTextKey = type.type.name as keyof typeof typeColorClasses.text;

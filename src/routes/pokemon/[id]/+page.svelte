@@ -4,13 +4,18 @@
 	import PokemonName from '$lib/components/pokemon/PokemonName.svelte';
 	import TypeIconBackground from '$lib/components/type/TypeIconBackground.svelte';
 	import TypeItem from '$lib/components/type/TypeItem.svelte';
-	import StatItem from '$lib/components/stat/StatItem.svelte';
+	import PokemonInfo from '$lib/components/pokemon/PokemonInfo.svelte';
+	import StatList from '$lib/components/stat/StatList.svelte';
+	import { generatePokemonInfo } from '$lib/factories/information.factory';
 	import { Card, Heading } from 'flowbite-svelte';
 
 	let { data }: PageProps = $props();
 	console.log(data);
-	const pokemon = data.info.pokemon;
-	const pokemonSpecies = data.info['pokemon-species'];
+	const pokemon = data.profile.pokemon;
+	const pokemonSpecies = data.profile['pokemon-species'];
+	const profile = data.profile;
+
+	const info = generatePokemonInfo(profile);
 </script>
 
 <LightBeam type={pokemon.types[0]} />
@@ -38,32 +43,16 @@
 		{/each}
 	</div>
 	<div class="mb-8 grid w-full grid-cols-3 gap-4">
-		<Card class="relative w-full rounded-3xl" size="none">
-			<Heading class="z-20 mb-4 text-center" tag="h4">Basic information</Heading>
-			<LightBeam type={pokemon.types[0]} />
-			<TypeIconBackground type={pokemon.types[0]} />
-		</Card>
-		<Card class="relative w-full rounded-3xl" size="none">
-			<Heading class="z-20 mb-4 text-center" tag="h4">Training information</Heading>
-			<LightBeam type={pokemon.types[0]} />
-			<TypeIconBackground type={pokemon.types[0]} />
-		</Card>
-		<Card class="relative w-full rounded-3xl" size="none">
-			<Heading class="z-20 mb-4 text-center" tag="h4">Breeding information</Heading>
-			<LightBeam type={pokemon.types[0]} />
-			<TypeIconBackground type={pokemon.types[0]} />
-		</Card>
+		<PokemonInfo info={info.basic} {profile} />
+		<PokemonInfo info={info.training} {profile} />
+		<PokemonInfo info={info.breeding} {profile} />
 	</div>
-	<div class="mb-8 grid w-2/3 grid-cols-2 gap-4">
+	<div class="mb-8 grid w-full grid-cols-2 gap-4">
 		<Card class="relative rounded-3xl" size="none">
 			<LightBeam type={pokemon.types[0]} />
 			<TypeIconBackground type={pokemon.types[0]} />
 			<Heading class="z-20 mb-4 text-center" tag="h4">Base stats</Heading>
-			<div class="grid grid-cols-2 gap-4">
-				{#each pokemon.stats as stat}
-					<StatItem {stat} type={pokemon.types[0]} />
-				{/each}
-			</div>
+			<StatList {pokemon} />
 		</Card>
 		<Card class="relative rounded-3xl" size="none">
 			<Heading class="z-20 mb-4 text-center" tag="h4">Type defenses</Heading>

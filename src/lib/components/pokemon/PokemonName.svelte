@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Pokemon } from 'pokeapi-typescript';
-	import { typeColorClasses } from '$lib/constants/type/typeColorClasses';
+	import { typeColorClasses } from '$lib/constants/type/type-color-classes';
 	import { Heading } from 'flowbite-svelte';
 
 	let { pokemon }: { pokemon: Pokemon } = $props();
