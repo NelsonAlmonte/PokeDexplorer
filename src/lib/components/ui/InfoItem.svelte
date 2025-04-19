@@ -1,18 +1,15 @@
 <script lang="ts">
 	import type { PokemonType } from 'pokeapi-typescript';
 	import type { InfoItem } from '$lib/types/information.type';
-	import { typeColorClasses } from '$lib/constants/type/type-color-classes';
+	import { typeUIClasses } from '$lib/constants/type/type-ui';
+	import { getTypeClasses } from '$lib/utils/type.util';
 
 	let { item, type }: { item: InfoItem; type: PokemonType } = $props();
-	const typeTextKey = type.type.name as keyof typeof typeColorClasses.text;
-	const typeColorClassText = typeColorClasses.text[typeTextKey];
-	const typeBgKey = type.type.name as keyof typeof typeColorClasses.bg;
-	const typeColorClassBg = typeColorClasses.bg[typeBgKey];
+	const typeName = type.type.name as keyof typeof typeUIClasses.text;
+	const { text, bgOpacity } = getTypeClasses(typeName);
 </script>
 
-<div
-	class="{typeColorClassBg} {typeColorClassText} flex items-center justify-start gap-3 rounded-2xl py-1.5 capitalize"
->
+<div class="{text} {bgOpacity} flex items-center justify-start gap-3 rounded-2xl py-1.5 capitalize">
 	<div class="ms-3">
 		{#if item.icon}
 			{@const Icon = item.icon}

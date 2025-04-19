@@ -2,7 +2,7 @@
 	import type { Pokemon } from 'pokeapi-typescript';
 	import PokemonName from '$lib/components/pokemon/PokemonName.svelte';
 	import TypeItem from '$lib/components/type/TypeItem.svelte';
-	import LightBeam from '$lib/components/pokemon/LightBeam.svelte';
+	import LightBeam from '$lib/components/ui/LightBeam.svelte';
 	import TypeIconBackground from '$lib/components/type/TypeIconBackground.svelte';
 	import StatList from '$lib/components/stat/StatList.svelte';
 	import { Card } from 'flowbite-svelte';

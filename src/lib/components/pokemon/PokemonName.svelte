@@ -1,15 +1,16 @@
 <script lang="ts">
 	import type { Pokemon } from 'pokeapi-typescript';
-	import { typeColorClasses } from '$lib/constants/type/type-color-classes';
+	import { typeUIClasses } from '$lib/constants/type/type-ui';
 	import { Heading } from 'flowbite-svelte';
+	import { getTypeClasses } from '$lib/utils/type.util';
 
 	let { pokemon }: { pokemon: Pokemon } = $props();
-	const typeText = pokemon.types[0].type.name as keyof typeof typeColorClasses.text;
-	const typeColorClassText = typeColorClasses.text[typeText];
+	const typeName = pokemon.types[0].type.name as keyof typeof typeUIClasses.text;
+	const { text } = getTypeClasses(typeName);
 </script>
 
 <span
-	class="pointer-events-none absolute {typeColorClassText} start-0 end-0 mt-2 text-center text-4xl font-bold tracking-widest capitalize opacity-20 select-none"
+	class="pointer-events-none absolute {text} start-0 end-0 mt-2 text-center text-4xl font-bold tracking-widest capitalize opacity-20 select-none"
 >
 	{pokemon.name}
 </span>

@@ -1,11 +1,11 @@
 <script lang="ts">
 	import type { PageProps } from './$types';
-	import LightBeam from '$lib/components/pokemon/LightBeam.svelte';
+	import LightBeam from '$lib/components/ui/LightBeam.svelte';
 	import PokemonName from '$lib/components/pokemon/PokemonName.svelte';
 	import TypeIconBackground from '$lib/components/type/TypeIconBackground.svelte';
 	import TypeItem from '$lib/components/type/TypeItem.svelte';
 	import PokemonInfo from '$lib/components/pokemon/PokemonInfo.svelte';
-	import StatList from '$lib/components/stat/StatList.svelte';
+	import StatRange from '$lib/components/stat/StatRange.svelte';
 	import { generatePokemonInfo } from '$lib/factories/information.factory';
 	import { Card, Heading } from 'flowbite-svelte';
 
@@ -48,12 +48,7 @@
 		<PokemonInfo info={info.breeding} {profile} />
 	</div>
 	<div class="mb-8 grid w-full grid-cols-2 gap-4">
-		<Card class="relative rounded-3xl" size="none">
-			<LightBeam type={pokemon.types[0]} />
-			<TypeIconBackground type={pokemon.types[0]} />
-			<Heading class="z-20 mb-4 text-center" tag="h4">Base stats</Heading>
-			<StatList {pokemon} />
-		</Card>
+		<StatRange info={info.stats} {profile} />
 		<Card class="relative rounded-3xl" size="none">
 			<Heading class="z-20 mb-4 text-center" tag="h4">Type defenses</Heading>
 			<LightBeam type={pokemon.types[0]} />

@@ -5,11 +5,9 @@
 
 	let { type }: { type: PokemonType } = $props();
 	const typeName = type.type.name as keyof typeof typeUIClasses.text;
-	const { text, icon } = getTypeClasses(typeName);
+	const { from } = getTypeClasses(typeName);
 </script>
 
-<div class="{text} absolute inset-0 z-0 w-full overflow-hidden opacity-10">
-	<div class="h-full w-full -translate-x-1/2">
-		{@html icon}
-	</div>
-</div>
+<div
+	class="{from} absolute inset-0 z-10 h-full w-full rounded-3xl bg-radial-[100%_100%_at_50%_top] to-60%"
+></div>

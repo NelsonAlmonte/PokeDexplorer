@@ -9,22 +9,34 @@ import {
 	Gauge,
 	GaugeCircle,
 	Hash,
+	Heart,
 	MoonStar,
 	Rocket,
 	Ruler,
+	Shield,
+	ShieldPlus,
 	Smile,
 	Sparkles,
+	Swords,
 	Target,
 	TimerReset,
 	Trees,
 	TrendingUp,
 	VenetianMask,
-	Weight
+	Weight,
+	Wind,
+	Zap
 } from '@lucide/svelte';
 import type { PokemonStat } from 'pokeapi-typescript';
 
-export function generatePokemonInfo(pokemonProfile: PokemonProfile) {
+export function generatePokemonInfo(pokemonProfile: PokemonProfile): PokemonInformation {
 	const ENGLISH_LANGUAGE_INDEX = 7;
+	const HP_INDEX = 0;
+	const ATTACK_INDEX = 1;
+	const DEFENSE_INDEX = 2;
+	const SPECIAL_ATTACK_INDEX = 3;
+	const SPECIAL_DEFENSE_INDEX = 4;
+	const SPEED_INDEX = 5;
 
 	return {
 		basic: {
@@ -133,8 +145,43 @@ export function generatePokemonInfo(pokemonProfile: PokemonProfile) {
 					icon: MoonStar
 				}
 			]
+		},
+		stats: {
+			label: 'Base stats',
+			data: [
+				{
+					label: 'Hp',
+					value: calculateStatRange(pokemonProfile.pokemon.stats[HP_INDEX].base_stat, true),
+					icon: Heart
+				},
+				{
+					label: 'Attack',
+					value: calculateStatRange(pokemonProfile.pokemon.stats[ATTACK_INDEX].base_stat),
+					icon: Swords
+				},
+				{
+					label: 'Defense',
+					value: calculateStatRange(pokemonProfile.pokemon.stats[DEFENSE_INDEX].base_stat),
+					icon: Shield
+				},
+				{
+					label: 'Sp. Attack',
+					value: calculateStatRange(pokemonProfile.pokemon.stats[SPECIAL_ATTACK_INDEX].base_stat),
+					icon: Zap
+				},
+				{
+					label: 'Sp. Defense',
+					value: calculateStatRange(pokemonProfile.pokemon.stats[SPECIAL_DEFENSE_INDEX].base_stat),
+					icon: ShieldPlus
+				},
+				{
+					label: 'Speed',
+					value: calculateStatRange(pokemonProfile.pokemon.stats[SPEED_INDEX].base_stat),
+					icon: Wind
+				}
+			]
 		}
-	} as PokemonInformation;
+	};
 }
 
 function getEV(stats: PokemonStat[]): string {
@@ -150,4 +197,23 @@ function getEV(stats: PokemonStat[]): string {
 function getGenderDistribution(rate: number): string {
 	if (rate === -1) return 'Genderless';
 	return `${100 - (rate / 8) * 100}% male ${(rate / 8) * 100}% female`;
+}
+
+function calculateStatRange(stat: number, isHp: boolean = false) {
+	const IV = { min: 0, max: 31 };
+	const EV = { min: 0, max: 252 };
+	const NATURE = { min: 0.9, max: 1.1 };
+	const MAX_LEVEL = 100;
+
+	if (isHp) {
+		return {
+			min: Math.floor(((2 * stat + IV.min + EV.min / 4) * MAX_LEVEL) / 100 + MAX_LEVEL + 10),
+			max: Math.floor(((2 * stat + IV.max + EV.max / 4) * MAX_LEVEL) / 100 + MAX_LEVEL + 10)
+		};
+	} else {
+		return {
+			min: Math.floor((((2 * stat + IV.min + EV.min / 4) * MAX_LEVEL) / 100 + 5) * NATURE.min),
+			max: Math.floor((((2 * stat + IV.max + EV.max / 4) * MAX_LEVEL) / 100 + 5) * NATURE.max)
+		};
+	}
 }
