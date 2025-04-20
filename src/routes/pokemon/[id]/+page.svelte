@@ -8,6 +8,7 @@
 	import StatRange from '$lib/components/stat/StatRange.svelte';
 	import { generatePokemonInfo } from '$lib/factories/information.factory';
 	import { Card, Heading } from 'flowbite-svelte';
+	import TypeDefense from '$lib/components/type/TypeDefense.svelte';
 
 	let { data }: PageProps = $props();
 	console.log(data);
@@ -49,10 +50,6 @@
 	</div>
 	<div class="mb-8 grid w-full grid-cols-2 gap-4">
 		<StatRange info={info.stats} {profile} />
-		<Card class="relative rounded-3xl" size="none">
-			<Heading class="z-20 mb-4 text-center" tag="h4">Type defenses</Heading>
-			<LightBeam type={pokemon.types[0]} />
-			<TypeIconBackground type={pokemon.types[0]} />
-		</Card>
+		<TypeDefense info={info.defenses} {profile} />
 	</div>
 </div>

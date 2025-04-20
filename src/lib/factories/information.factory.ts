@@ -180,6 +180,10 @@ export function generatePokemonInfo(pokemonProfile: PokemonProfile): PokemonInfo
 					icon: Wind
 				}
 			]
+		},
+		defenses: {
+			label: 'Type defenses',
+			data: []
 		}
 	};
 }

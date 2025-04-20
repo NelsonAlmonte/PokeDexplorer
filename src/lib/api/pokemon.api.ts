@@ -31,12 +31,15 @@ function extractIdFromUrl(url: string): string {
 async function fetchPokemonData(id: string): Promise<Pokemon> {
 	if (pokemonCache[id]) return pokemonCache[id];
 
-	const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
-
-	if (!response.ok) throw new Error('No se pudo cargar el Pokémon');
-
-	const data = await response.json();
+	const data = await doFetch('pokemon', Number(id));
 	pokemonCache[id] = data;
 
+	return data;
+}
+
+export async function doFetch(endpoint: string, id: string | number) {
+	const res = await fetch(`https://pokeapi.co/api/v2/${endpoint}/${id}`);
+	if (!res.ok) throw new Error('Error when retrieving the response');
+	const data = await res.json();
 	return data;
 }
