@@ -39,6 +39,7 @@
 	},
 	"dependencies": {
 		"@lucide/svelte": "^0.488.0",
+		"fraction.js": "^5.2.2",
 		"pokeapi-typescript": "^3.0.3"
 	}
 }

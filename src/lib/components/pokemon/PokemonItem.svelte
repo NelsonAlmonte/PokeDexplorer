@@ -26,7 +26,7 @@
 		</div>
 		<div class="mb-8 flex items-center justify-center gap-6">
 			{#each pokemon.types as type}
-				<TypeItem {type} />
+				<TypeItem type={type.type.name} value={0} />
 			{/each}
 		</div>
 		<StatList {pokemon} />

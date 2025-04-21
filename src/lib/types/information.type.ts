@@ -1,5 +1,4 @@
 import type { Icon } from '@lucide/svelte';
-import type { PokemonType } from 'pokeapi-typescript';
 
 export type PokemonInformation = {
 	basic: InfoSection;
@@ -16,11 +15,16 @@ export type InfoSection = {
 
 export type InfoItem = {
 	label: string;
-	value: string | number | Range | PokemonType[];
-	icon: typeof Icon;
+	value: string | number | Range | DamageRelation[];
+	icon?: typeof Icon;
 };
 
 export type Range = {
 	min: number;
 	max: number;
+};
+
+export type DamageRelation = {
+	type: string;
+	value: number;
 };
