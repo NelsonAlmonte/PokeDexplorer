@@ -7,15 +7,11 @@
 	import PokemonInfo from '$lib/components/pokemon/PokemonInfo.svelte';
 	import StatRange from '$lib/components/stat/StatRange.svelte';
 	import TypeDefense from '$lib/components/type/TypeDefense.svelte';
-	import { generatePokemonInfo } from '$lib/factories/information.factory';
-	import { Spinner } from 'flowbite-svelte';
 
 	let { data }: PageProps = $props();
-	console.log(data);
 	const pokemon = data.profile.pokemon;
 	const profile = data.profile;
-
-	const infoPromise = generatePokemonInfo(profile);
+	const info = data.profile.info;
 </script>
 
 <LightBeam type={pokemon.types[0]} />
@@ -42,19 +38,13 @@
 			<TypeItem type={type.type.name} value={0} />
 		{/each}
 	</div>
-	{#await infoPromise}
-		<Spinner color="blue" />
-	{:then info}
-		<div class="mb-8 grid w-full grid-cols-3 gap-4">
-			<PokemonInfo info={info.basic} {profile} />
-			<PokemonInfo info={info.training} {profile} />
-			<PokemonInfo info={info.breeding} {profile} />
-		</div>
-		<div class="mb-8 grid w-full grid-cols-2 gap-4">
-			<StatRange info={info.stats} {profile} />
-			<TypeDefense info={info.defenses} {profile} />
-		</div>
-	{:catch error}
-		<p>Something went wrong: {error.message}</p>
-	{/await}
+	<div class="mb-8 grid w-full grid-cols-3 gap-4">
+		<PokemonInfo info={info.basic} {profile} />
+		<PokemonInfo info={info.training} {profile} />
+		<PokemonInfo info={info.breeding} {profile} />
+	</div>
+	<div class="mb-8 grid w-full grid-cols-2 gap-4">
+		<StatRange info={info.stats} {profile} />
+		<TypeDefense info={info.defenses} {profile} />
+	</div>
 </div>

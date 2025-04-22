@@ -2,32 +2,6 @@ import { doFetch } from '$lib/api/pokemon.api';
 import { expAtLevel100 } from '$lib/constants/pokemon/exp-to-100';
 import type { DamageRelation, PokemonInformation } from '$lib/types/information.type';
 import type { PokemonProfile } from '$lib/types/pokemon.type';
-import {
-	Baby,
-	Calendar,
-	Dna,
-	Egg,
-	Gauge,
-	GaugeCircle,
-	Hash,
-	Heart,
-	MoonStar,
-	Rocket,
-	Ruler,
-	Shield,
-	ShieldPlus,
-	Smile,
-	Sparkles,
-	Swords,
-	Target,
-	TimerReset,
-	Trees,
-	TrendingUp,
-	VenetianMask,
-	Weight,
-	Wind,
-	Zap
-} from '@lucide/svelte';
 import type { PokemonStat, PokemonType, Type, TypeRelations } from 'pokeapi-typescript';
 
 export async function generatePokemonInfo(
@@ -49,32 +23,34 @@ export async function generatePokemonInfo(
 				{
 					label: 'National №',
 					value: pokemonProfile['pokemon-species'].pokedex_numbers[0].entry_number,
-					icon: Hash
+					icon: 'Hash'
 				},
 				{
 					label: 'Generation',
 					value: pokemonProfile['pokemon-species'].generation.name.replace('generation-', ' '),
-					icon: Calendar
+					icon: 'Calendar'
 				},
 				{
 					label: 'Height',
 					value: `${pokemonProfile.pokemon.height / 10} m`,
-					icon: Ruler
+					icon: 'Ruler'
 				},
 				{
 					label: 'Weight',
 					value: `${pokemonProfile.pokemon.weight / 10} kg`,
-					icon: Weight
+					icon: 'Weight'
 				},
 				{
 					label: 'Species',
 					value: pokemonProfile['pokemon-species'].genera[ENGLISH_LANGUAGE_INDEX].genus,
-					icon: Dna
+					icon: 'Dna'
 				},
 				{
 					label: 'Habitat',
-					value: pokemonProfile['pokemon-species'].habitat.name,
-					icon: Trees
+					value: pokemonProfile['pokemon-species'].habitat
+						? pokemonProfile['pokemon-species'].habitat.name
+						: 'None',
+					icon: 'Trees'
 				}
 			]
 		},
@@ -84,34 +60,34 @@ export async function generatePokemonInfo(
 				{
 					label: 'EV yield',
 					value: getEV(pokemonProfile.pokemon.stats),
-					icon: Gauge
+					icon: 'Gauge'
 				},
 				{
 					label: 'Base Exp.',
 					value: pokemonProfile.pokemon.base_experience,
-					icon: GaugeCircle
+					icon: 'GaugeCircle'
 				},
 				{
 					label: 'Growth',
 					value: pokemonProfile['pokemon-species'].growth_rate.name.replace('-', ' '),
-					icon: TrendingUp
+					icon: 'TrendingUp'
 				},
 				{
 					label: 'Exp. to 100',
 					value: new Intl.NumberFormat().format(
 						expAtLevel100[pokemonProfile['pokemon-species'].growth_rate.name]
 					),
-					icon: Rocket
+					icon: 'Rocket'
 				},
 				{
 					label: 'Cath rate',
 					value: pokemonProfile['pokemon-species'].capture_rate,
-					icon: Target
+					icon: 'Target'
 				},
 				{
 					label: 'Friendship',
 					value: pokemonProfile['pokemon-species'].base_happiness,
-					icon: Smile
+					icon: 'Smile'
 				}
 			]
 		},
@@ -121,32 +97,32 @@ export async function generatePokemonInfo(
 				{
 					label: 'Egg groups',
 					value: pokemonProfile['pokemon-species'].egg_groups.map((value) => value.name).join(', '),
-					icon: Egg
+					icon: 'Egg'
 				},
 				{
 					label: 'Gender rate',
 					value: getGenderDistribution(pokemonProfile['pokemon-species'].gender_rate),
-					icon: VenetianMask
+					icon: 'VenetianMask'
 				},
 				{
 					label: 'Hatch counter',
 					value: pokemonProfile['pokemon-species'].hatch_counter,
-					icon: TimerReset
+					icon: 'TimerReset'
 				},
 				{
 					label: 'Baby',
 					value: pokemonProfile['pokemon-species'].is_baby ? 'Yes' : 'No',
-					icon: Baby
+					icon: 'Baby'
 				},
 				{
 					label: 'Legendary',
 					value: pokemonProfile['pokemon-species'].is_legendary ? 'Yes' : 'No',
-					icon: Sparkles
+					icon: 'Sparkles'
 				},
 				{
 					label: 'Mythical',
 					value: pokemonProfile['pokemon-species'].is_mythical ? 'Yes' : 'No',
-					icon: MoonStar
+					icon: 'MoonStar'
 				}
 			]
 		},
@@ -156,32 +132,32 @@ export async function generatePokemonInfo(
 				{
 					label: 'Hp',
 					value: calculateStatRange(pokemonProfile.pokemon.stats[HP_INDEX].base_stat, true),
-					icon: Heart
+					icon: 'Heart'
 				},
 				{
 					label: 'Attack',
 					value: calculateStatRange(pokemonProfile.pokemon.stats[ATTACK_INDEX].base_stat),
-					icon: Swords
+					icon: 'Swords'
 				},
 				{
 					label: 'Defense',
 					value: calculateStatRange(pokemonProfile.pokemon.stats[DEFENSE_INDEX].base_stat),
-					icon: Shield
+					icon: 'Shield'
 				},
 				{
 					label: 'Sp. Attack',
 					value: calculateStatRange(pokemonProfile.pokemon.stats[SPECIAL_ATTACK_INDEX].base_stat),
-					icon: Zap
+					icon: 'Zap'
 				},
 				{
 					label: 'Sp. Defense',
 					value: calculateStatRange(pokemonProfile.pokemon.stats[SPECIAL_DEFENSE_INDEX].base_stat),
-					icon: ShieldPlus
+					icon: 'ShieldPlus'
 				},
 				{
 					label: 'Speed',
 					value: calculateStatRange(pokemonProfile.pokemon.stats[SPEED_INDEX].base_stat),
-					icon: Wind
+					icon: 'Wind'
 				}
 			]
 		},
@@ -247,7 +223,7 @@ async function fetchTypesInfo(types: PokemonType[]): Promise<Type[]> {
 	return typesInfo;
 }
 
-async function getTypeDefenses(types: PokemonType[]) {
+async function getTypeDefenses(types: PokemonType[]): Promise<Record<string, DamageRelation[]>> {
 	const typesInfo = await fetchTypesInfo(types);
 	const damageRelation: Record<string, DamageRelation[]> = {
 		double_damage_from: [],

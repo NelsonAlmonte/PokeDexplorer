@@ -1,8 +1,10 @@
 import type { Pokemon, PokemonSpecies } from 'pokeapi-typescript';
+import type { PokemonInformation } from '$lib/types/information.type';
 
 export type PokemonProfile = {
 	pokemon: Pokemon;
 	'pokemon-species': PokemonSpeciesUpdated;
+	info: PokemonInformation;
 };
 
 export interface PokemonSpeciesUpdated extends PokemonSpecies {

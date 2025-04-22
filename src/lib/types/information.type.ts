@@ -1,4 +1,4 @@
-import type { Icon } from '@lucide/svelte';
+import type { icons } from '$lib/constants/ui/icons';
 
 export type PokemonInformation = {
 	basic: InfoSection;
@@ -16,8 +16,10 @@ export type InfoSection = {
 export type InfoItem = {
 	label: string;
 	value: string | number | Range | DamageRelation[];
-	icon?: typeof Icon;
+	icon?: IconKey;
 };
+
+type IconKey = keyof typeof icons;
 
 export type Range = {
 	min: number;

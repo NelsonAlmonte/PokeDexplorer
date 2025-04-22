@@ -2,6 +2,7 @@
 	import type { PokemonStat, PokemonType } from 'pokeapi-typescript';
 	import type { InfoItem, Range } from '$lib/types/information.type';
 	import { typeUIClasses } from '$lib/constants/type/type-ui';
+	import { icons } from '$lib/constants/ui/icons';
 	import { getTypeClasses } from '$lib/utils/type.util';
 	import { Progressbar } from 'flowbite-svelte';
 	import { TrendingDown, TrendingUp } from '@lucide/svelte';
@@ -18,7 +19,7 @@
 		<div class="flex w-1/3 items-center justify-start gap-3">
 			<div class="ms-3">
 				{#if item.icon}
-					{@const Icon = item.icon}
+					{@const Icon = icons[item.icon]}
 					<Icon size="20" />
 				{/if}
 			</div>

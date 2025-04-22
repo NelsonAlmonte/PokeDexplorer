@@ -1,5 +1,4 @@
 <script lang="ts">
-	import type { PokemonType } from 'pokeapi-typescript';
 	import type { typeUIClasses } from '$lib/constants/type/type-ui';
 	import { getTypeClasses } from '$lib/utils/type.util';
 
