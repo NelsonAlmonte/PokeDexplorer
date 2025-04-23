@@ -1,8 +1,8 @@
 import { error } from '@sveltejs/kit';
-import type { PageServerLoad } from './$types';
+import type { LayoutServerLoad } from './$types';
 import { fetchPokemons } from '$lib/api/pokemon.api';
 
-export const load: PageServerLoad = async () => {
+export const load: LayoutServerLoad = async () => {
 	try {
 		const pokemons = await fetchPokemons(0);
 		return pokemons;
