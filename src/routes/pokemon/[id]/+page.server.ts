@@ -3,17 +3,15 @@ import type {
 	NamedApiResource,
 	NamedApiResourceList,
 	Generation,
-	Move
+	Move,
+	PokemonMove,
+	PokemonMoveVersion,
+	MoveLearnMethod
 } from 'pokeapi-typescript';
 import type { PageServerLoad } from './$types';
-// import type { PokemonProfile, PokemonSpeciesUpdated } from '$lib/types/pokemon.type';
 import { doFetch } from '$lib/api/pokemon.api';
-// import { generatePokemonInfo } from '$lib/factories/information.factory';
-// import type { PokemonInformation } from '$lib/types/information.type';
 
-// const ENDPOINTS = ['pokemon-species' as keyof PokemonProfile];
-
-export const load: PageServerLoad = async ({ params, parent }) => {
+export const load: PageServerLoad = async ({ params, parent, fetch }) => {
 	const { results } = await parent();
 	const id = +params.id;
 	const pokemons = results;
@@ -32,40 +30,66 @@ export const load: PageServerLoad = async ({ params, parent }) => {
 	const lastGen = generations.results.at(-1)!;
 	const lastGenInfo: Generation = await doFetch('generation', lastGen.name);
 	const lastGenVersionGroups = lastGenInfo.version_groups;
-
-	const pokemonLastGenMoves: never[] = [];
+	const pokemonLastGenMoves: Record<string, PokemonMove[]> = {};
 
 	for (const versionGroup of lastGenVersionGroups) {
 		const versionGroupName = versionGroup.name;
+		pokemonLastGenMoves[versionGroupName] = [];
 		for (const move of pokemon.moves) {
 			for (const details of move.version_group_details) {
 				const moveVersionGroup = details.version_group.name;
 				if (moveVersionGroup == versionGroupName) {
-					const moveName = move.move.name;
-					pokemonLastGenMoves.push({
-						version: versionGroupName,
-						method: details.move_learn_method.name,
-						level_learned_at: details.level_learned_at,
-						move: moveName
+					pokemonLastGenMoves[versionGroupName].push({
+						move: move.move,
+						version_group_details: move.version_group_details
 					});
 				}
 			}
 		}
 	}
-	console.log(pokemonLastGenMoves);
-	// NOTE: Para que me baneen la ip por usar tanto la API
 
-	// const pokemonMoves = [];
-	// for (const pokemonLastGenMove of pokemonLastGenMoves) {
-	// 	const move: Move = await doFetch('move', pokemonLastGenMove.move);
-	// 	pokemonMoves.push({
-	// 		name: move.name,
-	// 		type: move.type.name,
-	// 		category: move.damage_class.name,
-	// 		power: move.power,
-	// 		accuracy: move.accuracy
-	// 	});
-	// }
+	type DetailedPokemonMove = Pick<Move, 'name' | 'power' | 'accuracy' | 'damage_class' | 'type'> & {
+		version_group_details: PokemonMoveVersion;
+	};
+	const pokemonMoves: Record<string, Record<string, DetailedPokemonMove[]>> = {};
+	const response = await fetch('/data/moves.json');
+	const moves: Move[] = await response.json();
+	const moveLearnMethods: NamedApiResourceList<NamedApiResource<MoveLearnMethod>> = await doFetch(
+		'move-learn-method',
+		''
+	);
+	const moveLearnMethodsNames: string[] = moveLearnMethods.results.map((value) => value.name);
 
-	// console.log(pokemonMoves);
+	for (const key in pokemonLastGenMoves) {
+		const versionGroupMoves = pokemonLastGenMoves[key];
+		if (versionGroupMoves.length > 0) {
+			if (!pokemonMoves[key]) pokemonMoves[key] = {};
+			for (const moveLearnMethod of moveLearnMethodsNames) {
+				pokemonMoves[key][moveLearnMethod] = [];
+				for (const versionGroupMove of versionGroupMoves) {
+					const foundMove = moves.find((move) => move.name === versionGroupMove.move.name)!;
+					const foundLearnMethod = versionGroupMove.version_group_details.find(
+						(learnMethod) => learnMethod.move_learn_method.name === moveLearnMethod
+					);
+					const alredyAddedMove = pokemonMoves[key][moveLearnMethod].some(
+						(value) => value.name === foundMove.name
+					);
+					if (!alredyAddedMove && foundLearnMethod) {
+						pokemonMoves[key][moveLearnMethod].push({
+							name: foundMove.name,
+							power: foundMove.power,
+							accuracy: foundMove.accuracy,
+							damage_class: foundMove.damage_class,
+							type: foundMove.type,
+							version_group_details: versionGroupMove.version_group_details.find(
+								(value) => value.version_group.name === key
+							)!
+						});
+					}
+				}
+			}
+		}
+	}
+
+	console.log(pokemonMoves);
 };
