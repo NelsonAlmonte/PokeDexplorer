@@ -15,7 +15,7 @@
 		<LightBeam type={profile.pokemon.types[0]} />
 	</div>
 	<TypeIconBackground type={profile.pokemon.types[0]} />
-	<div class="grid grid-cols-2 gap-4">
+	<div class="z-20 grid grid-cols-2 gap-4">
 		{#each info.data as infoItem}
 			<InfoItem item={infoItem} type={profile.pokemon.types[0]} />
 		{/each}

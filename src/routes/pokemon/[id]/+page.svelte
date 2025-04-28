@@ -5,6 +5,7 @@
 	import PokemonInfo from '$lib/components/pokemon/PokemonInfo.svelte';
 	import StatRange from '$lib/components/stat/StatRange.svelte';
 	import TypeDefense from '$lib/components/type/TypeDefense.svelte';
+	import MoveList from '$lib/components/move/MoveList.svelte';
 
 	let { data }: PageProps = $props();
 	const pokemon = data.profile.pokemon;
@@ -35,6 +36,6 @@
 	<StatRange info={info.stats} {profile} />
 	<TypeDefense {profile} />
 </div>
-<div class="mb-8 grid w-full grid-cols-2 gap-4">
-	<h1 class="text-white">Moves</h1>
+<div class="mb-8 grid w-full grid-cols-1 gap-4">
+	<MoveList moveCollection={data.moveCollection} {profile} />
 </div>
