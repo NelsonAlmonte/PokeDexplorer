@@ -10,6 +10,7 @@
 	const pokemon = data.profile.pokemon;
 	const profile = data.profile;
 	const info = data.profile.info;
+	console.log(data);
 </script>
 
 <img
@@ -32,7 +33,7 @@
 </div>
 <div class="mb-8 grid w-full grid-cols-2 gap-4">
 	<StatRange info={info.stats} {profile} />
-	<TypeDefense info={info.defenses} {profile} />
+	<TypeDefense {profile} />
 </div>
 <div class="mb-8 grid w-full grid-cols-2 gap-4">
 	<h1 class="text-white">Moves</h1>

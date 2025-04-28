@@ -3,11 +3,22 @@ import type { PokemonInformation } from '$lib/types/information.type';
 
 export type PokemonProfile = {
 	pokemon: Pokemon;
-	'pokemon-species': PokemonSpeciesUpdated;
+	species: PokemonSpeciesUpdated;
 	info: PokemonInformation;
+	type_defenses: TypeDefense[];
 };
 
 export interface PokemonSpeciesUpdated extends PokemonSpecies {
 	is_legendary: boolean;
 	is_mythical: boolean;
 }
+
+export type DamageRelation = {
+	type: string;
+	value: number;
+};
+
+export type TypeDefense = {
+	label: string;
+	value: DamageRelation[];
+};

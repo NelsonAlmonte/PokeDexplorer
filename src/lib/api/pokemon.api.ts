@@ -43,3 +43,14 @@ export async function doFetch(endpoint: string, id: string | number) {
 	const data = await res.json();
 	return data;
 }
+
+export async function getPokemon(pokemons: Pokemon[], id: number | string): Promise<Pokemon> {
+	let pokemon = pokemons.find((p) => p.id === id);
+
+	if (!pokemon) {
+		const data = await doFetch('pokemon', id);
+		pokemon = data as Pokemon;
+	}
+
+	return pokemon;
+}

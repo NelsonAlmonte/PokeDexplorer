@@ -5,7 +5,6 @@ export type PokemonInformation = {
 	training: InfoSection;
 	breeding: InfoSection;
 	stats: InfoSection;
-	defenses: InfoSection;
 };
 
 export type InfoSection = {
@@ -15,7 +14,7 @@ export type InfoSection = {
 
 export type InfoItem = {
 	label: string;
-	value: string | number | Range | DamageRelation[];
+	value: string | number | Range;
 	icon?: IconKey;
 };
 
@@ -24,9 +23,4 @@ type IconKey = keyof typeof icons;
 export type Range = {
 	min: number;
 	max: number;
-};
-
-export type DamageRelation = {
-	type: string;
-	value: number;
 };

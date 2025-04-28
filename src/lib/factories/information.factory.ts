@@ -1,12 +1,9 @@
-import { doFetch } from '$lib/api/pokemon.api';
 import { expAtLevel100 } from '$lib/constants/pokemon/exp-to-100';
-import type { DamageRelation, PokemonInformation } from '$lib/types/information.type';
+import type { PokemonInformation } from '$lib/types/information.type';
 import type { PokemonProfile } from '$lib/types/pokemon.type';
-import type { PokemonStat, PokemonType, Type, TypeRelations } from 'pokeapi-typescript';
+import type { PokemonStat } from 'pokeapi-typescript';
 
-export async function generatePokemonInfo(
-	pokemonProfile: PokemonProfile
-): Promise<PokemonInformation> {
+export function generatePokemonInfo(pokemonProfile: PokemonProfile): PokemonInformation {
 	const ENGLISH_LANGUAGE_INDEX = 7;
 	const HP_INDEX = 0;
 	const ATTACK_INDEX = 1;
@@ -14,7 +11,6 @@ export async function generatePokemonInfo(
 	const SPECIAL_ATTACK_INDEX = 3;
 	const SPECIAL_DEFENSE_INDEX = 4;
 	const SPEED_INDEX = 5;
-	const typeDefenses = await getTypeDefenses(pokemonProfile.pokemon.types);
 
 	return {
 		basic: {
@@ -22,12 +18,12 @@ export async function generatePokemonInfo(
 			data: [
 				{
 					label: 'National №',
-					value: pokemonProfile['pokemon-species'].pokedex_numbers[0].entry_number,
+					value: pokemonProfile.species.pokedex_numbers[0].entry_number,
 					icon: 'Hash'
 				},
 				{
 					label: 'Generation',
-					value: pokemonProfile['pokemon-species'].generation.name.replace('generation-', ' '),
+					value: pokemonProfile.species.generation.name.replace('generation-', ' '),
 					icon: 'Calendar'
 				},
 				{
@@ -42,14 +38,12 @@ export async function generatePokemonInfo(
 				},
 				{
 					label: 'Species',
-					value: pokemonProfile['pokemon-species'].genera[ENGLISH_LANGUAGE_INDEX].genus,
+					value: pokemonProfile.species.genera[ENGLISH_LANGUAGE_INDEX].genus,
 					icon: 'Dna'
 				},
 				{
 					label: 'Habitat',
-					value: pokemonProfile['pokemon-species'].habitat
-						? pokemonProfile['pokemon-species'].habitat.name
-						: 'None',
+					value: pokemonProfile.species.habitat ? pokemonProfile.species.habitat.name : 'None',
 					icon: 'Trees'
 				}
 			]
@@ -69,24 +63,24 @@ export async function generatePokemonInfo(
 				},
 				{
 					label: 'Growth',
-					value: pokemonProfile['pokemon-species'].growth_rate.name.replace('-', ' '),
+					value: pokemonProfile.species.growth_rate.name.replace('-', ' '),
 					icon: 'TrendingUp'
 				},
 				{
 					label: 'Exp. to 100',
 					value: new Intl.NumberFormat().format(
-						expAtLevel100[pokemonProfile['pokemon-species'].growth_rate.name]
+						expAtLevel100[pokemonProfile.species.growth_rate.name]
 					),
 					icon: 'Rocket'
 				},
 				{
 					label: 'Cath rate',
-					value: pokemonProfile['pokemon-species'].capture_rate,
+					value: pokemonProfile.species.capture_rate,
 					icon: 'Target'
 				},
 				{
 					label: 'Friendship',
-					value: pokemonProfile['pokemon-species'].base_happiness,
+					value: pokemonProfile.species.base_happiness,
 					icon: 'Smile'
 				}
 			]
@@ -96,32 +90,32 @@ export async function generatePokemonInfo(
 			data: [
 				{
 					label: 'Egg groups',
-					value: pokemonProfile['pokemon-species'].egg_groups.map((value) => value.name).join(', '),
+					value: pokemonProfile.species.egg_groups.map((value) => value.name).join(', '),
 					icon: 'Egg'
 				},
 				{
 					label: 'Gender rate',
-					value: getGenderDistribution(pokemonProfile['pokemon-species'].gender_rate),
+					value: getGenderDistribution(pokemonProfile.species.gender_rate),
 					icon: 'VenetianMask'
 				},
 				{
 					label: 'Hatch counter',
-					value: pokemonProfile['pokemon-species'].hatch_counter,
+					value: pokemonProfile.species.hatch_counter,
 					icon: 'TimerReset'
 				},
 				{
 					label: 'Baby',
-					value: pokemonProfile['pokemon-species'].is_baby ? 'Yes' : 'No',
+					value: pokemonProfile.species.is_baby ? 'Yes' : 'No',
 					icon: 'Baby'
 				},
 				{
 					label: 'Legendary',
-					value: pokemonProfile['pokemon-species'].is_legendary ? 'Yes' : 'No',
+					value: pokemonProfile.species.is_legendary ? 'Yes' : 'No',
 					icon: 'Sparkles'
 				},
 				{
 					label: 'Mythical',
-					value: pokemonProfile['pokemon-species'].is_mythical ? 'Yes' : 'No',
+					value: pokemonProfile.species.is_mythical ? 'Yes' : 'No',
 					icon: 'MoonStar'
 				}
 			]
@@ -160,27 +154,11 @@ export async function generatePokemonInfo(
 					icon: 'Wind'
 				}
 			]
-		},
-		defenses: {
-			label: 'Type defenses',
-			data: [
-				{
-					label: 'Weak to',
-					value: typeDefenses.double_damage_from
-				},
-				{
-					label: 'Resistant to',
-					value: typeDefenses.half_damage_from
-				},
-				{
-					label: 'Immune to',
-					value: typeDefenses.no_damage_from
-				}
-			]
 		}
 	};
 }
 
+//TODO: Refactor this. Create another factory
 function getEV(stats: PokemonStat[]): string {
 	return stats
 		.filter((value) => value.effort !== 0)
@@ -213,57 +191,4 @@ function calculateStatRange(stat: number, isHp: boolean = false) {
 			max: Math.floor((((2 * stat + IV.max + EV.max / 4) * MAX_LEVEL) / 100 + 5) * NATURE.max)
 		};
 	}
-}
-
-async function fetchTypesInfo(types: PokemonType[]): Promise<Type[]> {
-	const typesInfo: Type[] = [];
-	for (const type of types) {
-		typesInfo.push((await doFetch('type', type.type.name)) as Type);
-	}
-	return typesInfo;
-}
-
-async function getTypeDefenses(types: PokemonType[]): Promise<Record<string, DamageRelation[]>> {
-	const typesInfo = await fetchTypesInfo(types);
-	const damageRelation: Record<string, DamageRelation[]> = {
-		double_damage_from: [],
-		half_damage_from: [],
-		no_damage_from: []
-	};
-	const damageRelationKeys = [
-		{
-			key: 'double_damage_from',
-			product: 2
-		},
-		{
-			key: 'half_damage_from',
-			product: 0.5
-		},
-		{
-			key: 'no_damage_from',
-			product: 0
-		}
-	];
-
-	for (const type of typesInfo) {
-		for (const relationKey of damageRelationKeys) {
-			const currentRelationKey = relationKey.key as keyof TypeRelations;
-			for (const relationType of type.damage_relations[currentRelationKey]) {
-				const name = relationType.name;
-
-				const existing = damageRelation[currentRelationKey].find((item) => item.type === name);
-
-				if (existing) {
-					existing.value *= relationKey.product;
-				} else {
-					damageRelation[currentRelationKey].push({
-						type: name,
-						value: relationKey.product
-					});
-				}
-			}
-		}
-	}
-
-	return damageRelation;
 }
