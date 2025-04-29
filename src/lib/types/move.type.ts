@@ -2,14 +2,14 @@ import type { Move, PokemonMoveVersion } from 'pokeapi-typescript';
 
 export type MoveCollection = {
 	label: string;
-	value: LearnMethodMove[];
+	learn_methods: LearnMethodMove[];
 };
 
 export type MovesGroup = Record<string, LearnMethodMove[]>;
 
 export type LearnMethodMove = {
 	label: string;
-	value: DetailedPokemonMove[];
+	moves: DetailedPokemonMove[];
 };
 
 export type DetailedPokemonMove = Pick<

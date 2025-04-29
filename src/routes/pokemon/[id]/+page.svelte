@@ -11,7 +11,7 @@
 	const pokemon = data.profile.pokemon;
 	const profile = data.profile;
 	const info = data.profile.info;
-	console.log(data);
+	console.log('PAGE', data.moveCollection);
 </script>
 
 <img

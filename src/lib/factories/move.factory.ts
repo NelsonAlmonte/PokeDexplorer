@@ -8,7 +8,7 @@ import type {
 	MoveLearnMethod,
 	VersionGroup
 } from 'pokeapi-typescript';
-import type { MoveCollection, MovesGroup } from '$lib/types/move.type';
+import type { DetailedPokemonMove, MoveCollection, MovesGroup } from '$lib/types/move.type';
 import { doFetch } from '$lib/api/pokemon.api';
 
 export async function generateMoveCollection(
@@ -17,12 +17,14 @@ export async function generateMoveCollection(
 ): Promise<MoveCollection[]> {
 	const moveCollection: MoveCollection[] = [];
 	const movesGroup = await generateMovesGroup(pokemon, moves);
+
 	for (const key in movesGroup) {
 		moveCollection.push({
 			label: key.replaceAll('-', ' '),
-			value: movesGroup[key]
+			learn_methods: movesGroup[key]
 		});
 	}
+
 	return moveCollection;
 }
 
@@ -51,12 +53,15 @@ function generateGenMoves(
 	moves: PokemonMove[]
 ): Record<string, PokemonMove[]> {
 	const pokemonGenMoves: Record<string, PokemonMove[]> = {};
+
 	for (const versionGroup of versionGroups) {
 		const versionGroupName = versionGroup.name;
 		pokemonGenMoves[versionGroupName] = [];
+
 		for (const move of moves) {
 			for (const details of move.version_group_details) {
 				const moveVersionGroup = details.version_group.name;
+
 				if (moveVersionGroup == versionGroupName) {
 					pokemonGenMoves[versionGroupName].push({
 						move: move.move,
@@ -82,40 +87,66 @@ function structureMovesGroup(
 	moves: Move[],
 	moveLearnMethods: string[]
 ): MovesGroup {
+	const moveMap = new Map(moves.map((move) => [move.name, move]));
 	const movesGroup: MovesGroup = {};
+
 	for (const key in genMoves) {
 		const versionGroupMoves = genMoves[key];
-		if (versionGroupMoves.length > 0) {
-			if (!movesGroup[key]) movesGroup[key] = [];
-			for (let index = 0; index < moveLearnMethods.length; index++) {
-				if (!movesGroup[key][index])
-					movesGroup[key][index] = {
-						label: moveLearnMethods[index].replaceAll('-', ' '),
-						value: []
-					};
-				for (const versionGroupMove of versionGroupMoves) {
-					const foundMove = moves.find((move) => move.name === versionGroupMove.move.name)!;
-					const foundLearnMethod = versionGroupMove.version_group_details.find(
-						(learnMethod) => learnMethod.move_learn_method.name === moveLearnMethods[index]
+
+		if (versionGroupMoves.length <= 0) continue;
+
+		if (!movesGroup[key]) movesGroup[key] = [];
+
+		for (const method of moveLearnMethods) {
+			movesGroup[key].push({
+				label: method.replaceAll('-', ' '),
+				moves: []
+			});
+		}
+
+		for (const versionGroupMove of versionGroupMoves) {
+			const move = moveMap.get(versionGroupMove.move.name);
+			if (!move) continue;
+
+			for (const detail of versionGroupMove.version_group_details) {
+				if (detail.version_group.name !== key) continue;
+
+				const methodIndex = moveLearnMethods.indexOf(detail.move_learn_method.name);
+				if (methodIndex === -1) continue;
+
+				const alreadyExists = movesGroup[key][methodIndex].moves.some(
+					(m) => m.name === move.name.replaceAll('-', ' ')
+				);
+				if (!alreadyExists) {
+					movesGroup[key][methodIndex].moves.push({
+						name: move.name.replaceAll('-', ' '),
+						power: move.power,
+						accuracy: move.accuracy,
+						damage_class: move.damage_class,
+						type: move.type,
+						version_group_details: detail
+					});
+					movesGroup[key][methodIndex].moves = sortMoves(
+						movesGroup[key][methodIndex].moves,
+						detail.move_learn_method.name
 					);
-					const alredyAddedMove = movesGroup[key][index].value.some(
-						(value) => value.name === foundMove.name
-					);
-					if (!alredyAddedMove && foundLearnMethod) {
-						movesGroup[key][index].value.push({
-							name: foundMove.name.replaceAll('-', ' '),
-							power: foundMove.power,
-							accuracy: foundMove.accuracy,
-							damage_class: foundMove.damage_class,
-							type: foundMove.type,
-							version_group_details: versionGroupMove.version_group_details.find(
-								(value) => value.version_group.name === key
-							)!
-						});
-					}
 				}
 			}
 		}
 	}
+
 	return movesGroup;
+}
+
+function sortMoves(moves: DetailedPokemonMove[], learnMethod: string): DetailedPokemonMove[] {
+	let sortedMoves: DetailedPokemonMove[] = [];
+	if (learnMethod === 'level-up') {
+		sortedMoves = moves.sort(
+			(a, b) => a.version_group_details.level_learned_at - b.version_group_details.level_learned_at
+		);
+	} else {
+		sortedMoves = moves.sort((a, b) => a.name.localeCompare(b.name));
+	}
+
+	return sortedMoves;
 }
