@@ -5,13 +5,14 @@
 	import LightBeam from '$lib/components/ui/LightBeam.svelte';
 	import TypeIconBackground from '$lib/components/type/TypeIconBackground.svelte';
 	import MoveItem from '$lib/components/move//MoveItem.svelte';
+	import GenerationList from '$lib/components/move/GenerationList.svelte';
 	import { getTypeClasses } from '$lib/utils/type.util';
 	import { Card, Heading, Tabs, TabItem } from 'flowbite-svelte';
 
 	let { moveCollection, profile }: { moveCollection: MoveCollection[]; profile: PokemonProfile } =
 		$props();
 	const typeName = profile.pokemon.types[0].type.name as keyof typeof typeUIClasses.text;
-	const { text } = getTypeClasses(typeName);
+	const { text, bg, bgOpacity } = getTypeClasses(typeName);
 </script>
 
 <span
@@ -20,10 +21,19 @@
 	Moves
 </span>
 <Heading class="relative text-center capitalize" tag="h3">Moves</Heading>
-
-<Tabs tabStyle="pill" class="z-20" contentClass="">
+<GenerationList {profile} />
+<Tabs
+	tabStyle="pill"
+	class="z-20"
+	defaultClass="flex flex-wrap justify-center mb-3 space-x-2 rtl:space-x-reverse"
+	contentClass=""
+>
 	{#each moveCollection as moveGroup, index}
-		<TabItem open={index === 0}>
+		<TabItem
+			open={index === 0}
+			activeClasses="inline-block rounded-2xl text-center font-bold text-white {bg} cursor-pointer p-4"
+			inactiveClasses="inline-block rounded-2xl text-center font-bold text-gray-400 {bgOpacity} cursor-pointer p-4"
+		>
 			<span slot="title" class="capitalize">{moveGroup.label}</span>
 			<div class="columns-2 gap-4">
 				{#each moveGroup.learn_methods as learnMethod}

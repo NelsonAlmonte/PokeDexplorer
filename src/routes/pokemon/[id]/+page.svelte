@@ -11,7 +11,8 @@
 	const pokemon = data.profile.pokemon;
 	const profile = data.profile;
 	const info = data.profile.info;
-	console.log('PAGE', data.moveCollection);
+	//TODO: Meter estos datos en una store
+	console.log('Me llamaron');
 </script>
 
 <img

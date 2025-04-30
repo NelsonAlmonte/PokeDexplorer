@@ -3,9 +3,9 @@
 	import type { PokemonProfile } from '$lib/types/pokemon.type';
 	import type { typeUIClasses } from '$lib/constants/type/type-ui';
 	import TypeItem from '$lib/components/type/TypeItem.svelte';
+	import MoveCategory from '$lib/components/move/MoveCategory.svelte';
 	import { getTypeClasses } from '$lib/utils/type.util';
-	import { Crosshair, Flame, Signal } from '@lucide/svelte';
-	import MoveCategory from './MoveCategory.svelte';
+	import { Crosshair, Flame } from '@lucide/svelte';
 
 	let {
 		move,
@@ -18,23 +18,24 @@
 
 <div class="{text} {bgOpacity} z-20 mb-4 flex items-center gap-4 rounded-2xl py-2 capitalize">
 	{#if move.version_group_details.level_learned_at !== 0 && isLevelUp}
-		<div class="flex items-center justify-start gap-3">
-			<div class="ms-3">
-				<Signal size="20" />
-			</div>
-			<div class="flex flex-col">
+		<div class="flex items-center justify-start">
+			<div class="ms-3 flex flex-col">
 				<span class="font-bold">Lv.</span>
 				<span class="text-sm font-bold">{move.version_group_details.level_learned_at}</span>
 			</div>
 		</div>
+		<span class="font-bold">
+			{move.name}
+		</span>
+	{:else}
+		<span class="ms-3 font-bold">
+			{move.name}
+		</span>
 	{/if}
-	<span class="ms-3 font-bold">
-		{move.name}
-	</span>
 	<TypeItem type={move.type.name} value={0} />
 	<MoveCategory category={move.damage_class.name} />
-	<div class="flex items-center justify-start gap-3">
-		<div class="ms-1">
+	<div class="flex items-center justify-start gap-2">
+		<div>
 			<Flame size="20" />
 		</div>
 		<div class="flex flex-col">
@@ -42,8 +43,8 @@
 			<span class="text-sm font-bold">{move.power ?? '—'}</span>
 		</div>
 	</div>
-	<div class="flex items-center justify-start gap-3">
-		<div class="ms-1">
+	<div class="flex items-center justify-start gap-2">
+		<div>
 			<Crosshair size="20" />
 		</div>
 		<div class="flex flex-col">

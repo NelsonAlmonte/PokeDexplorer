@@ -6,6 +6,7 @@ export type PokemonProfile = {
 	species: PokemonSpeciesUpdated;
 	info: PokemonInformation;
 	type_defenses: TypeDefense[];
+	generations: string[];
 };
 
 export interface PokemonSpeciesUpdated extends PokemonSpecies {

@@ -1,8 +1,12 @@
 <script lang="ts">
+	import MoveList from '$lib/components/move/MoveList.svelte';
 	import type { PageProps } from './$types';
 
 	let { data }: PageProps = $props();
+	const profile = data.profile;
 	console.log(data);
 </script>
 
-<h1 class="text-white">Movimientos de la</h1>
+<div class="mb-8 grid w-full grid-cols-1 gap-4">
+	<MoveList moveCollection={data.moveCollection} {profile} />
+</div>

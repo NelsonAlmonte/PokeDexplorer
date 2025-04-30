@@ -13,10 +13,12 @@ import { doFetch } from '$lib/api/pokemon.api';
 
 export async function generateMoveCollection(
 	pokemon: Pokemon,
-	moves: Move[]
+	moves: Move[],
+	generations: string[],
+	generation: string = ''
 ): Promise<MoveCollection[]> {
 	const moveCollection: MoveCollection[] = [];
-	const movesGroup = await generateMovesGroup(pokemon, moves);
+	const movesGroup = await generateMovesGroup(pokemon, moves, generations, generation);
 
 	for (const key in movesGroup) {
 		moveCollection.push({
@@ -28,8 +30,13 @@ export async function generateMoveCollection(
 	return moveCollection;
 }
 
-async function generateMovesGroup(pokemon: Pokemon, moves: Move[]): Promise<MovesGroup> {
-	const versionGroups = (await getGenInfo()).version_groups;
+async function generateMovesGroup(
+	pokemon: Pokemon,
+	moves: Move[],
+	generations: string[],
+	generation: string = ''
+): Promise<MovesGroup> {
+	const versionGroups = (await getGenInfo(generations, generation)).version_groups;
 	const genMoves = generateGenMoves(versionGroups, pokemon.moves);
 	const moveLearnMethods = await getMoveLearnMethods();
 	const movesGroup = structureMovesGroup(genMoves, moves, moveLearnMethods);
@@ -37,14 +44,10 @@ async function generateMovesGroup(pokemon: Pokemon, moves: Move[]): Promise<Move
 }
 
 //TODO: Que reciba como parametro la generacion. Si no hay generacion que por defecto sea la ultima
-async function getGenInfo(): Promise<Generation> {
-	const generations: NamedApiResourceList<NamedApiResource<Generation>> = await doFetch(
-		'generation',
-		''
-	);
-	// const gen = generations.results.at(-1)!;
-	const gen = generations.results.at(7)!;
-	const genInfo: Generation = await doFetch('generation', gen.name);
+async function getGenInfo(generations: string[], generation: string = ''): Promise<Generation> {
+	let genName = generations.at(-1)!;
+	if (generation) genName = generation;
+	const genInfo: Generation = await doFetch('generation', genName);
 	return genInfo;
 }
 
