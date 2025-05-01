@@ -12,7 +12,7 @@
 	let { moveCollection, profile }: { moveCollection: MoveCollection[]; profile: PokemonProfile } =
 		$props();
 	const typeName = profile.pokemon.types[0].type.name as keyof typeof typeUIClasses.text;
-	const { text, bg, bgOpacity } = getTypeClasses(typeName);
+	const { text, bg, bgOpacity, bgHover } = getTypeClasses(typeName);
 </script>
 
 <span
@@ -32,7 +32,7 @@
 		<TabItem
 			open={index === 0}
 			activeClasses="inline-block rounded-2xl text-center font-bold text-white {bg} cursor-pointer p-4"
-			inactiveClasses="inline-block rounded-2xl text-center font-bold text-gray-400 {bgOpacity} cursor-pointer p-4"
+			inactiveClasses="inline-block rounded-2xl text-center font-bold text-gray-400 hover:text-white {bgOpacity} {bgHover} cursor-pointer p-4"
 		>
 			<span slot="title" class="capitalize">{moveGroup.label}</span>
 			<div class="columns-2 gap-4">
@@ -55,6 +55,8 @@
 			</div>
 		</TabItem>
 	{:else}
-		<Heading class="z-20 mb-6 text-center" tag="h4">No moves</Heading>
+		<Heading class="z-20 mb-6 text-center" tag="h4"
+			><span class="capitalize">{profile.pokemon.name}</span> has no moves in this generation</Heading
+		>
 	{/each}
 </Tabs>

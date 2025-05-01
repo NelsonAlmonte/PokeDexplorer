@@ -1,21 +1,29 @@
 <script lang="ts">
 	import type { typeUIClasses } from '$lib/constants/type/type-ui';
 	import type { PokemonProfile } from '$lib/types/pokemon.type';
+	import { getContext } from 'svelte';
+	import { page } from '$app/state';
 	import { getTypeClasses } from '$lib/utils/type.util';
 	import { Button } from 'flowbite-svelte';
 
 	let { profile }: { profile: PokemonProfile } = $props();
 	const typeName = profile.pokemon.types[0].type.name as keyof typeof typeUIClasses.text;
-	const { bgOpacity, bgHover } = getTypeClasses(typeName);
+	const { bgOpacity, bgHover, bg } = getTypeClasses(typeName);
 	const startIndex = profile.generations.indexOf(profile.species.generation.name);
 	const generations = profile.generations.slice(startIndex);
+	const currentGeneration = getContext('generation') as () => string;
+	let routeToNavigate = $state('');
+	if (!page.url.pathname.includes('moves')) routeToNavigate = `${profile.pokemon.id}/moves/`;
 </script>
 
 <div class="my-3 flex justify-center gap-3">
 	{#each generations as generation}
 		{@const generationNumber = generation.replace('generation-', '')}
-		<a href={generationNumber}>
-			<Button class="{bgOpacity} {bgHover} cursor-pointer rounded-2xl uppercase"
+		<a href="{routeToNavigate}{generationNumber}">
+			<Button
+				class={generation == currentGeneration()
+					? `${bg} ${bgHover} cursor-pointer rounded-2xl uppercase focus:ring-0`
+					: `${bgOpacity} ${bgHover} cursor-pointer rounded-2xl uppercase focus:ring-0`}
 				>{generationNumber}</Button
 			>
 		</a>

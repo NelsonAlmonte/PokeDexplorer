@@ -17,5 +17,5 @@ export const load: PageServerLoad = async ({ params, parent, fetch }) => {
 		profile.generations,
 		generation
 	);
-	return { moveCollection };
+	return { moveCollection, generation };
 };

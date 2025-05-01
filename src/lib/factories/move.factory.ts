@@ -43,7 +43,6 @@ async function generateMovesGroup(
 	return movesGroup;
 }
 
-//TODO: Que reciba como parametro la generacion. Si no hay generacion que por defecto sea la ultima
 async function getGenInfo(generations: string[], generation: string = ''): Promise<Generation> {
 	let genName = generations.at(-1)!;
 	if (generation) genName = generation;

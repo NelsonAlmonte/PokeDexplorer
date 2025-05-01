@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { PageProps } from './$types';
+	import { setContext } from 'svelte';
 	import PokemonName from '$lib/components/pokemon/PokemonName.svelte';
 	import TypeItem from '$lib/components/type/TypeItem.svelte';
 	import PokemonInfo from '$lib/components/pokemon/PokemonInfo.svelte';
@@ -11,8 +12,8 @@
 	const pokemon = data.profile.pokemon;
 	const profile = data.profile;
 	const info = data.profile.info;
-	//TODO: Meter estos datos en una store
-	console.log('Me llamaron');
+	const generation = $derived(profile.generations.at(-1)!);
+	setContext('generation', () => generation);
 </script>
 
 <img
