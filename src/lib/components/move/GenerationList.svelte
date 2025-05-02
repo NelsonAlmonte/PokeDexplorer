@@ -19,11 +19,11 @@
 <div class="my-3 flex justify-center gap-3">
 	{#each generations as generation}
 		{@const generationNumber = generation.replace('generation-', '')}
-		<a href="{routeToNavigate}{generationNumber}">
+		<a data-sveltekit-noscroll href="{routeToNavigate}{generationNumber}">
 			<Button
 				class={generation == currentGeneration()
-					? `${bg} ${bgHover} cursor-pointer rounded-2xl uppercase focus:ring-0`
-					: `${bgOpacity} ${bgHover} cursor-pointer rounded-2xl uppercase focus:ring-0`}
+					? `${bg} ${bgHover} cursor-pointer rounded-2xl font-bold uppercase focus:ring-0`
+					: `${bgOpacity} ${bgHover} cursor-pointer rounded-2xl font-bold uppercase focus:ring-0`}
 				>{generationNumber}</Button
 			>
 		</a>

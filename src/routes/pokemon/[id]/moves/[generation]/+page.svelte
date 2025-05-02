@@ -32,7 +32,9 @@
 </div>
 <div class="mb-8 flex items-center justify-center">
 	<a href="/pokemon/{pokemon.id}">
-		<Button class="{bgOpacity} {bgHover} cursor-pointer rounded-2xl" size="xl">Back to info</Button>
+		<Button class="{bgOpacity} {bgHover} cursor-pointer rounded-2xl font-bold" size="xl"
+			>Back to info</Button
+		>
 	</a>
 </div>
 <div class="z-20 mb-8 grid w-full grid-cols-1 gap-4">
