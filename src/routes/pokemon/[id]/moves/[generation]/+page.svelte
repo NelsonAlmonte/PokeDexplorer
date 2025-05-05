@@ -7,6 +7,7 @@
 	import TypeItem from '$lib/components/type/TypeItem.svelte';
 	import { getTypeClasses } from '$lib/utils/type.util';
 	import { Button } from 'flowbite-svelte';
+	import { ArrowLeft } from '@lucide/svelte';
 
 	let { data }: PageProps = $props();
 	const profile = data.profile;
@@ -33,7 +34,8 @@
 <div class="mb-8 flex items-center justify-center">
 	<a href="/pokemon/{pokemon.id}">
 		<Button class="{bgOpacity} {bgHover} cursor-pointer rounded-2xl font-bold" size="xl"
-			>Back to info</Button
+			><ArrowLeft class="me-1" /> Back to
+			<span class="mx-1 capitalize"> {pokemon.name} </span> Pokédex</Button
 		>
 	</a>
 </div>

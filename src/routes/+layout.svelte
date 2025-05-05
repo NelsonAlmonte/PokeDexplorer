@@ -6,7 +6,7 @@
 </script>
 
 <svelte:head>
-	<title>PokeDexplorer</title>
+	<title>PokéDexplorer</title>
 </svelte:head>
 
 <div class="container mx-auto max-w-screen-xl">
@@ -21,17 +21,14 @@
 				alt="Flowbite Logo"
 			/>
 			<span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white"
-				>PokeDexplorer</span
+				>PokéDexplorer</span
 			>
 		</NavBrand>
 		<div>
 			<NavHamburger />
 			<NavUl>
 				<NavLi class="!text-white" href="/pokemon">Home</NavLi>
-				<NavLi class="!text-white" href="/pokemon">Pokemon</NavLi>
-				<NavLi class="!text-white" href="/docs/components/navbar">Navbar</NavLi>
-				<NavLi class="!text-white" href="/pricing">Pricing</NavLi>
-				<NavLi class="!text-white" href="/contact">Contact</NavLi>
+				<NavLi class="!text-white" href="/pokemon">Pokémon</NavLi>
 			</NavUl>
 		</div>
 	</Navbar>

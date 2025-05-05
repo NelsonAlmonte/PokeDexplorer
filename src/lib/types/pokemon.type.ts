@@ -1,10 +1,11 @@
 import type { Pokemon, PokemonSpecies } from 'pokeapi-typescript';
-import type { PokemonInformation } from '$lib/types/information.type';
+import type { IconKey, PokemonInformation } from '$lib/types/information.type';
 
 export type PokemonProfile = {
 	pokemon: Pokemon;
 	species: PokemonSpeciesUpdated;
 	info: PokemonInformation;
+	stat_range: StatRange[];
 	generations: string[];
 };
 
@@ -21,4 +22,13 @@ export type DamageRelation = {
 export type TypeDefense = {
 	label: string;
 	value: DamageRelation[];
+};
+
+export type StatRange = {
+	label: string;
+	value: {
+		min: number;
+		max: number;
+	};
+	icon: IconKey;
 };

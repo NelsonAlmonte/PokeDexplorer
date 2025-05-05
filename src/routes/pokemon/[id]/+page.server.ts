@@ -1,5 +1,5 @@
-import type { Move } from 'pokeapi-typescript';
 import type { PageServerLoad } from './$types';
+import type { Move } from 'pokeapi-typescript';
 import { getPokemon } from '$lib/api/pokemon.api';
 import { generateMoveCollection } from '$lib/factories/move.factory';
 import { generateTypeDefenses } from '$lib/factories/type-defense.factory';

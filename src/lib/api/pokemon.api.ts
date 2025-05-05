@@ -25,6 +25,7 @@ async function transformPokemon(pokemon: NamedApiResource<Pokemon>): Promise<Pok
 
 export function extractIdFromUrl(url: string): string {
 	const segments = url.split('/').filter(Boolean);
+
 	return segments[segments.length - 1];
 }
 
@@ -41,6 +42,7 @@ export async function doFetch(endpoint: string, id: string | number) {
 	const res = await fetch(`https://pokeapi.co/api/v2/${endpoint}/${id}`);
 	if (!res.ok) throw new Error('Error when retrieving the response');
 	const data = await res.json();
+
 	return data;
 }
 

@@ -1,16 +1,20 @@
 <script lang="ts">
 	import type { PokemonStat, PokemonType } from 'pokeapi-typescript';
-	import type { InfoItem, Range } from '$lib/types/information.type';
+	import type { StatRange } from '$lib/types/pokemon.type';
 	import { typeUIClasses } from '$lib/constants/type/type-ui';
 	import { icons } from '$lib/constants/ui/icons';
 	import { getTypeClasses } from '$lib/utils/type.util';
 	import { Progressbar } from 'flowbite-svelte';
 	import { TrendingDown, TrendingUp } from '@lucide/svelte';
 
-	let { item, stat, type }: { item: InfoItem; stat: PokemonStat; type: PokemonType } = $props();
+	let {
+		statRangeItem,
+		stat,
+		type
+	}: { statRangeItem: StatRange; stat: PokemonStat; type: PokemonType } = $props();
 	const typeName = type.type.name as keyof typeof typeUIClasses.text;
 	const { text, bgOpacity, bg } = getTypeClasses(typeName);
-	const range = item.value as Range;
+	const range = statRangeItem.value;
 	const progress = (stat.base_stat / 200) * 100;
 </script>
 
@@ -18,13 +22,13 @@
 	<div class="flex flex-1 items-center justify-start gap-3">
 		<div class="flex w-1/3 items-center justify-start gap-3">
 			<div class="ms-3">
-				{#if item.icon}
-					{@const Icon = icons[item.icon]}
+				{#if statRangeItem.icon}
+					{@const Icon = icons[statRangeItem.icon]}
 					<Icon size="20" />
 				{/if}
 			</div>
 			<div class="flex flex-col">
-				<span class="font-bold">{item.label}</span>
+				<span class="font-bold">{statRangeItem.label}</span>
 				<span class="text-sm font-bold">{stat.base_stat}</span>
 			</div>
 		</div>

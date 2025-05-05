@@ -4,7 +4,6 @@ export type PokemonInformation = {
 	basic: InfoSection;
 	training: InfoSection;
 	breeding: InfoSection;
-	stats: InfoSection;
 };
 
 export type InfoSection = {
@@ -14,13 +13,8 @@ export type InfoSection = {
 
 export type InfoItem = {
 	label: string;
-	value: string | number | Range;
-	icon?: IconKey;
+	value: string | number;
+	icon: IconKey;
 };
 
-type IconKey = keyof typeof icons;
-
-export type Range = {
-	min: number;
-	max: number;
-};
+export type IconKey = keyof typeof icons;
