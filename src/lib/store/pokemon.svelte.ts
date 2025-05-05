@@ -1,7 +1,6 @@
 import type { NamedApiResourceList, Pokemon } from 'pokeapi-typescript';
-import { writable } from 'svelte/store';
 
-export const pokemonListStore = writable<NamedApiResourceList<Pokemon>>({
+export const pokemonListState = $state<NamedApiResourceList<Pokemon>>({
 	count: 0,
 	next: '',
 	previous: '',

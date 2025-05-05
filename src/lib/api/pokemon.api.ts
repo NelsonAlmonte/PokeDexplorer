@@ -23,7 +23,7 @@ async function transformPokemon(pokemon: NamedApiResource<Pokemon>): Promise<Pok
 	return pokemonData;
 }
 
-function extractIdFromUrl(url: string): string {
+export function extractIdFromUrl(url: string): string {
 	const segments = url.split('/').filter(Boolean);
 	return segments[segments.length - 1];
 }
@@ -44,12 +44,20 @@ export async function doFetch(endpoint: string, id: string | number) {
 	return data;
 }
 
-export async function getPokemon(pokemons: Pokemon[], id: number | string): Promise<Pokemon> {
-	let pokemon = pokemons.find((p) => p.id === id);
+export async function getPokemon(
+	pokemonList: Pokemon[],
+	lookupValue: number | string,
+	lookupKey: string = 'id'
+): Promise<Pokemon> {
+	const pokemonMap = new Map(
+		pokemonList.map((pokemon) => [pokemon[lookupKey as keyof Pokemon], pokemon])
+	);
+	let pokemon = pokemonMap.get(lookupValue);
 
 	if (!pokemon) {
-		const data = await doFetch('pokemon', id);
+		const data = await doFetch('pokemon', lookupValue);
 		pokemon = data as Pokemon;
+		pokemonMap.set(pokemon[lookupKey as keyof Pokemon], pokemon);
 	}
 
 	return pokemon;

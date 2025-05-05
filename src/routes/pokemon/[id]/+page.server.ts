@@ -2,6 +2,8 @@ import type { Move } from 'pokeapi-typescript';
 import type { PageServerLoad } from './$types';
 import { getPokemon } from '$lib/api/pokemon.api';
 import { generateMoveCollection } from '$lib/factories/move.factory';
+import { generateTypeDefenses } from '$lib/factories/type-defense.factory';
+import { generateEvolutionChain } from '$lib/factories/evolution.factory';
 
 export const load: PageServerLoad = async ({ params, parent, fetch }) => {
 	const { results, profile } = await parent();
@@ -11,5 +13,8 @@ export const load: PageServerLoad = async ({ params, parent, fetch }) => {
 	const response = await fetch('/data/moves.json');
 	const moves: Move[] = await response.json();
 	const moveCollection = await generateMoveCollection(pokemon, moves, profile.generations);
-	return { moveCollection };
+	const typeDefenses = await generateTypeDefenses(profile.pokemon.types);
+	const evolutionChain = await generateEvolutionChain(pokemons, profile.species);
+
+	return { moveCollection, typeDefenses, evolutionChain };
 };

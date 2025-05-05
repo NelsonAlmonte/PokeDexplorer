@@ -36,7 +36,7 @@
 </div>
 <div class="mb-8 grid w-full grid-cols-2 gap-4">
 	<StatRange info={info.stats} {profile} />
-	<TypeDefense {profile} />
+	<TypeDefense typeDefenses={data.typeDefenses} {profile} />
 </div>
 <div class="mb-8 grid w-full grid-cols-1 gap-4">
 	<MoveList moveCollection={data.moveCollection} {profile} />

@@ -5,7 +5,6 @@ export type PokemonProfile = {
 	pokemon: Pokemon;
 	species: PokemonSpeciesUpdated;
 	info: PokemonInformation;
-	type_defenses: TypeDefense[];
 	generations: string[];
 };
 
