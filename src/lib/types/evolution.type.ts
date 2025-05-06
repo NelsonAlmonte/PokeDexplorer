@@ -8,6 +8,7 @@ export type DetailedEvolutionChain = {
 
 export type DetailedChainLink = ChainLink & {
 	evolution_data: EvolutionData;
+	evolves_to: DetailedChainLink[];
 };
 
 export type EvolutionData = {

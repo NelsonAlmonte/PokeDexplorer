@@ -7,6 +7,7 @@
 	import StatRange from '$lib/components/stat/StatRange.svelte';
 	import TypeDefense from '$lib/components/type/TypeDefense.svelte';
 	import MoveList from '$lib/components/move/MoveList.svelte';
+	import EvolutionChain from '$lib/components/evolution/EvolutionChain.svelte';
 
 	let { data }: PageProps = $props();
 	const pokemon = data.profile.pokemon;
@@ -37,6 +38,9 @@
 <div class="mb-8 grid w-full grid-cols-2 gap-4">
 	<StatRange statRange={profile.stat_range} {profile} />
 	<TypeDefense typeDefenses={data.typeDefenses} {profile} />
+</div>
+<div class="mb-8 grid w-full grid-cols-1 gap-4">
+	<EvolutionChain evolutionChain={data.evolutionChain} {profile} />
 </div>
 <div class="mb-8 grid w-full grid-cols-1 gap-4">
 	<MoveList moveCollection={data.moveCollection} {profile} />
