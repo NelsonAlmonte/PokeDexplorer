@@ -73,7 +73,7 @@ export function generatePokemonInfo(pokemonProfile: PokemonProfile): PokemonInfo
 					icon: 'Target'
 				},
 				{
-					label: 'Friendship',
+					label: 'Happiness',
 					value: pokemonProfile.species.base_happiness,
 					icon: 'Smile'
 				}
