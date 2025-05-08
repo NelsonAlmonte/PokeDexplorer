@@ -22,7 +22,7 @@
 	);
 </script>
 
-<div class="{bgOpacity} {text} mb-4 rounded-2xl px-4 py-3 font-bold">
+<div class="{bgOpacity} {text}  mb-4 rounded-2xl px-4 py-3 font-bold">
 	<div class="mb-2 flex justify-center">
 		<MoveRight size="32" />
 	</div>

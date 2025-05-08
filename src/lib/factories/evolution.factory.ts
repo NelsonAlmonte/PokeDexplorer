@@ -11,6 +11,7 @@ export async function generateEvolutionChain(
 	const evolutionChain: EvolutionChain = await doFetch('evolution-chain', evolutionChainId);
 	const detailedEvolutionChain = evolutionChain;
 	detailedEvolutionChain.chain = await buildDetailedEvolutionChain(evolutionChain.chain, pokemons);
+
 	return detailedEvolutionChain as DetailedEvolutionChain;
 }
 
@@ -18,7 +19,8 @@ async function buildDetailedEvolutionChain(
 	chainLink: ChainLink,
 	pokemons: Pokemon[]
 ): Promise<DetailedChainLink> {
-	const pokemon: Pokemon = await getPokemon(pokemons, chainLink.species.name, 'name');
+	const id: string = extractIdFromUrl(chainLink.species.url);
+	const pokemon: Pokemon = await getPokemon(pokemons, id);
 
 	const detailedChainLink: DetailedChainLink = {
 		...chainLink,

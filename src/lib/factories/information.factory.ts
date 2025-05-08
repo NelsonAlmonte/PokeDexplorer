@@ -4,8 +4,6 @@ import type { PokemonProfile } from '$lib/types/pokemon.type';
 import type { PokemonStat } from 'pokeapi-typescript';
 
 export function generatePokemonInfo(pokemonProfile: PokemonProfile): PokemonInformation {
-	const ENGLISH_LANGUAGE_INDEX = 7;
-
 	return {
 		basic: {
 			label: 'Basic information',
@@ -32,7 +30,9 @@ export function generatePokemonInfo(pokemonProfile: PokemonProfile): PokemonInfo
 				},
 				{
 					label: 'Species',
-					value: pokemonProfile.species.genera[ENGLISH_LANGUAGE_INDEX].genus,
+					value:
+						pokemonProfile.species.genera.find((value) => value.language.name === 'en')?.genus ??
+						'Unknown',
 					icon: 'Dna'
 				},
 				{

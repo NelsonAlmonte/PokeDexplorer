@@ -16,7 +16,7 @@
 		/>
 		<div class="mb-4 flex justify-center">
 			<p class="font-bold text-white capitalize">
-				{chainLink.evolution_data.name}
+				{chainLink.evolution_data.name.replaceAll('-', ' ')}
 			</p>
 		</div>
 	</a>

@@ -39,9 +39,11 @@
 	<StatRange statRange={profile.stat_range} {profile} />
 	<TypeDefense typeDefenses={data.typeDefenses} {profile} />
 </div>
-<div class="mb-8 grid w-full grid-cols-1 gap-4">
-	<EvolutionChain evolutionChain={data.evolutionChain} {profile} />
-</div>
+{#if data.evolutionChain.chain.evolves_to.length > 0}
+	<div class="mb-8 grid w-full grid-cols-1 gap-4">
+		<EvolutionChain evolutionChain={data.evolutionChain} {profile} />
+	</div>
+{/if}
 <div class="mb-8 grid w-full grid-cols-1 gap-4">
 	<MoveList moveCollection={data.moveCollection} {profile} />
 </div>

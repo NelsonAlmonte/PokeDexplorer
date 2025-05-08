@@ -12,10 +12,10 @@
 <span
 	class="{text} pointer-events-none absolute start-0 end-0 mt-2 text-center text-4xl font-bold tracking-widest capitalize opacity-20 select-none"
 >
-	{pokemon.name}
+	{pokemon.name.replaceAll('-', ' ')}
 </span>
 <a href="/pokemon/{pokemon.id}">
 	<Heading class="relative text-center capitalize" tag="h3">
-		{pokemon.name}
+		{pokemon.name.replaceAll('-', ' ')}
 	</Heading>
 </a>
