@@ -16,7 +16,7 @@
 			{/each}
 		</div>
 	{/if}
-	<EvolutionChainItem {chainLink} {profile} />
+	<EvolutionChainItem {chainLink} />
 	{#if chainLink.evolves_to.length > 0}
 		<div class="flex flex-col gap-4">
 			{#each chainLink.evolves_to as child}

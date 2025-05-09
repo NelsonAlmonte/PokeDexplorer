@@ -35,7 +35,7 @@
 	<a href="/pokemon/{pokemon.id}">
 		<Button class="{bgOpacity} {bgHover} cursor-pointer rounded-2xl font-bold" size="xl"
 			><ArrowLeft class="me-1" /> Back to
-			<span class="mx-1 capitalize"> {pokemon.name} </span> Pokédex</Button
+			<span class="mx-1 capitalize"> {pokemon.name.replaceAll('-', ' ')} </span> Pokédex</Button
 		>
 	</a>
 </div>

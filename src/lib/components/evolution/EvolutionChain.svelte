@@ -10,7 +10,6 @@
 		evolutionChain,
 		profile
 	}: { evolutionChain: DetailedEvolutionChain; profile: PokemonProfile } = $props();
-	console.log(evolutionChain);
 </script>
 
 <Card class="relative w-full rounded-3xl" size="none">

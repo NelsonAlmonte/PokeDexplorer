@@ -8,12 +8,16 @@
 	import TypeDefense from '$lib/components/type/TypeDefense.svelte';
 	import MoveList from '$lib/components/move/MoveList.svelte';
 	import EvolutionChain from '$lib/components/evolution/EvolutionChain.svelte';
+	import FormList from '$lib/components/form/FormList.svelte';
 
 	let { data }: PageProps = $props();
-	const pokemon = data.profile.pokemon;
-	const profile = data.profile;
-	const info = data.profile.info;
+	const pokemon = $derived(data.profile.pokemon);
+	const profile = $derived(data.profile);
+	const info = $derived(data.profile.info);
+	const typeDefenses = $derived(data.typeDefenses);
+	const moveCollection = $derived(data.moveCollection);
 	const generation = $derived(profile.generations.at(-1)!);
+	console.log(data.profile.species);
 	setContext('generation', () => generation);
 </script>
 
@@ -37,13 +41,20 @@
 </div>
 <div class="mb-8 grid w-full grid-cols-2 gap-4">
 	<StatRange statRange={profile.stat_range} {profile} />
-	<TypeDefense typeDefenses={data.typeDefenses} {profile} />
+	<TypeDefense {typeDefenses} {profile} />
 </div>
 {#if data.evolutionChain.chain.evolves_to.length > 0}
 	<div class="mb-8 grid w-full grid-cols-1 gap-4">
 		<EvolutionChain evolutionChain={data.evolutionChain} {profile} />
 	</div>
 {/if}
+{#if data.forms.length > 1}
+	<div class="mb-8 grid w-full grid-cols-1 gap-4">
+		<FormList forms={data.forms} {profile} />
+	</div>
+{/if}
 <div class="mb-8 grid w-full grid-cols-1 gap-4">
-	<MoveList moveCollection={data.moveCollection} {profile} />
+	{#key profile}
+		<MoveList {moveCollection} {profile} />
+	{/key}
 </div>

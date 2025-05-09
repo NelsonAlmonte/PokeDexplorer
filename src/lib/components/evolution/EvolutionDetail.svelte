@@ -1,9 +1,9 @@
 <script lang="ts">
 	import type { typeUIClasses } from '$lib/constants/type/type-ui';
 	import type { PokemonProfile } from '$lib/types/pokemon.type';
+	import type { EvolutionDetail } from 'pokeapi-typescript';
 	import { getTypeClasses } from '$lib/utils/type.util';
 	import { MoveRight } from '@lucide/svelte';
-	import type { EvolutionDetail } from 'pokeapi-typescript';
 
 	let { detail, profile }: { detail: EvolutionDetail; profile: PokemonProfile } = $props();
 	const typeName = profile.pokemon.types[0].type.name as keyof typeof typeUIClasses.text;

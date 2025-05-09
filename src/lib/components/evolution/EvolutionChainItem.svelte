@@ -1,9 +1,8 @@
 <script lang="ts">
 	import type { DetailedChainLink } from '$lib/types/evolution.type';
-	import type { PokemonProfile } from '$lib/types/pokemon.type';
 	import TypeItem from '$lib/components/type/TypeItem.svelte';
 
-	let { chainLink, profile }: { chainLink: DetailedChainLink; profile: PokemonProfile } = $props();
+	let { chainLink }: { chainLink: DetailedChainLink } = $props();
 </script>
 
 <div>

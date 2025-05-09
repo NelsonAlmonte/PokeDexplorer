@@ -2,8 +2,8 @@
 	import type { LayoutProps } from './$types';
 	import LightBeam from '$lib/components/ui/LightBeam.svelte';
 	import TypeIconBackground from '$lib/components/type/TypeIconBackground.svelte';
-	let { data, children }: LayoutProps = $props();
 
+	let { data, children }: LayoutProps = $props();
 	const pokemon = data.profile.pokemon;
 </script>
 

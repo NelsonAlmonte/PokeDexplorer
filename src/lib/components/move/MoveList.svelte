@@ -17,7 +17,7 @@
 	const { text, bg, bgOpacity, bgHover } = getTypeClasses(typeName);
 	const alertProps: AlertProps = {
 		title: 'Nothing to show here!',
-		content: `${profile.pokemon.name} didn't learn any moves in this generation.`,
+		content: `${profile.pokemon.name.replaceAll('-', ' ')} didn't learn any moves in this generation.`,
 		subcontent: `Maybe it was taking a break?`,
 		classes: [bgOpacity, text]
 	};

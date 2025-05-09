@@ -15,14 +15,16 @@
 		<LightBeam type={profile.pokemon.types[0]} />
 	</div>
 	<TypeIconBackground type={profile.pokemon.types[0]} />
-	{#each typeDefenses as typeDefense}
-		{#if typeDefense.value.length > 0}
-			<Heading class="z-20 my-3 text-center capitalize" tag="h5">{typeDefense.label}</Heading>
-			<div class="flex flex-wrap gap-4">
-				{#each typeDefense.value as item}
-					<TypeItem type={item.type} value={item.value} />
-				{/each}
-			</div>
-		{/if}
-	{/each}
+	{#key typeDefenses}
+		{#each typeDefenses as typeDefense}
+			{#if typeDefense.value.length > 0}
+				<Heading class="z-20 my-3 text-center capitalize" tag="h5">{typeDefense.label}</Heading>
+				<div class="flex flex-wrap gap-4">
+					{#each typeDefense.value as item}
+						<TypeItem type={item.type} value={item.value} />
+					{/each}
+				</div>
+			{/if}
+		{/each}
+	{/key}
 </Card>
