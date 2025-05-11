@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { PageProps } from './$types';
+	import { typeUIClasses } from '$lib/constants/type/type-ui';
 	import { setContext } from 'svelte';
 	import PokemonName from '$lib/components/pokemon/PokemonName.svelte';
 	import TypeItem from '$lib/components/type/TypeItem.svelte';
@@ -9,52 +10,72 @@
 	import MoveList from '$lib/components/move/MoveList.svelte';
 	import EvolutionChain from '$lib/components/evolution/EvolutionChain.svelte';
 	import FormList from '$lib/components/form/FormList.svelte';
+	import AbilityList from '$lib/components/ability/AbilityList.svelte';
+	import Title from '$lib/components/ui/Title.svelte';
+	import { getTypeClasses } from '$lib/utils/type.util';
+	import { createTitle } from '$lib/utils/ui.util';
 
 	let { data }: PageProps = $props();
-	const pokemon = $derived(data.profile.pokemon);
 	const profile = $derived(data.profile);
 	const info = $derived(data.profile.info);
 	const typeDefenses = $derived(data.typeDefenses);
 	const moveCollection = $derived(data.moveCollection);
 	const generation = $derived(profile.generations.at(-1)!);
-	console.log(data.profile.species);
+	const abilities = $derived(data.abilities);
+	const typeName = data.profile.pokemon.types[0].type.name as keyof typeof typeUIClasses.text;
+	const { text } = getTypeClasses(typeName);
+	const type = $derived(data.profile.pokemon.types[0]);
+	console.log(data.abilities);
 	setContext('generation', () => generation);
 </script>
 
 <img
 	class="z-10 w-100"
-	src={pokemon.sprites.other['official-artwork'].front_default}
-	alt={pokemon.name}
+	src={profile.pokemon.sprites.other['official-artwork'].front_default}
+	alt={profile.pokemon.name}
 />
 <div class="z-10 -mt-4 mb-8">
-	<PokemonName {pokemon} />
+	<PokemonName pokemon={profile.pokemon} />
 </div>
 <div class="mb-8 flex items-center justify-center gap-6">
-	{#each pokemon.types as type}
+	{#each profile.pokemon.types as type}
 		<TypeItem type={type.type.name} value={0} />
 	{/each}
 </div>
+<div class="mb-8">
+	<Title titleProps={createTitle('Information', text)} />
+</div>
 <div class="mb-8 grid w-full grid-cols-3 gap-4">
-	<PokemonInfo info={info.basic} {profile} />
-	<PokemonInfo info={info.training} {profile} />
-	<PokemonInfo info={info.breeding} {profile} />
+	<PokemonInfo info={info.basic} {type} />
+	<PokemonInfo info={info.training} {type} />
+	<PokemonInfo info={info.breeding} {type} />
+</div>
+<div class="mb-8">
+	<Title titleProps={createTitle('Battle', text)} />
 </div>
 <div class="mb-8 grid w-full grid-cols-2 gap-4">
 	<StatRange statRange={profile.stat_range} {profile} />
-	<TypeDefense {typeDefenses} {profile} />
+	<TypeDefense {typeDefenses} {type} />
 </div>
+<div class="mb-8 grid w-full grid-cols-1 gap-4">
+	<AbilityList {abilities} {profile} />
+</div>
+{#if data.evolutionChain.chain.evolves_to.length > 0 && data.forms.length > 1}
+	<div class="mb-8">
+		<Title titleProps={createTitle('Growth', text)} />
+	</div>
+{/if}
 {#if data.evolutionChain.chain.evolves_to.length > 0}
 	<div class="mb-8 grid w-full grid-cols-1 gap-4">
-		<EvolutionChain evolutionChain={data.evolutionChain} {profile} />
+		<EvolutionChain evolutionChain={data.evolutionChain} {type} />
 	</div>
 {/if}
 {#if data.forms.length > 1}
 	<div class="mb-8 grid w-full grid-cols-1 gap-4">
-		<FormList forms={data.forms} {profile} />
+		<FormList forms={data.forms} {type} />
 	</div>
 {/if}
 <div class="mb-8 grid w-full grid-cols-1 gap-4">
-	{#key profile}
-		<MoveList {moveCollection} {profile} />
-	{/key}
+	<Title titleProps={createTitle('Moves', text)} />
+	<MoveList {moveCollection} {profile} />
 </div>

@@ -6,15 +6,8 @@ export async function generateForms(
 	pokemons: Pokemon[],
 	pokemonSpecies: PokemonSpeciesUpdated
 ): Promise<Pokemon[]> {
-	const formsId = extractPokemonIds(pokemonSpecies);
+	const formsId = pokemonSpecies.varieties.map((variety) => extractIdFromUrl(variety.pokemon.url));
 	const forms = await Promise.all(formsId.map(async (id) => await getPokemon(pokemons, id)));
 
 	return forms;
-}
-
-export function extractPokemonIds(pokemonSpecies: PokemonSpeciesUpdated): string[] {
-	const formsId: string[] = pokemonSpecies.varieties.map((variety) =>
-		extractIdFromUrl(variety.pokemon.url)
-	);
-	return formsId;
 }

@@ -1,20 +1,19 @@
 <script lang="ts">
-	import type { Pokemon } from 'pokeapi-typescript';
-	import type { PokemonProfile } from '$lib/types/pokemon.type';
+	import type { Pokemon, PokemonType } from 'pokeapi-typescript';
 	import LightBeam from '$lib/components/ui/LightBeam.svelte';
 	import TypeIconBackground from '$lib/components/type/TypeIconBackground.svelte';
 	import TypeItem from '$lib/components/type/TypeItem.svelte';
 	import { Card, Heading } from 'flowbite-svelte';
 
-	let { forms, profile }: { forms: Pokemon[]; profile: PokemonProfile } = $props();
+	let { forms, type }: { forms: Pokemon[]; type: PokemonType } = $props();
 </script>
 
 <Card class="relative w-full rounded-3xl" size="none">
 	<Heading class="z-20 mb-6 text-center" tag="h4">Forms</Heading>
 	<div class="absolute inset-0 h-40 w-full">
-		<LightBeam type={profile.pokemon.types[0]} />
+		<LightBeam {type} />
 	</div>
-	<TypeIconBackground type={profile.pokemon.types[0]} />
+	<TypeIconBackground {type} />
 	<div class="flex justify-evenly">
 		{#each forms as form}
 			<div class="flex flex-col">

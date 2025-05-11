@@ -23,12 +23,6 @@
 	};
 </script>
 
-<span
-	class="{text} pointer-events-none absolute start-0 end-0 mt-2 text-center text-4xl font-bold tracking-widest capitalize opacity-20 select-none"
->
-	Moves
-</span>
-<Heading class="relative text-center capitalize" tag="h3">Moves</Heading>
 <GenerationList {profile} />
 {#if moveCollection.length > 0}
 	<Tabs
