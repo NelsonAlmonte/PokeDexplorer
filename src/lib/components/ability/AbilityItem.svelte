@@ -4,8 +4,11 @@
 	import { getTypeClasses } from '$lib/utils/type.util';
 	import { slide } from 'svelte/transition';
 
-	let { ability, type, isHidden }: { ability: Ability; type: PokemonType; isHidden: Boolean } =
-		$props();
+	let {
+		ability,
+		type,
+		isHiddenAbility
+	}: { ability: Ability; type: PokemonType; isHiddenAbility: Boolean } = $props();
 	const typeName = type.type.name as keyof typeof typeUIClasses.text;
 	const { text, bgOpacity, bgHover } = getTypeClasses(typeName);
 	let collapse = $state({ isHidden: true, label: 'Show more' });
@@ -23,7 +26,7 @@
 		<span class={text}>
 			{ability.flavor_text_entries.find((value) => value.language.name === 'en')?.flavor_text}
 		</span>
-		{#if isHidden}
+		{#if isHiddenAbility}
 			<span class={text}>•</span>
 			<span class="{text} text-sm font-bold opacity-80">Hidden ability</span>
 		{/if}
@@ -34,7 +37,7 @@
 
 	<div class="my-4 flex justify-center">
 		<button
-			class="{text} {bgHover} rounded-2xl px-3 py-2 font-bold hover:text-white"
+			class="{text} {bgHover} cursor-pointer rounded-2xl px-3 py-2 font-bold hover:text-white"
 			onclick={manageCollapse}>{collapse.label}</button
 		>
 	</div>

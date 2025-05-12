@@ -18,7 +18,7 @@
 	<TypeIconBackground {type} />
 	<div class="z-10 grid grid-cols-2 gap-4">
 		{#each abilities as ability, index}
-			<AbilityItem {ability} {type} isHidden={profile.pokemon.abilities[index].is_hidden} />
+			<AbilityItem {ability} {type} isHiddenAbility={profile.pokemon.abilities[index].is_hidden} />
 		{/each}
 	</div>
 </Card>

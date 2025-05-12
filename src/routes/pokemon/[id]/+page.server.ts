@@ -6,6 +6,7 @@ import { generateTypeDefenses } from '$lib/factories/type-defense.factory';
 import { generateEvolutionChain } from '$lib/factories/evolution.factory';
 import { generateForms } from '$lib/factories/form.factory';
 import { generateAbilities } from '$lib/factories/ability.factory';
+import { generateEntries } from '$lib/factories/entry.factory';
 
 export const load: PageServerLoad = async ({ params, parent, fetch }) => {
 	const { results, profile } = await parent();
@@ -19,6 +20,7 @@ export const load: PageServerLoad = async ({ params, parent, fetch }) => {
 	const evolutionChain = await generateEvolutionChain(pokemons, profile.species);
 	const forms = await generateForms(pokemons, profile.species);
 	const abilities = await generateAbilities(pokemon);
+	const entries = generateEntries(profile.species.flavor_text_entries);
 
-	return { moveCollection, typeDefenses, evolutionChain, forms, abilities };
+	return { moveCollection, typeDefenses, evolutionChain, forms, abilities, entries };
 };

@@ -11,6 +11,7 @@
 	import EvolutionChain from '$lib/components/evolution/EvolutionChain.svelte';
 	import FormList from '$lib/components/form/FormList.svelte';
 	import AbilityList from '$lib/components/ability/AbilityList.svelte';
+	import EntryList from '$lib/components/entry/EntryList.svelte';
 	import Title from '$lib/components/ui/Title.svelte';
 	import { getTypeClasses } from '$lib/utils/type.util';
 	import { createTitle } from '$lib/utils/ui.util';
@@ -22,10 +23,10 @@
 	const moveCollection = $derived(data.moveCollection);
 	const generation = $derived(profile.generations.at(-1)!);
 	const abilities = $derived(data.abilities);
+	const entries = $derived(data.entries);
 	const typeName = data.profile.pokemon.types[0].type.name as keyof typeof typeUIClasses.text;
 	const { text } = getTypeClasses(typeName);
 	const type = $derived(data.profile.pokemon.types[0]);
-	console.log(data.abilities);
 	setContext('generation', () => generation);
 </script>
 
@@ -78,4 +79,10 @@
 <div class="mb-8 grid w-full grid-cols-1 gap-4">
 	<Title titleProps={createTitle('Moves', text)} />
 	<MoveList {moveCollection} {profile} />
+</div>
+<div class="mb-8">
+	<Title titleProps={createTitle('Extra', text)} />
+</div>
+<div class="mb-8 grid w-full grid-cols-1 gap-4">
+	<EntryList {entries} {type} />
 </div>
