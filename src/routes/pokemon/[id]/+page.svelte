@@ -15,6 +15,7 @@
 	import Title from '$lib/components/ui/Title.svelte';
 	import { getTypeClasses } from '$lib/utils/type.util';
 	import { createTitle } from '$lib/utils/ui.util';
+	import SpriteList from '$lib/components/sprite/SpriteList.svelte';
 
 	let { data }: PageProps = $props();
 	const profile = $derived(data.profile);
@@ -24,10 +25,13 @@
 	const generation = $derived(profile.generations.at(-1)!);
 	const abilities = $derived(data.abilities);
 	const entries = $derived(data.entries);
+	const spritesGroup = $derived(data.sprites);
 	const typeName = data.profile.pokemon.types[0].type.name as keyof typeof typeUIClasses.text;
 	const { text } = getTypeClasses(typeName);
 	const type = $derived(data.profile.pokemon.types[0]);
 	setContext('generation', () => generation);
+	console.log(data.profile.pokemon.sprites);
+	console.log(data.sprites);
 </script>
 
 <img
@@ -85,4 +89,7 @@
 </div>
 <div class="mb-8 grid w-full grid-cols-1 gap-4">
 	<EntryList {entries} {type} />
+</div>
+<div class="mb-8 grid w-full grid-cols-1 gap-4">
+	<SpriteList {spritesGroup} {type} />
 </div>
