@@ -22,7 +22,11 @@ export const load: PageServerLoad = async ({ params, parent, fetch }) => {
 	const forms = await generateForms(pokemons, profile.species);
 	const abilities = await generateAbilities(pokemon);
 	const entries = generateEntries(profile.species.flavor_text_entries);
-	const sprites = generateSprites(profile.pokemon.sprites);
+	const sprites = generateSprites(
+		profile.pokemon.sprites,
+		profile.species.generation.name,
+		profile.generations
+	);
 
 	return { moveCollection, typeDefenses, evolutionChain, forms, abilities, entries, sprites };
 };

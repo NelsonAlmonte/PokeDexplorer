@@ -30,8 +30,6 @@
 	const { text } = getTypeClasses(typeName);
 	const type = $derived(data.profile.pokemon.types[0]);
 	setContext('generation', () => generation);
-	console.log(data.profile.pokemon.sprites);
-	console.log(data.sprites);
 </script>
 
 <img
@@ -90,6 +88,8 @@
 <div class="mb-8 grid w-full grid-cols-1 gap-4">
 	<EntryList {entries} {type} />
 </div>
-<div class="mb-8 grid w-full grid-cols-1 gap-4">
-	<SpriteList {spritesGroup} {type} />
-</div>
+{#if spritesGroup.length > 0}
+	<div class="mb-8 grid w-full grid-cols-1 gap-4">
+		<SpriteList {spritesGroup} {type} />
+	</div>
+{/if}
