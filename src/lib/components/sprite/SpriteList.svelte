@@ -33,7 +33,7 @@
 				<span slot="title" class="uppercase">{group.generation.replace('generation-', '')}</span>
 				<div class="grid grid-cols-2 gap-4">
 					{#each group.game_version as gameVersion}
-						<div class="{bgOpacity} rounded-2xl px-4 py-3">
+						<div class="{bgOpacity} rounded-2xl px-4 py-6">
 							<div class="mb-4 flex justify-center">
 								<h5 class="{text} text-xl font-bold capitalize">{gameVersion.name}</h5>
 							</div>
@@ -41,7 +41,7 @@
 								{#each Object.entries(gameVersion.sprites) as [type, sprite]}
 									{#if sprite?.length}
 										<div class="flex flex-col items-center">
-											<img class="mb-2 w-25" src={sprite} alt={type} />
+											<img class="mb-2 w-40" src={sprite} alt={type} />
 											<span class="font-bold {text} capitalize">{type.replaceAll('_', ' ')}</span>
 										</div>
 									{/if}
