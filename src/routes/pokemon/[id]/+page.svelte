@@ -12,10 +12,11 @@
 	import FormList from '$lib/components/form/FormList.svelte';
 	import AbilityList from '$lib/components/ability/AbilityList.svelte';
 	import EntryList from '$lib/components/entry/EntryList.svelte';
+	import SpriteList from '$lib/components/sprite/SpriteList.svelte';
+	import CryList from '$lib/components/cry/CryList.svelte';
 	import Title from '$lib/components/ui/Title.svelte';
 	import { getTypeClasses } from '$lib/utils/type.util';
 	import { createTitle } from '$lib/utils/ui.util';
-	import SpriteList from '$lib/components/sprite/SpriteList.svelte';
 
 	let { data }: PageProps = $props();
 	const profile = $derived(data.profile);
@@ -63,7 +64,7 @@
 <div class="mb-8 grid w-full grid-cols-1 gap-4">
 	<AbilityList {abilities} {profile} />
 </div>
-{#if data.evolutionChain.chain.evolves_to.length > 0 && data.forms.length > 1}
+{#if data.evolutionChain.chain.evolves_to.length > 0 || data.forms.length > 1}
 	<div class="mb-8">
 		<Title titleProps={createTitle('Growth', text)} />
 	</div>
@@ -93,3 +94,6 @@
 		<SpriteList {spritesGroup} {type} />
 	</div>
 {/if}
+<div class="mb-8 grid w-full grid-cols-1 gap-4">
+	<CryList cries={data.profile.pokemon.cries} {type} />
+</div>

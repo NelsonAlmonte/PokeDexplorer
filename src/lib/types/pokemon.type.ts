@@ -37,7 +37,7 @@ export type StatRange = {
 	icon: IconKey;
 };
 
-type Cries = {
+export type Cries = {
 	lates: string;
 	legacy: string | null;
 };
