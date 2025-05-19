@@ -1,13 +1,14 @@
-import type { NamedApiResource, NamedApiResourceList, Pokemon } from 'pokeapi-typescript';
+import type { PokemonUpdated } from '$lib/types/pokemon.type';
+import type { NamedApiResource, NamedApiResourceList } from 'pokeapi-typescript';
 
-const pokemonCache: Record<string, Pokemon> = {};
+const pokemonCache: Record<string, PokemonUpdated> = {};
 
-export async function fetchPokemons(offset: number): Promise<NamedApiResourceList<Pokemon>> {
+export async function fetchPokemons(offset: number): Promise<NamedApiResourceList<PokemonUpdated>> {
 	const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=12&offset=${offset}`);
 
 	if (!response.ok) throw new Error('No se pudo cargar el Pokémon');
 
-	const data: NamedApiResourceList<NamedApiResource<Pokemon>> = await response.json();
+	const data: NamedApiResourceList<NamedApiResource<PokemonUpdated>> = await response.json();
 	const transformedPokemons = await Promise.all(data.results.map(transformPokemon));
 
 	return {
@@ -16,7 +17,9 @@ export async function fetchPokemons(offset: number): Promise<NamedApiResourceLis
 	};
 }
 
-async function transformPokemon(pokemon: NamedApiResource<Pokemon>): Promise<Pokemon> {
+async function transformPokemon(
+	pokemon: NamedApiResource<PokemonUpdated>
+): Promise<PokemonUpdated> {
 	const id = extractIdFromUrl(pokemon.url);
 	const pokemonData = await fetchPokemonData(id);
 
@@ -29,10 +32,10 @@ export function extractIdFromUrl(url: string): string {
 	return segments[segments.length - 1];
 }
 
-async function fetchPokemonData(id: string): Promise<Pokemon> {
+async function fetchPokemonData(id: string): Promise<PokemonUpdated> {
 	if (pokemonCache[id]) return pokemonCache[id];
 
-	const data = await doFetch('pokemon', Number(id));
+	const data = await doFetch('pokemon', id);
 	pokemonCache[id] = data;
 
 	return data;
@@ -47,19 +50,19 @@ export async function doFetch(endpoint: string, id: string | number) {
 }
 
 export async function getPokemon(
-	pokemonList: Pokemon[],
+	pokemonList: PokemonUpdated[],
 	lookupValue: number | string,
-	lookupKey: string = 'id'
-): Promise<Pokemon> {
+	lookupKey: string = 'name'
+): Promise<PokemonUpdated> {
 	const pokemonMap = new Map(
-		pokemonList.map((pokemon) => [pokemon[lookupKey as keyof Pokemon], pokemon])
+		pokemonList.map((pokemon) => [pokemon[lookupKey as keyof PokemonUpdated], pokemon])
 	);
 	let pokemon = pokemonMap.get(lookupValue);
 
 	if (!pokemon) {
 		const data = await doFetch('pokemon', lookupValue);
-		pokemon = data as Pokemon;
-		pokemonMap.set(pokemon[lookupKey as keyof Pokemon], pokemon);
+		pokemon = data as PokemonUpdated;
+		pokemonMap.set(pokemon[lookupKey as keyof PokemonUpdated], pokemon);
 	}
 
 	return pokemon;

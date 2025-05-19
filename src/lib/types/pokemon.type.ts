@@ -5,7 +5,6 @@ export type PokemonProfile = {
 	pokemon: PokemonUpdated;
 	species: PokemonSpeciesUpdated;
 	info: PokemonInformation;
-	stat_range: StatRange[];
 	generations: string[];
 };
 

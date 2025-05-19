@@ -17,7 +17,7 @@
 	<div class="flex justify-evenly">
 		{#each forms as form}
 			<div class="flex flex-col">
-				<a href="/pokemon/{form.id}">
+				<a href="/pokemon/{form.name}">
 					<img
 						class="z-10 w-50"
 						src={form.sprites.other['official-artwork'].front_default}

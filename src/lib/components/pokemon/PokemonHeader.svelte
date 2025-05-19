@@ -1,0 +1,21 @@
+<script lang="ts">
+	import type { PokemonProfile } from '$lib/types/pokemon.type';
+	import PokemonName from '$lib/components/pokemon/PokemonName.svelte';
+	import TypeItem from '$lib/components/type/TypeItem.svelte';
+
+	let { profile }: { profile: PokemonProfile } = $props();
+</script>
+
+<img
+	class="z-10 w-100"
+	src={profile.pokemon.sprites.other['official-artwork'].front_default}
+	alt={profile.pokemon.name}
+/>
+<div class="z-10 -mt-4 mb-8">
+	<PokemonName pokemon={profile.pokemon} />
+</div>
+<div class="mb-8 flex items-center justify-center gap-6">
+	{#each profile.pokemon.types as type}
+		<TypeItem type={type.type.name} value={0} />
+	{/each}
+</div>

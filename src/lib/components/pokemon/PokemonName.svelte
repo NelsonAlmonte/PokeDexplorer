@@ -14,8 +14,6 @@
 >
 	{pokemon.name.replaceAll('-', ' ')}
 </span>
-<a href="/pokemon/{pokemon.id}">
-	<Heading class="relative text-center capitalize" tag="h3">
-		{pokemon.name.replaceAll('-', ' ')}
-	</Heading>
-</a>
+<Heading class="relative text-center capitalize" tag="h3">
+	{pokemon.name.replaceAll('-', ' ')}
+</Heading>

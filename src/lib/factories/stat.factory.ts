@@ -1,5 +1,5 @@
 import type { InfoItem } from '$lib/types/information.type';
-import type { PokemonProfile, StatRange } from '$lib/types/pokemon.type';
+import type { PokemonUpdated, StatRange } from '$lib/types/pokemon.type';
 import type { PokemonStat } from 'pokeapi-typescript';
 
 export function generateStatItems(stats: PokemonStat[]): InfoItem[] {
@@ -12,7 +12,7 @@ export function generateStatItems(stats: PokemonStat[]): InfoItem[] {
 	})) as InfoItem[];
 }
 
-export function generateStatRange(pokemonProfile: PokemonProfile): StatRange[] {
+export function generateStatRange(pokemon: PokemonUpdated): StatRange[] {
 	const HP_INDEX = 0;
 	const ATTACK_INDEX = 1;
 	const DEFENSE_INDEX = 2;
@@ -23,32 +23,32 @@ export function generateStatRange(pokemonProfile: PokemonProfile): StatRange[] {
 	return [
 		{
 			label: 'Hp',
-			value: calculateStatRange(pokemonProfile.pokemon.stats[HP_INDEX].base_stat, true),
+			value: calculateStatRange(pokemon.stats[HP_INDEX].base_stat, true),
 			icon: 'Heart'
 		},
 		{
 			label: 'Attack',
-			value: calculateStatRange(pokemonProfile.pokemon.stats[ATTACK_INDEX].base_stat),
+			value: calculateStatRange(pokemon.stats[ATTACK_INDEX].base_stat),
 			icon: 'Swords'
 		},
 		{
 			label: 'Defense',
-			value: calculateStatRange(pokemonProfile.pokemon.stats[DEFENSE_INDEX].base_stat),
+			value: calculateStatRange(pokemon.stats[DEFENSE_INDEX].base_stat),
 			icon: 'Shield'
 		},
 		{
 			label: 'Sp. Attack',
-			value: calculateStatRange(pokemonProfile.pokemon.stats[SPECIAL_ATTACK_INDEX].base_stat),
+			value: calculateStatRange(pokemon.stats[SPECIAL_ATTACK_INDEX].base_stat),
 			icon: 'Zap'
 		},
 		{
 			label: 'Sp. Defense',
-			value: calculateStatRange(pokemonProfile.pokemon.stats[SPECIAL_DEFENSE_INDEX].base_stat),
+			value: calculateStatRange(pokemon.stats[SPECIAL_DEFENSE_INDEX].base_stat),
 			icon: 'ShieldPlus'
 		},
 		{
 			label: 'Speed',
-			value: calculateStatRange(pokemonProfile.pokemon.stats[SPEED_INDEX].base_stat),
+			value: calculateStatRange(pokemon.stats[SPEED_INDEX].base_stat),
 			icon: 'Wind'
 		}
 	];

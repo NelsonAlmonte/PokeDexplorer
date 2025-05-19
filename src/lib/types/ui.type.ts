@@ -1,3 +1,5 @@
+import type { icons } from '$lib/constants/ui/icons';
+
 export type AlertProps = {
 	title: string;
 	content: string;
@@ -9,3 +11,12 @@ export type TitleProps = {
 	title: string;
 	shadow_color: string;
 };
+
+export type NavTabProps = {
+	title: string;
+	base_url: string;
+	route: string;
+	icon: IconKey;
+};
+
+export type IconKey = keyof typeof icons;

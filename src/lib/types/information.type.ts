@@ -1,4 +1,4 @@
-import type { icons } from '$lib/constants/ui/icons';
+import type { IconKey } from '$lib/types/ui.type';
 
 export type PokemonInformation = {
 	basic: InfoSection;
@@ -16,5 +16,3 @@ export type InfoItem = {
 	value: string | number;
 	icon: IconKey;
 };
-
-export type IconKey = keyof typeof icons;
