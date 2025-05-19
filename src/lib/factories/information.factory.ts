@@ -1,9 +1,17 @@
-import { expAtLevel100 } from '$lib/constants/pokemon/exp-to-100';
 import type { PokemonInformation } from '$lib/types/information.type';
 import type { PokemonProfile } from '$lib/types/pokemon.type';
 import type { PokemonStat } from 'pokeapi-typescript';
 
 export function generatePokemonInfo(pokemonProfile: PokemonProfile): PokemonInformation {
+	const EXP_AT_LVL_100: Record<string, number> = {
+		slow: 1_250_000,
+		medium: 1_000_000,
+		fast: 800_000,
+		'medium-slow': 1_059_860,
+		'slow-then-very-fast': 600_000,
+		'fast-then-very-slow': 1_640_000
+	};
+
 	return {
 		basic: {
 			label: 'Basic information',
@@ -63,7 +71,7 @@ export function generatePokemonInfo(pokemonProfile: PokemonProfile): PokemonInfo
 				{
 					label: 'Exp. to 100',
 					value: new Intl.NumberFormat().format(
-						expAtLevel100[pokemonProfile.species.growth_rate.name]
+						EXP_AT_LVL_100[pokemonProfile.species.growth_rate.name]
 					),
 					icon: 'Rocket'
 				},

@@ -2,7 +2,7 @@
 	import type { PokemonType } from 'pokeapi-typescript';
 	import type { PokemonProfile } from '$lib/types/pokemon.type';
 	import type { NavTabProps } from '$lib/types/ui.type';
-	import type { typeUIClasses } from '$lib/constants/type/type-ui';
+	import type { typeUIClasses } from '$lib/constants/ui/type';
 	import { page } from '$app/state';
 	import { getTypeClasses } from '$lib/utils/type.util';
 	import { icons } from '$lib/constants/ui/icons';

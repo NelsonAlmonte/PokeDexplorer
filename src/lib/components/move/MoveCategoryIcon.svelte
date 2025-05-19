@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { moveUIClasses } from '$lib/constants/move/move-ui';
+	import type { moveUIClasses } from '$lib/constants/ui/move';
 	import { getMoveCategoryClasses } from '$lib/utils/move.util';
 
 	let { category }: { category: string } = $props();

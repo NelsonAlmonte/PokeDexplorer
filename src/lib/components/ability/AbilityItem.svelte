@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Ability, PokemonType } from 'pokeapi-typescript';
-	import type { typeUIClasses } from '$lib/constants/type/type-ui';
+	import type { typeUIClasses } from '$lib/constants/ui/type';
 	import { getTypeClasses } from '$lib/utils/type.util';
 	import { slide } from 'svelte/transition';
 

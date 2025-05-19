@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { typeUIClasses } from '$lib/constants/type/type-ui';
+	import type { typeUIClasses } from '$lib/constants/ui/type';
 	import type { PokemonProfile } from '$lib/types/pokemon.type';
 	import { getContext } from 'svelte';
 	import { page } from '$app/state';

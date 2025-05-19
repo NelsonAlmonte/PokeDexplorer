@@ -1,15 +1,14 @@
 <script lang="ts">
 	import type { MoveCollection } from '$lib/types/move.type';
 	import type { PokemonProfile } from '$lib/types/pokemon.type';
-	import type { typeUIClasses } from '$lib/constants/type/type-ui';
+	import type { typeUIClasses } from '$lib/constants/ui/type';
 	import type { AlertProps } from '$lib/types/ui.type';
-	import LightBeam from '$lib/components/ui/LightBeam.svelte';
-	import TypeIconBackground from '$lib/components/type/TypeIconBackground.svelte';
 	import MoveItem from '$lib/components/move//MoveItem.svelte';
 	import GenerationList from '$lib/components/move/GenerationList.svelte';
 	import Alert from '$lib/components/ui/Alert.svelte';
+	import Card from '$lib/components/ui/Card.svelte';
 	import { getTypeClasses } from '$lib/utils/type.util';
-	import { Card, Heading, Tabs, TabItem } from 'flowbite-svelte';
+	import { Tabs, TabItem } from 'flowbite-svelte';
 
 	let { moveCollection, profile }: { moveCollection: MoveCollection[]; profile: PokemonProfile } =
 		$props();
@@ -42,18 +41,17 @@
 					<div class="columns-2 gap-4">
 						{#each moveGroup.learn_methods as learnMethod}
 							{#if learnMethod.moves.length > 0}
-								<Card class="relative mb-4 w-full rounded-3xl" size="none">
-									<Heading class="z-20 mb-6 text-center" tag="h4"
-										>Moves learnt by <span class="capitalize">{learnMethod.label}</span></Heading
-									>
-									<div class="absolute inset-0 h-40 w-full">
-										<LightBeam type={profile.pokemon.types[0]} />
-									</div>
-									<TypeIconBackground type={profile.pokemon.types[0]} />
-									{#each learnMethod.moves as move}
-										<MoveItem {move} {profile} isLevelUp={learnMethod.label === 'level up'} />
-									{/each}
-								</Card>
+								{@const cardProps = {
+									title: `Moves learnt by ${learnMethod.label}`,
+									type: profile.pokemon.types[0]
+								}}
+								<div class="mb-4">
+									<Card {cardProps}>
+										{#each learnMethod.moves as move}
+											<MoveItem {move} {profile} isLevelUp={learnMethod.label === 'level up'} />
+										{/each}
+									</Card>
+								</div>
 							{/if}
 						{/each}
 					</div>

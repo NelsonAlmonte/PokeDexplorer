@@ -1,23 +1,21 @@
 <script lang="ts">
 	import type { PokemonType } from 'pokeapi-typescript';
 	import type { Cries } from '$lib/types/pokemon.type';
-	import type { typeUIClasses } from '$lib/constants/type/type-ui';
-	import LightBeam from '$lib/components/ui/LightBeam.svelte';
-	import TypeIconBackground from '$lib/components/type/TypeIconBackground.svelte';
+	import type { typeUIClasses } from '$lib/constants/ui/type';
+	import type { CardProps } from '$lib/types/ui.type';
+	import Card from '$lib/components/ui/Card.svelte';
 	import { getTypeClasses } from '$lib/utils/type.util';
-	import { Card, Heading } from 'flowbite-svelte';
 
 	let { cries, type }: { cries: Cries; type: PokemonType } = $props();
 	const typeName = type.type.name as keyof typeof typeUIClasses.text;
 	const { text } = getTypeClasses(typeName);
+	const cardProps: CardProps = {
+		title: 'Cries',
+		type: type
+	};
 </script>
 
-<Card class="relative w-full rounded-3xl" size="none">
-	<Heading class="z-20 mb-6 text-center" tag="h4">Cries</Heading>
-	<div class="absolute inset-0 z-0 h-40 w-full">
-		<LightBeam {type} />
-	</div>
-	<TypeIconBackground {type} />
+<Card {cardProps}>
 	<div class="flex justify-center gap-4">
 		{#each Object.entries(cries) as [type, cry]}
 			{#if cry}

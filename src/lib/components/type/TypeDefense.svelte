@@ -1,20 +1,19 @@
 <script lang="ts">
 	import type { PokemonType } from 'pokeapi-typescript';
 	import type { TypeDefense } from '$lib/types/pokemon.type';
-	import LightBeam from '$lib/components/ui/LightBeam.svelte';
-	import TypeIconBackground from '$lib/components/type/TypeIconBackground.svelte';
-	import { Card, Heading } from 'flowbite-svelte';
-	import TypeItem from './TypeItem.svelte';
+	import type { CardProps } from '$lib/types/ui.type';
+	import TypeItem from '$lib/components/type/TypeItem.svelte';
+	import Card from '$lib/components/ui/Card.svelte';
+	import { Heading } from 'flowbite-svelte';
 
 	let { typeDefenses, type }: { typeDefenses: TypeDefense[]; type: PokemonType } = $props();
+	const cardProps: CardProps = {
+		title: 'Type defenses',
+		type: type
+	};
 </script>
 
-<Card class="relative w-full rounded-3xl" size="none">
-	<Heading class="z-20 mb-6 text-center" tag="h4">Type defenses</Heading>
-	<div class="absolute inset-0 h-40 w-full">
-		<LightBeam {type} />
-	</div>
-	<TypeIconBackground {type} />
+<Card {cardProps}>
 	{#key typeDefenses}
 		{#each typeDefenses as typeDefense}
 			{#if typeDefense.value.length > 0}

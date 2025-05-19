@@ -1,8 +1,9 @@
 <script lang="ts">
-	import type { NamedApiResourceList, Pokemon } from 'pokeapi-typescript';
+	import type { NamedApiResourceList } from 'pokeapi-typescript';
+	import type { PokemonUpdated } from '$lib/types/pokemon.type';
 	import PokemonItem from '$lib/components/pokemon/PokemonItem.svelte';
 
-	let { pokemons }: { pokemons: NamedApiResourceList<Pokemon> } = $props();
+	let { pokemons }: { pokemons: NamedApiResourceList<PokemonUpdated> } = $props();
 </script>
 
 {#if pokemons.results}

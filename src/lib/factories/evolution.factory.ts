@@ -1,10 +1,10 @@
-import type { ChainLink, EvolutionChain, Pokemon } from 'pokeapi-typescript';
-import type { PokemonSpeciesUpdated } from '$lib/types/pokemon.type';
+import type { ChainLink, EvolutionChain } from 'pokeapi-typescript';
+import type { PokemonSpeciesUpdated, PokemonUpdated } from '$lib/types/pokemon.type';
 import type { DetailedChainLink, DetailedEvolutionChain } from '$lib/types/evolution.type';
 import { doFetch, extractIdFromUrl, getPokemon } from '$lib/api/pokemon.api';
 
 export async function generateEvolutionChain(
-	pokemons: Pokemon[],
+	pokemons: PokemonUpdated[],
 	pokemonSpecies: PokemonSpeciesUpdated
 ): Promise<DetailedEvolutionChain> {
 	const evolutionChainId = extractIdFromUrl(pokemonSpecies.evolution_chain.url);
@@ -17,10 +17,10 @@ export async function generateEvolutionChain(
 
 async function buildDetailedEvolutionChain(
 	chainLink: ChainLink,
-	pokemons: Pokemon[]
+	pokemons: PokemonUpdated[]
 ): Promise<DetailedChainLink> {
 	const id: string = extractIdFromUrl(chainLink.species.url);
-	const pokemon: Pokemon = await getPokemon(pokemons, id);
+	const pokemon: PokemonUpdated = await getPokemon(pokemons, id);
 
 	const detailedChainLink: DetailedChainLink = {
 		...chainLink,

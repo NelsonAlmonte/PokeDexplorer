@@ -1,5 +1,4 @@
 import type {
-	Pokemon,
 	NamedApiResource,
 	NamedApiResourceList,
 	Generation,
@@ -9,10 +8,11 @@ import type {
 	VersionGroup
 } from 'pokeapi-typescript';
 import type { DetailedPokemonMove, MoveCollection, MovesGroup } from '$lib/types/move.type';
+import type { PokemonUpdated } from '$lib/types/pokemon.type';
 import { doFetch } from '$lib/api/pokemon.api';
 
 export async function generateMoveCollection(
-	pokemon: Pokemon,
+	pokemon: PokemonUpdated,
 	moves: Move[],
 	generations: string[],
 	generation: string = ''
@@ -31,7 +31,7 @@ export async function generateMoveCollection(
 }
 
 async function generateMovesGroup(
-	pokemon: Pokemon,
+	pokemon: PokemonUpdated,
 	moves: Move[],
 	generations: string[],
 	generation: string = ''

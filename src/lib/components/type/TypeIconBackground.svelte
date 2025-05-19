@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { PokemonType } from 'pokeapi-typescript';
-	import { typeUIClasses } from '$lib/constants/type/type-ui';
+	import { typeUIClasses } from '$lib/constants/ui/type';
 	import { getTypeClasses } from '$lib/utils/type.util';
 
 	let { type }: { type: PokemonType } = $props();

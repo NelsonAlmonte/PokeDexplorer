@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { PokemonStat, PokemonType } from 'pokeapi-typescript';
 	import type { StatRange } from '$lib/types/pokemon.type';
-	import { typeUIClasses } from '$lib/constants/type/type-ui';
+	import { typeUIClasses } from '$lib/constants/ui/type';
 	import { icons } from '$lib/constants/ui/icons';
 	import { getTypeClasses } from '$lib/utils/type.util';
 	import { Progressbar } from 'flowbite-svelte';

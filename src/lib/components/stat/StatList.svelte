@@ -1,9 +1,9 @@
 <script lang="ts">
-	import type { Pokemon } from 'pokeapi-typescript';
+	import type { PokemonUpdated } from '$lib/types/pokemon.type';
 	import { generateStatItems } from '$lib/factories/stat.factory';
 	import InfoItem from '$lib/components/ui/InfoItem.svelte';
 
-	let { pokemon }: { pokemon: Pokemon } = $props();
+	let { pokemon }: { pokemon: PokemonUpdated } = $props();
 	const stats = generateStatItems(pokemon.stats);
 </script>
 

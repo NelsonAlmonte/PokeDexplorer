@@ -1,11 +1,12 @@
 <script lang="ts">
-	import type { NamedApiResourceList, Pokemon } from 'pokeapi-typescript';
+	import type { NamedApiResourceList } from 'pokeapi-typescript';
+	import type { PokemonUpdated } from '$lib/types/pokemon.type';
 	import PokemonList from '$lib/components/pokemon/PokemonList.svelte';
 	import { pokemonListState } from '$lib/store/pokemon.svelte';
 	import { fetchPokemons } from '$lib/api/pokemon.api.js';
 	import { Button } from 'flowbite-svelte';
 
-	let { data }: { data: NamedApiResourceList<Pokemon> } = $props();
+	let { data }: { data: NamedApiResourceList<PokemonUpdated> } = $props();
 
 	if (!pokemonListState.results.length) pokemonListState.results = data.results;
 

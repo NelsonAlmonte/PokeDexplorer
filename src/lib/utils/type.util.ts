@@ -1,4 +1,4 @@
-import { typeUIClasses } from '$lib/constants/type/type-ui';
+import { typeUIClasses } from '$lib/constants/ui/type';
 
 export function getTypeClasses(typeName: keyof typeof typeUIClasses.text) {
 	return {

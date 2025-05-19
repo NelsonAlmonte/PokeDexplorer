@@ -1,4 +1,5 @@
 import type { icons } from '$lib/constants/ui/icons';
+import type { PokemonType } from 'pokeapi-typescript';
 
 export type AlertProps = {
 	title: string;
@@ -20,3 +21,8 @@ export type NavTabProps = {
 };
 
 export type IconKey = keyof typeof icons;
+
+export type CardProps = {
+	title?: string;
+	type: PokemonType;
+};

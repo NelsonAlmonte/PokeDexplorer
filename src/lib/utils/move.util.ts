@@ -1,4 +1,4 @@
-import { moveUIClasses } from '$lib/constants/move/move-ui';
+import { moveUIClasses } from '$lib/constants/ui/move';
 
 export function getMoveCategoryClasses(typeName: keyof typeof moveUIClasses.text) {
 	return {

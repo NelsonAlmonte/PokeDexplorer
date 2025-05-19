@@ -1,5 +1,6 @@
 import type { Pokemon, PokemonSpecies } from 'pokeapi-typescript';
-import type { IconKey, PokemonInformation } from '$lib/types/information.type';
+import type { PokemonInformation } from '$lib/types/information.type';
+import type { IconKey } from '$lib/types/ui.type';
 
 export type PokemonProfile = {
 	pokemon: PokemonUpdated;
