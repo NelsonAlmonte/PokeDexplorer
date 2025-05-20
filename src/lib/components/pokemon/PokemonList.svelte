@@ -1,14 +1,13 @@
 <script lang="ts">
-	import type { NamedApiResourceList } from 'pokeapi-typescript';
 	import type { PokemonUpdated } from '$lib/types/pokemon.type';
 	import PokemonItem from '$lib/components/pokemon/PokemonItem.svelte';
 
-	let { pokemons }: { pokemons: NamedApiResourceList<PokemonUpdated> } = $props();
+	let { pokemons }: { pokemons: PokemonUpdated[] } = $props();
 </script>
 
-{#if pokemons.results}
+{#if pokemons}
 	<div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-		{#each pokemons.results as pokemon}
+		{#each pokemons as pokemon}
 			<PokemonItem {pokemon} />
 		{/each}
 	</div>
