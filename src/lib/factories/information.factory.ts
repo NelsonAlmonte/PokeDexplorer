@@ -23,7 +23,7 @@ export function generatePokemonInfo(pokemonProfile: PokemonProfile): PokemonInfo
 				},
 				{
 					label: 'Generation',
-					value: pokemonProfile.species.generation.name.replace('generation-', ' '),
+					value: pokemonProfile.species.generation.name.replace('generation-', ' ').toUpperCase(),
 					icon: 'Calendar'
 				},
 				{
