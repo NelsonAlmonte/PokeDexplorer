@@ -1,9 +1,13 @@
 import type { PageServerLoad } from './$types';
+import type { Params } from '$lib/types/search.type';
 import { searchPokemon } from '$lib/api/search.api';
 
 export const load: PageServerLoad = async ({ url }) => {
-	const searchValue = url.searchParams.get('name');
-	const results = await searchPokemon(searchValue!);
+	const params: Params = {
+		name: url.searchParams.get('name'),
+		types: url.searchParams.get('types')
+	};
+	const results = await searchPokemon(params);
 
-	return { results };
+	return { results, params };
 };
