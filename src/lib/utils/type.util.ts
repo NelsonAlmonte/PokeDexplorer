@@ -7,6 +7,7 @@ export function getTypeClasses(typeName: keyof typeof typeUIClasses.text) {
 		from: typeUIClasses.from[typeName],
 		bg: typeUIClasses.bg[typeName],
 		bgHover: typeUIClasses.bg_hover[typeName],
+		border: typeUIClasses.border[typeName],
 		icon: typeUIClasses.icon[typeName]
 	};
 }
