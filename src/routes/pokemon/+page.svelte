@@ -1,6 +1,5 @@
 <script lang="ts">
 	import type { AlertProps } from '$lib/types/ui.type.js';
-	import { feedState } from '$lib/store/feed.svelte.js';
 	import PokemonList from '$lib/components/pokemon/PokemonList.svelte';
 	import Alert from '$lib/components/ui/Alert.svelte';
 	import Loading from '$lib/components/ui/Loading.svelte';
@@ -8,6 +7,7 @@
 	import { InfiniteLoader, LoaderState } from 'svelte-infinite';
 
 	let { data } = $props();
+	let results = $derived(data.results);
 	const loaderState = new LoaderState();
 	const errorAlert: AlertProps = {
 		title: 'Uh oh!',
@@ -22,13 +22,11 @@
 		classes: ['bg-gray-800', 'text-white']
 	};
 
-	if (!feedState.pokemon.results.length) feedState.pokemon.results = data.results;
-
 	async function loadMore() {
 		try {
-			const offset = feedState.pokemon.results.length;
+			const offset = results.length;
 			const newPokemons = await fetchPokemons(offset);
-			feedState.pokemon.results = [...feedState.pokemon.results, ...newPokemons.results];
+			results = [...results, ...newPokemons.results];
 			loaderState.loaded();
 			if (newPokemons.results.length === 0) loaderState.complete();
 		} catch (error) {
@@ -38,7 +36,7 @@
 </script>
 
 <InfiniteLoader {loaderState} triggerLoad={loadMore}>
-	<PokemonList pokemons={feedState.pokemon.results} />
+	<PokemonList pokemons={results} />
 
 	{#snippet error()}
 		<Alert alertProps={errorAlert} />
