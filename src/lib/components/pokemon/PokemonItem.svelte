@@ -17,11 +17,15 @@
 		<div class="z-20">
 			<a href="/pokemon/{pokemon.name}">
 				<div class="flex items-center justify-center">
-					<img
-						class="-mt-40 w-70"
-						src={pokemon.sprites.other['official-artwork'].front_default}
-						alt={pokemon.name}
-					/>
+					{#if pokemon.sprites.other['official-artwork'].front_default}
+						<img
+							class="-mt-40 w-70"
+							src={pokemon.sprites.other['official-artwork'].front_default}
+							alt={pokemon.name}
+						/>
+					{:else}
+						<img class="-mt-40 w-70" src="/images/pokeball.webp" alt={pokemon.name} />
+					{/if}
 				</div>
 				<div class="relative mb-8">
 					<PokemonName {pokemon} />

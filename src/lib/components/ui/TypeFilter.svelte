@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { typeUIClasses } from '$lib/constants/ui/type';
-	import { searchState } from '$lib/store/ui.svelte';
 	import { getTypeClasses } from '$lib/utils/type.util';
+	import { searchState } from '$lib/store/search.svelte';
 	import TypeIcon from '$lib/components/type/TypeIcon.svelte';
 
 	let { type }: { type: string } = $props();

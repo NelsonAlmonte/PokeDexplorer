@@ -2,7 +2,7 @@ import type { PokemonUpdated } from '$lib/types/pokemon.type';
 import type { GraphQLWhere, Params, SearchResponse } from '$lib/types/search.type';
 import type { PokemonSprites } from 'pokeapi-typescript';
 
-export async function searchPokemon(params: Params): Promise<PokemonUpdated[]> {
+export async function searchPokemon(params: Params, offset: number = 0): Promise<PokemonUpdated[]> {
 	const where = createWhereResult(params);
 	const SEARCH_POKEMON_QUERY = `
   query searchPokemon($where: pokemon_v2_pokemon_bool_exp, $limit: Int = 12, $offset: Int = 0) {
@@ -42,7 +42,7 @@ export async function searchPokemon(params: Params): Promise<PokemonUpdated[]> {
 			variables: {
 				where: where,
 				limit: 12,
-				offset: 0
+				offset: offset
 			},
 			operationName: 'searchPokemon'
 		})

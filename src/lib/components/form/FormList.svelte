@@ -13,7 +13,7 @@
 </script>
 
 <Card {cardProps}>
-	<div class="flex justify-evenly">
+	<div class="flex flex-wrap justify-evenly">
 		{#each forms as form}
 			<div class="flex flex-col">
 				<a href="/pokemon/{form.name}">

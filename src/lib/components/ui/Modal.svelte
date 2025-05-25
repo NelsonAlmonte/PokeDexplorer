@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { modalState, searchState } from '$lib/store/ui.svelte';
+	import { modalState } from '$lib/store/ui.svelte';
+	import { searchState } from '$lib/store/search.svelte';
+	import { feedState } from '$lib/store/feed.svelte';
 	import TypeFilter from '$lib/components/ui/TypeFilter.svelte';
 	import { Button, Modal, Label, Input } from 'flowbite-svelte';
 
@@ -32,6 +34,7 @@
 	function handleSubmit(event: Event): void {
 		event.preventDefault();
 		modalState.search.isOpen = false;
+		feedState.search = [];
 		goto(createUrl());
 	}
 

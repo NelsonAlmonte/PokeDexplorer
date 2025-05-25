@@ -6,11 +6,15 @@
 	let { profile }: { profile: PokemonProfile } = $props();
 </script>
 
-<img
-	class="z-10 w-100"
-	src={profile.pokemon.sprites.other['official-artwork'].front_default}
-	alt={profile.pokemon.name}
-/>
+{#if profile.pokemon.sprites.other['official-artwork'].front_default}
+	<img
+		class="z-10 w-100"
+		src={profile.pokemon.sprites.other['official-artwork'].front_default}
+		alt={profile.pokemon.name}
+	/>
+{:else}
+	<img class="z-10 w-100" src="/images/pokeball.webp" alt={profile.pokemon.name} />
+{/if}
 <div class="z-10 -mt-4 mb-8">
 	<PokemonName pokemon={profile.pokemon} />
 </div>
