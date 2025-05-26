@@ -33,7 +33,7 @@
 	function handleSubmit(event: Event): void {
 		event.preventDefault();
 		modalState.search.isOpen = false;
-		goto(createUrl());
+		goto(createUrl(), { replaceState: true });
 	}
 
 	function createUrl(): string {

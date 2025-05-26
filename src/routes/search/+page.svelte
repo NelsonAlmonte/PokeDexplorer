@@ -1,34 +1,31 @@
 <script lang="ts">
-	import type { AlertProps } from '$lib/types/ui.type.js';
+	import { afterNavigate } from '$app/navigation';
 	import PokemonList from '$lib/components/pokemon/PokemonList.svelte';
 	import Alert from '$lib/components/ui/Alert.svelte';
 	import Loading from '$lib/components/ui/Loading.svelte';
 	import { searchPokemon } from '$lib/api/search.api.js';
+	import { feedState } from '$lib/store/feed.svelte.js';
+	import { emptyAlert, errorAlert, noDataAlert } from '$lib/constants/ui/alert.js';
 	import { InfiniteLoader, LoaderState } from 'svelte-infinite';
 
 	let { data } = $props();
-	let results = $derived(data.results);
 	const loaderState = new LoaderState();
-	const errorAlert: AlertProps = {
-		title: 'Uh oh!',
-		content: 'Unable to connect to the regional Pokédex',
-		subcontent: 'Please try again later and refresh the page',
-		classes: ['bg-gray-800', 'text-white']
-	};
-	const noDataAlert: AlertProps = {
-		title: 'Well...',
-		content: "You've reached the end",
-		subcontent: 'The trail goes cold. No more Pokémon in sight',
-		classes: ['bg-gray-800', 'text-white']
-	};
+
+	afterNavigate((nav) => {
+		if (nav.from?.route.id === '/search') {
+			feedState.search = [];
+		} else {
+			feedState.search = data.results;
+		}
+	});
 
 	async function loadMore() {
 		try {
-			const offset = results.length;
+			const offset = feedState.search.length;
 			const newPokemons = await searchPokemon(data.params, offset);
-			results = [...results, ...newPokemons];
+			feedState.search = [...feedState.search, ...newPokemons];
 			loaderState.loaded();
-			if (newPokemons.length === 0) loaderState.complete();
+			if (offset !== 0 && newPokemons.length === 0) loaderState.complete();
 		} catch (error) {
 			loaderState.error();
 		}
@@ -36,7 +33,7 @@
 </script>
 
 <InfiniteLoader {loaderState} triggerLoad={loadMore}>
-	<PokemonList pokemons={results} />
+	<PokemonList pokemons={feedState.search} />
 
 	{#snippet error()}
 		<Alert alertProps={errorAlert} />
@@ -50,3 +47,6 @@
 		<Loading />
 	{/snippet}
 </InfiniteLoader>
+{#if !feedState.search.length}
+	<Alert alertProps={emptyAlert} />
+{/if}

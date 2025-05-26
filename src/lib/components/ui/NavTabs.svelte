@@ -52,7 +52,11 @@
 </script>
 
 {#each navTabs as navTabProp}
-	<a data-sveltekit-noscroll href={navTabProp.base_url + navTabProp.route}>
+	<a
+		data-sveltekit-replacestate
+		data-sveltekit-noscroll
+		href={navTabProp.base_url + navTabProp.route}
+	>
 		<Button
 			class={isActive(navTabProp.title, navTabProp.base_url)
 				? `${bg} ${bgHover} cursor-pointer rounded-2xl text-lg font-bold capitalize focus:ring-0`
