@@ -17,6 +17,8 @@
 		} else {
 			feedState.search = data.results;
 		}
+
+		if (feedState.search.length <= 0) feedState.search = data.results;
 	});
 
 	async function loadMore() {

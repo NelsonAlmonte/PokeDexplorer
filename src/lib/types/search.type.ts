@@ -11,9 +11,25 @@ export type Search = {
 export type Params = {
 	name: string | null;
 	types: string | null;
+	generations: string | null;
 };
 
 export type GraphQLWhere = {
-	name?: Record<string, string>;
-	pokemon_v2_pokemontypes?: Record<string, Record<string, Record<string, string[]>>>;
+	name?: {
+		_like?: string;
+	};
+	pokemon_v2_pokemontypes?: {
+		pokemon_v2_type?: {
+			name?: {
+				_in?: string[];
+			};
+		};
+	};
+	pokemon_v2_pokemonspecy?: {
+		pokemon_v2_generation?: {
+			name?: {
+				_in?: string[];
+			};
+		};
+	};
 };

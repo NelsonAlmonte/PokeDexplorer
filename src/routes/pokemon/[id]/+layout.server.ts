@@ -1,5 +1,4 @@
 import type { LayoutServerLoad } from './$types';
-import type { Generation, NamedApiResource, NamedApiResourceList } from 'pokeapi-typescript';
 import type { PokemonProfile, PokemonSpeciesUpdated } from '$lib/types/pokemon.type';
 import type { PokemonInformation } from '$lib/types/information.type';
 import { generatePokemonInfo } from '$lib/factories/information.factory';
@@ -19,11 +18,6 @@ export const load: LayoutServerLoad = async ({ params, parent }) => {
 
 	profile.species = await doFetch('pokemon-species', speciesId);
 	profile.info = generatePokemonInfo(profile);
-	const generationsReponse: NamedApiResourceList<NamedApiResource<Generation>> = await doFetch(
-		'generation',
-		''
-	);
-	profile.generations = generationsReponse.results.map((generation) => generation.name);
 
 	return { profile, id };
 };

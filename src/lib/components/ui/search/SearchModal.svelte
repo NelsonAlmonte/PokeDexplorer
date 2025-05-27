@@ -2,11 +2,18 @@
 	import { goto } from '$app/navigation';
 	import { modalState } from '$lib/store/ui.svelte';
 	import { searchState } from '$lib/store/search.svelte';
-	import TypeFilter from '$lib/components/ui/TypeFilter.svelte';
+	import TypeFilter from '$lib/components/ui/search/TypeFilter.svelte';
 	import { Button, Modal, Label, Input } from 'flowbite-svelte';
+	import { getContext } from 'svelte';
+	import GenerationFilter from './GenerationFilter.svelte';
 
 	let isDisabled = $derived.by(() => {
-		if (searchState.name !== '' || searchState.selectedTypes.length > 0) return false;
+		if (
+			searchState.name !== '' ||
+			searchState.selectedTypes.length > 0 ||
+			searchState.selectedGenerations.length > 0
+		)
+			return false;
 		else return true;
 	});
 	const types = [
@@ -29,6 +36,7 @@
 		'fairy',
 		'normal'
 	];
+	const generations: string[] = getContext('generations');
 
 	function handleSubmit(event: Event): void {
 		event.preventDefault();
@@ -42,6 +50,9 @@
 
 		if (searchState.name !== '') params.set('name', searchState.name.trim());
 		if (searchState.selectedTypes.length) params.set('types', searchState.selectedTypes.join(','));
+		if (searchState.selectedGenerations.length)
+			params.set('generations', searchState.selectedGenerations.join(','));
+
 		url.search = params.toString();
 
 		return url.toString();
@@ -66,6 +77,14 @@
 		<div class="grid grid-cols-3 gap-4">
 			{#each types as type}
 				<TypeFilter {type} />
+			{/each}
+		</div>
+		<span class="mb-0.5 block text-sm font-medium text-gray-900 dark:text-gray-300"
+			>Generations</span
+		>
+		<div class="grid grid-cols-5 gap-4">
+			{#each generations as generation}
+				<GenerationFilter {generation} />
 			{/each}
 		</div>
 		<div class="flex shrink-0 items-center justify-end space-x-3 rtl:space-x-reverse">

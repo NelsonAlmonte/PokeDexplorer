@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { LayoutProps } from './$types';
-	import { setContext } from 'svelte';
+	import { getContext } from 'svelte';
 	import LightBeam from '$lib/components/ui/LightBeam.svelte';
 	import TypeIconBackground from '$lib/components/type/TypeIconBackground.svelte';
 	import PokemonHeader from '$lib/components/pokemon/PokemonHeader.svelte';
@@ -9,8 +9,7 @@
 	let { data, children }: LayoutProps = $props();
 	const pokemon = $derived(data.profile.pokemon);
 	const type = $derived(data.profile.pokemon.types[0]);
-	const generation = $derived(data.profile.generations.at(-1)!);
-	setContext('generation', () => generation);
+	data.profile.generations = getContext('generations');
 </script>
 
 {#key pokemon}

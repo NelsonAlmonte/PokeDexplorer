@@ -3,13 +3,15 @@
 	import type { PokemonProfile } from '$lib/types/pokemon.type';
 	import type { NavTabProps } from '$lib/types/ui.type';
 	import type { typeUIClasses } from '$lib/constants/ui/type';
+	import { getContext } from 'svelte';
 	import { page } from '$app/state';
 	import { getTypeClasses } from '$lib/utils/type.util';
 	import { icons } from '$lib/constants/ui/icons';
 	import { Button } from 'flowbite-svelte';
 
 	let { profile, type }: { profile: PokemonProfile; type: PokemonType } = $props();
-	const generationNumber = profile.generations.at(-1)!.replace('generation-', '');
+	const generations: string[] = getContext('generations');
+	const generationNumber = generations.at(-1)!.replace('generation-', '');
 	const navTabs: NavTabProps[] = [
 		{
 			title: 'information',

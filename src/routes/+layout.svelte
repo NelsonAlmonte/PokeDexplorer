@@ -1,9 +1,11 @@
 <script lang="ts">
-	import Modal from '$lib/components/ui/Modal.svelte';
+	import { setContext } from 'svelte';
+	import SearchModal from '$lib/components/ui/search/SearchModal.svelte';
 	import Navbar from '$lib/components/ui/Navbar.svelte';
 	import '../app.css';
 
-	let { children } = $props();
+	let { children, data } = $props();
+	setContext('generations', data.generations);
 </script>
 
 <svelte:head>
@@ -14,4 +16,4 @@
 <div class="container mx-auto mt-20 max-w-screen-xl px-4 xl:px-0">
 	{@render children()}
 </div>
-<Modal />
+<SearchModal />

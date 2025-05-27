@@ -65,6 +65,11 @@ function createWhereResult(params: Params) {
 			pokemon_v2_type: { name: { _in: params.types.split(',') } }
 		};
 	}
+	if (params.generations?.length) {
+		where.pokemon_v2_pokemonspecy = {
+			pokemon_v2_generation: { name: { _in: params.generations.split(',') } }
+		};
+	}
 
 	return where;
 }
