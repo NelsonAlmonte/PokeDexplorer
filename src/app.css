@@ -63,15 +63,15 @@
   --color-ice-800: oklch(0.43 0.03 193.13 / 1);
   --color-ice-900: oklch(0.28 0.02 196.18 / 1);
 
-  --color-fighting-100: oklch(0.90 0.03 20.08 / 1);
-  --color-fighting-200: oklch(0.80 0.07 20.95 / 1);
-  --color-fighting-300: oklch(0.70 0.11 23.03 / 1);
-  --color-fighting-400: oklch(0.61 0.15 25 / 1);
-  --color-fighting-500: oklch(0.54 0.19 27.82 / 1);
-  --color-fighting-600: oklch(0.46 0.16 27.69 / 1);
-  --color-fighting-700: oklch(0.37 0.12 27.49 / 1);
-  --color-fighting-800: oklch(0.29 0.09 26.50 / 1);
-  --color-fighting-900: oklch(0.19 0.05 25.18 / 1);
+  --color-fighting-100: oklch(0.91 0.03 20.12 / 1);
+  --color-fighting-200: oklch(0.83 0.07 20.90 / 1);
+  --color-fighting-300: oklch(0.74 0.11 22.07 / 1);
+  --color-fighting-400: oklch(0.67 0.15 23.84 / 1);
+  --color-fighting-500: oklch(0.60 0.18 26.24 / 1);
+  --color-fighting-600: oklch(0.51 0.15 26.08 / 1);
+  --color-fighting-700: oklch(0.42 0.12 25.82 / 1);
+  --color-fighting-800: oklch(0.32 0.09 25.29 / 1);
+  --color-fighting-900: oklch(0.21 0.05 24.12 / 1);
 
   --color-poison-100: oklch(0.91 0.04 327.32 / 1);
   --color-poison-200: oklch(0.81 0.07 326.98 / 1);
@@ -133,35 +133,35 @@
   --color-rock-800: oklch(0.37 0.06 97.20 / 1);
   --color-rock-900: oklch(0.24 0.04 98.73 / 1);
 
-  --color-ghost-100: oklch(0.91 0.02 306.65 / 1);
-  --color-ghost-200: oklch(0.81 0.04 305.43 / 1);
-  --color-ghost-300: oklch(0.71 0.06 304.75 / 1);
-  --color-ghost-400: oklch(0.62 0.08 303.91 / 1);
-  --color-ghost-500: oklch(0.51 0.10 303.13 / 1);
-  --color-ghost-600: oklch(0.44 0.09 302.94 / 1);
-  --color-ghost-700: oklch(0.36 0.07 303.22 / 1);
-  --color-ghost-800: oklch(0.28 0.05 303.75 / 1);
-  --color-ghost-900: oklch(0.19 0.03 305.11 / 1);
+  --color-ghost-100: oklch(0.927 0.025 295.9 / 1);
+  --color-ghost-200: oklch(0.855 0.037 295.9 / 1);
+  --color-ghost-300: oklch(0.785 0.049 295.9 / 1);
+  --color-ghost-400: oklch(0.713 0.061 295.9 / 1);
+  --color-ghost-500: oklch(0.641 0.073 295.9 / 1);
+  --color-ghost-600: oklch(0.519 0.060 295.9 / 1);
+  --color-ghost-700: oklch(0.396 0.048 296.0 / 1);
+  --color-ghost-800: oklch(0.273 0.035 296.1 / 1);
+  --color-ghost-900: oklch(0.180 0.023 296.3 / 1);
 
-  --color-dragon-100: oklch(0.90 0.05 298.21 / 1);
-  --color-dragon-200: oklch(0.80 0.11 296.97 / 1);
-  --color-dragon-300: oklch(0.70 0.17 295.22 / 1);
-  --color-dragon-400: oklch(0.61 0.23 291.88 / 1);
-  --color-dragon-500: oklch(0.54 0.27 286.68 / 1);
-  --color-dragon-600: oklch(0.46 0.22 287.13 / 1);
-  --color-dragon-700: oklch(0.38 0.18 287.93 / 1);
-  --color-dragon-800: oklch(0.29 0.13 288.48 / 1);
-  --color-dragon-900: oklch(0.19 0.07 290.94 / 1);
+  --color-dragon-100: oklch(0.92 0.10 275.6 / 1);
+  --color-dragon-200: oklch(0.81 0.16 275.8 / 1);
+  --color-dragon-300: oklch(0.72 0.20 276.0 / 1);
+  --color-dragon-400: oklch(0.63 0.23 276.1 / 1);
+  --color-dragon-500: oklch(0.55 0.25 276.2 / 1);
+  --color-dragon-600: oklch(0.43 0.20 276.3 / 1);
+  --color-dragon-700: oklch(0.32 0.15 276.4 / 1);
+  --color-dragon-800: oklch(0.22 0.10 276.5 / 1);
+  --color-dragon-900: oklch(0.12 0.05 276.6 / 1);
 
-  --color-dark-100: oklch(0.90 0.01 53.44 / 1);
-  --color-dark-200: oklch(0.80 0.01 57.54 / 1);
-  --color-dark-300: oklch(0.70 0.02 55.98 / 1);
-  --color-dark-400: oklch(0.59 0.03 57.02 / 1);
-  --color-dark-500: oklch(0.48 0.04 55.70 / 1);
-  --color-dark-600: oklch(0.41 0.04 56.52 / 1);
-  --color-dark-700: oklch(0.34 0.03 55.28 / 1);
-  --color-dark-800: oklch(0.27 0.02 56.72 / 1);
-  --color-dark-900: oklch(0.18 0.01 52.80 / 1);
+  --color-dark-100: oklch(0.93 0.01 56.25 / 1);
+  --color-dark-200: oklch(0.87 0.03 57.63 / 1);
+  --color-dark-300: oklch(0.80 0.04 58.30 / 1);
+  --color-dark-400: oklch(0.73 0.05 58.10 / 1);
+  --color-dark-500: oklch(0.66 0.07 57 / 1);
+  --color-dark-600: oklch(0.56 0.06 57.59 / 1);
+  --color-dark-700: oklch(0.46 0.05 57.45 / 1);
+  --color-dark-800: oklch(0.35 0.03 56.68 / 1);
+  --color-dark-900: oklch(0.23 0.02 55.32 / 1);
 
   --color-steel-100: oklch(0.96 0.01 286.30 / 1);
   --color-steel-200: oklch(0.92 0.01 286.16 / 1);

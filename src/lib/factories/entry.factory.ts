@@ -14,7 +14,13 @@ export function generateEntries(entries: FlavorText[]): FlavorText[] {
 		if (existingFlavorText) {
 			existingFlavorText.version.name += ` / ${currentEntry.version.name.replaceAll('-', ' ')}`;
 		} else {
-			groupedEntries.push(currentEntry);
+			groupedEntries.push({
+				...currentEntry,
+				version: {
+					...currentEntry.version,
+					name: currentEntry.version.name.replaceAll('-', ' ')
+				}
+			});
 		}
 	}
 

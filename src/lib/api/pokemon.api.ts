@@ -1,7 +1,7 @@
 import type { PokemonUpdated } from '$lib/types/pokemon.type';
 import type { NamedApiResource, NamedApiResourceList } from 'pokeapi-typescript';
 
-const pokemonCache: Record<string, PokemonUpdated> = {};
+const cache: Record<string, Record<string, unknown>> = {};
 
 export async function fetchPokemons(offset: number): Promise<NamedApiResourceList<PokemonUpdated>> {
 	const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=12&offset=${offset}`);
@@ -21,7 +21,7 @@ async function transformPokemon(
 	pokemon: NamedApiResource<PokemonUpdated>
 ): Promise<PokemonUpdated> {
 	const id = extractIdFromUrl(pokemon.url);
-	const pokemonData = await fetchPokemonData(id);
+	const pokemonData = await doFetch('pokemon', id);
 
 	return pokemonData;
 }
@@ -32,19 +32,15 @@ export function extractIdFromUrl(url: string): string {
 	return segments[segments.length - 1];
 }
 
-async function fetchPokemonData(id: string): Promise<PokemonUpdated> {
-	if (pokemonCache[id]) return pokemonCache[id];
-
-	const data = await doFetch('pokemon', id);
-	pokemonCache[id] = data;
-
-	return data;
-}
-
 export async function doFetch(endpoint: string, id: string | number) {
+	if (!cache[id]) cache[id] = {};
+	if (cache[id][endpoint]) return cache[id][endpoint];
+
 	const res = await fetch(`https://pokeapi.co/api/v2/${endpoint}/${id}`);
 	if (!res.ok) throw new Error('Error when retrieving the response');
 	const data = await res.json();
+
+	cache[id][endpoint] = data;
 
 	return data;
 }
