@@ -12,7 +12,7 @@
 	const type = $derived(data.profile.pokemon.types[0]);
 </script>
 
-<div class="mb-8 grid w-full grid-cols-2 gap-4">
+<div class="mb-8 grid w-full grid-cols-1 gap-4 lg:grid-cols-2">
 	<StatRange {statRange} {profile} />
 	<TypeDefense {typeDefenses} {type} />
 </div>

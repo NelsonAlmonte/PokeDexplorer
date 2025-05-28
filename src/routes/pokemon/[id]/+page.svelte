@@ -7,7 +7,7 @@
 	const type = $derived(data.profile.pokemon.types[0]);
 </script>
 
-<div class="mb-8 grid w-full grid-cols-3 gap-4">
+<div class="mb-8 grid w-full grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
 	<PokemonInfo info={info.basic} {type} />
 	<PokemonInfo info={info.training} {type} />
 	<PokemonInfo info={info.breeding} {type} />

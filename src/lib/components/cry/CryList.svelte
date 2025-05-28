@@ -16,7 +16,7 @@
 </script>
 
 <Card {cardProps}>
-	<div class="flex justify-center gap-4">
+	<div class="flex flex-wrap justify-center gap-4">
 		{#each Object.entries(cries) as [type, cry]}
 			{#if cry}
 				<div class="flex flex-col items-center">

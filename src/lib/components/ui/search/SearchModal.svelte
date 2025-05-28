@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { modalState } from '$lib/store/ui.svelte';
+	import { getContext } from 'svelte';
+	import { modalState, navbarState } from '$lib/store/ui.svelte';
 	import { searchState } from '$lib/store/search.svelte';
 	import TypeFilter from '$lib/components/ui/search/TypeFilter.svelte';
+	import GenerationFilter from '$lib/components/ui/search/GenerationFilter.svelte';
 	import { Button, Modal, Label, Input } from 'flowbite-svelte';
-	import { getContext } from 'svelte';
-	import GenerationFilter from './GenerationFilter.svelte';
 
 	let isDisabled = $derived.by(() => {
 		if (
@@ -41,6 +41,7 @@
 	function handleSubmit(event: Event): void {
 		event.preventDefault();
 		modalState.search.isOpen = false;
+		navbarState.isHidden = true;
 		goto(createUrl(), { replaceState: true });
 	}
 

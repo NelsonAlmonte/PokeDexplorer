@@ -16,7 +16,9 @@
 	const { text, bgOpacity } = getTypeClasses(typeName);
 </script>
 
-<div class="{text} {bgOpacity} z-20 mb-4 flex items-center gap-4 rounded-2xl py-2 capitalize">
+<div
+	class="{text} {bgOpacity} z-20 mb-4 flex flex-wrap items-center gap-4 rounded-2xl py-2 capitalize"
+>
 	{#if move.version_group_details.level_learned_at !== 0 && isLevelUp}
 		<div class="flex items-center justify-start">
 			<div class="ms-3 flex flex-col">

@@ -18,7 +18,7 @@
 		{#each typeDefenses as typeDefense}
 			{#if typeDefense.value.length > 0}
 				<Heading class="z-20 my-3 text-center capitalize" tag="h5">{typeDefense.label}</Heading>
-				<div class="flex flex-wrap gap-4">
+				<div class="flex flex-wrap justify-center gap-4">
 					{#each typeDefense.value as item}
 						<TypeItem type={item.type} value={item.value} />
 					{/each}

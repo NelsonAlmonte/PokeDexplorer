@@ -2,7 +2,7 @@
 	import type { EvolutionDetail, PokemonType } from 'pokeapi-typescript';
 	import type { typeUIClasses } from '$lib/constants/ui/type';
 	import { getTypeClasses } from '$lib/utils/type.util';
-	import { MoveRight } from '@lucide/svelte';
+	import { MoveDown, MoveRight } from '@lucide/svelte';
 
 	let { detail, type }: { detail: EvolutionDetail; type: PokemonType } = $props();
 	const typeName = type.type.name as keyof typeof typeUIClasses.text;
@@ -22,8 +22,11 @@
 </script>
 
 <div class="{bgOpacity} {text}  mb-4 rounded-2xl px-4 py-3 font-bold">
-	<div class="mb-2 flex justify-center">
+	<div class="mb-2 hidden justify-center lg:flex">
 		<MoveRight size="32" />
+	</div>
+	<div class="mb-2 flex justify-center lg:hidden">
+		<MoveDown size="32" />
 	</div>
 	<span>Trigger by {detail.trigger.name.replaceAll('-', ' ')}</span>
 	{#each Object.entries(conditions) as [key, value]}

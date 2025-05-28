@@ -8,7 +8,7 @@
 	let { chainLink, type }: { chainLink: DetailedChainLink; type: PokemonType } = $props();
 </script>
 
-<div class="flex items-center justify-center gap-10">
+<div class="flex flex-col items-center justify-center gap-10 lg:flex-row">
 	{#if chainLink.evolution_details.length > 0}
 		<div class="flex flex-col">
 			{#each chainLink.evolution_details as detail}

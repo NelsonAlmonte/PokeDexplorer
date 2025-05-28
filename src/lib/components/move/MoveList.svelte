@@ -38,7 +38,7 @@
 					inactiveClasses="inline-block rounded-2xl text-center font-bold text-gray-400 hover:text-white {bgOpacity} {bgHover} cursor-pointer p-4"
 				>
 					<span slot="title" class="capitalize">{moveGroup.label}</span>
-					<div class="columns-2 gap-4">
+					<div class="columns-1 gap-4 xl:columns-2">
 						{#each moveGroup.learn_methods as learnMethod}
 							{#if learnMethod.moves.length > 0}
 								{@const cardProps = {

@@ -13,7 +13,7 @@
 </script>
 
 <Card {cardProps}>
-	<div class="z-10 grid grid-cols-2 gap-4">
+	<div class="z-10 grid grid-cols-1 gap-4 lg:grid-cols-2">
 		{#each abilities as ability, index}
 			<AbilityItem
 				{ability}

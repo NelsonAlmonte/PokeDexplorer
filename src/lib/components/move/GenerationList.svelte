@@ -16,7 +16,7 @@
 	if (!page.url.pathname.includes('moves')) routeToNavigate = `${profile.pokemon.id}/moves/`;
 </script>
 
-<div class="my-3 flex justify-center gap-3">
+<div class="my-3 flex flex-wrap justify-center gap-3">
 	{#each generations as generation}
 		{@const generationNumber = generation.replace('generation-', '')}
 		<a data-sveltekit-noscroll href="{routeToNavigate}{generationNumber}">

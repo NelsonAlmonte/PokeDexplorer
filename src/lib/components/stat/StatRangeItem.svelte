@@ -20,7 +20,7 @@
 
 <div class="{text} {bgOpacity} flex items-center justify-between gap-3 rounded-2xl py-2 capitalize">
 	<div class="flex flex-1 items-center justify-start gap-3">
-		<div class="flex w-1/3 items-center justify-start gap-3">
+		<div class="flex items-center justify-start gap-3 md:w-1/3">
 			<div class="ms-3">
 				{#if statRangeItem.icon}
 					{@const Icon = icons[statRangeItem.icon]}

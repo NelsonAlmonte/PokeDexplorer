@@ -6,8 +6,7 @@
 </script>
 
 <div>
-	<!-- preload=false hasta que [id] se el nombre o id del pokemon -->
-	<a data-sveltekit-preload-data="false" href="/pokemon/{chainLink.evolution_data.name}">
+	<a href="/pokemon/{chainLink.evolution_data.name}">
 		<img
 			class="z-10 w-50"
 			src={chainLink.evolution_data.sprite}

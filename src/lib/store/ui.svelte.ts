@@ -3,3 +3,7 @@ export const modalState = $state({
 		isOpen: false
 	}
 });
+
+export const navbarState = $state({
+	isHidden: true
+});
