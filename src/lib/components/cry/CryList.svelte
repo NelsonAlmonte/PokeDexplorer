@@ -11,7 +11,8 @@
 	const { text } = getTypeClasses(typeName);
 	const cardProps: CardProps = {
 		title: 'Cries',
-		type: type
+		type: type,
+		classes: ['overflow-hidden']
 	};
 </script>
 

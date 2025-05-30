@@ -7,7 +7,8 @@
 	let { entries, type }: { entries: FlavorText[]; type: PokemonType } = $props();
 	const cardProps: CardProps = {
 		title: 'Pokédex entries',
-		type: type
+		type: type,
+		classes: ['overflow-hidden']
 	};
 </script>
 

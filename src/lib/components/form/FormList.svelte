@@ -8,7 +8,8 @@
 	let { forms, type }: { forms: PokemonUpdated[]; type: PokemonType } = $props();
 	const cardProps: CardProps = {
 		title: 'Forms',
-		type: type
+		type: type,
+		classes: ['overflow-hidden']
 	};
 </script>
 

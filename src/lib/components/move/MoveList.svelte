@@ -43,7 +43,8 @@
 							{#if learnMethod.moves.length > 0}
 								{@const cardProps = {
 									title: `Moves learnt by ${learnMethod.label}`,
-									type: profile.pokemon.types[0]
+									type: profile.pokemon.types[0],
+									classes: ['overflow-hidden']
 								}}
 								<div class="mb-4">
 									<Card {cardProps}>

@@ -8,7 +8,8 @@
 
 	let { pokemon }: { pokemon: PokemonUpdated } = $props();
 	const cardProps: CardProps = {
-		type: pokemon.types[0]
+		type: pokemon.types[0],
+		classes: []
 	};
 </script>
 

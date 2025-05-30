@@ -25,4 +25,5 @@ export type IconKey = keyof typeof icons;
 export type CardProps = {
 	title?: string;
 	type: PokemonType;
+	classes: string[];
 };

@@ -9,7 +9,8 @@
 	let { typeDefenses, type }: { typeDefenses: TypeDefense[]; type: PokemonType } = $props();
 	const cardProps: CardProps = {
 		title: 'Type defenses',
-		type: type
+		type: type,
+		classes: ['overflow-hidden']
 	};
 </script>
 

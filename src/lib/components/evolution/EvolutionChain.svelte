@@ -9,7 +9,8 @@
 		$props();
 	const cardProps: CardProps = {
 		title: 'Evolution chain',
-		type: type
+		type: type,
+		classes: ['overflow-hidden']
 	};
 </script>
 

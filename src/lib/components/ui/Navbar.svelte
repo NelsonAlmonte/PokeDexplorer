@@ -8,7 +8,7 @@
 	>
 		<div class="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between p-4">
 			<a href="/pokemon" class="flex items-center space-x-3 rtl:space-x-reverse">
-				<img src="https://flowbite.com/docs/images/logo.svg" class="h-7" alt="Flowbite Logo" />
+				<img src="/images/logo.webp" class="h-10" alt="Logo" />
 				<span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white"
 					>PokéDexplorer</span
 				>

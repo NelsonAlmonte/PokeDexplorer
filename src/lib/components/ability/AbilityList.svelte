@@ -8,7 +8,8 @@
 	let { abilities, profile }: { abilities: Ability[]; profile: PokemonProfile } = $props();
 	const cardProps: CardProps = {
 		title: 'Abilities',
-		type: profile.pokemon.types[0]
+		type: profile.pokemon.types[0],
+		classes: ['overflow-hidden']
 	};
 </script>
 

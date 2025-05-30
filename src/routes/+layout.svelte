@@ -3,7 +3,6 @@
 	import SearchModal from '$lib/components/ui/search/SearchModal.svelte';
 	import Navbar from '$lib/components/ui/Navbar.svelte';
 	import '../app.css';
-	import Footer from '$lib/components/ui/Footer.svelte';
 
 	let { children, data } = $props();
 	setContext('generations', data.generations);
@@ -14,8 +13,7 @@
 </svelte:head>
 
 <Navbar />
-<div class="container mx-auto mt-20 max-w-screen-xl px-4 xl:px-0">
+<div class="container mx-auto max-w-screen-xl px-4 xl:px-0">
 	{@render children()}
 </div>
-<Footer />
 <SearchModal />

@@ -8,7 +8,8 @@
 	let { info, type }: { info: InfoSection; type: PokemonType } = $props();
 	const cardProps: CardProps = {
 		title: info.label,
-		type: type
+		type: type,
+		classes: ['overflow-hidden']
 	};
 </script>
 

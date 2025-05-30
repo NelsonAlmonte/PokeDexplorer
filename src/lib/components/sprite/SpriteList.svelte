@@ -12,7 +12,8 @@
 	const { text, bg, bgOpacity, bgHover } = getTypeClasses(typeName);
 	const cardProps: CardProps = {
 		title: 'Sprites',
-		type: type
+		type: type,
+		classes: ['overflow-hidden']
 	};
 </script>
 

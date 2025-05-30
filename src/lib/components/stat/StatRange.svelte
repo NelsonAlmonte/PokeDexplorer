@@ -7,7 +7,8 @@
 	let { statRange, profile }: { statRange: StatRange[]; profile: PokemonProfile } = $props();
 	const cardProps: CardProps = {
 		title: 'Base stats',
-		type: profile.pokemon.types[0]
+		type: profile.pokemon.types[0],
+		classes: ['overflow-hidden']
 	};
 </script>
 
