@@ -1,12 +1,10 @@
 <script lang="ts">
 	import type { PokemonUpdated } from '$lib/types/pokemon.type';
-	import { typeUIClasses } from '$lib/constants/ui/type';
 	import { Heading } from 'flowbite-svelte';
 	import { getTypeClasses } from '$lib/utils/type.util';
 
 	let { pokemon }: { pokemon: PokemonUpdated } = $props();
-	const typeName = pokemon.types[0].type.name as keyof typeof typeUIClasses.text;
-	const { text } = getTypeClasses(typeName);
+	const { text } = getTypeClasses(pokemon.types[0].type.name);
 </script>
 
 <span

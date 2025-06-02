@@ -95,7 +95,10 @@
 				color="alternative"
 				onclick={() => (modalState.search.isOpen = false)}>Close</Button
 			>
-			<Button type="submit" class="cursor-pointer" color="blue" disabled={isDisabled}>Search</Button
+			<Button
+				type="submit"
+				class="bg-fighting-600 hover:bg-fighting-700 cursor-pointer"
+				disabled={isDisabled}>Search</Button
 			>
 		</div>
 	</form>

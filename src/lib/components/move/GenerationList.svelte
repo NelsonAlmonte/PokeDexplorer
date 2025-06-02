@@ -1,5 +1,4 @@
 <script lang="ts">
-	import type { typeUIClasses } from '$lib/constants/ui/type';
 	import type { PokemonProfile } from '$lib/types/pokemon.type';
 	import { getContext } from 'svelte';
 	import { page } from '$app/state';
@@ -7,8 +6,7 @@
 	import { Button } from 'flowbite-svelte';
 
 	let { profile }: { profile: PokemonProfile } = $props();
-	const typeName = profile.pokemon.types[0].type.name as keyof typeof typeUIClasses.text;
-	const { bgOpacity, bgHover, bg } = getTypeClasses(typeName);
+	const { bgOpacity, bgHover, bg } = getTypeClasses(profile.pokemon.types[0].type.name);
 	const startIndex = profile.generations.indexOf(profile.species.generation.name);
 	const generations = profile.generations.slice(startIndex);
 	const currentGeneration = getContext('generation') as () => string;

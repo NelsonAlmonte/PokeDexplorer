@@ -1,12 +1,10 @@
 <script lang="ts">
 	import TypeIcon from './TypeIcon.svelte';
-	import { typeUIClasses } from '$lib/constants/ui/type';
 	import { getTypeClasses } from '$lib/utils/type.util';
 	import { Fraction } from 'fraction.js';
 
 	let { type, value = 0 }: { type: string; value: number } = $props();
-	const typeName = type as keyof typeof typeUIClasses.text;
-	const { text, bgOpacity } = getTypeClasses(typeName);
+	const { text, bgOpacity } = getTypeClasses(type);
 </script>
 
 <div

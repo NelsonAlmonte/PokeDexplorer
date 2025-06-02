@@ -1,14 +1,12 @@
 <script lang="ts">
 	import type { PokemonType } from 'pokeapi-typescript';
 	import type { Cries } from '$lib/types/pokemon.type';
-	import type { typeUIClasses } from '$lib/constants/ui/type';
 	import type { CardProps } from '$lib/types/ui.type';
 	import Card from '$lib/components/ui/Card.svelte';
 	import { getTypeClasses } from '$lib/utils/type.util';
 
 	let { cries, type }: { cries: Cries; type: PokemonType } = $props();
-	const typeName = type.type.name as keyof typeof typeUIClasses.text;
-	const { text } = getTypeClasses(typeName);
+	const { text } = getTypeClasses(type.type.name);
 	const cardProps: CardProps = {
 		title: 'Cries',
 		type: type,

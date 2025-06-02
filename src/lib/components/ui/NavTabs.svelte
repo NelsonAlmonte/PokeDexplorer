@@ -2,7 +2,6 @@
 	import type { PokemonType } from 'pokeapi-typescript';
 	import type { PokemonProfile } from '$lib/types/pokemon.type';
 	import type { NavTabProps } from '$lib/types/ui.type';
-	import type { typeUIClasses } from '$lib/constants/ui/type';
 	import { getContext } from 'svelte';
 	import { page } from '$app/state';
 	import { getTypeClasses } from '$lib/utils/type.util';
@@ -44,8 +43,7 @@
 			icon: 'Puzzle'
 		}
 	];
-	const typeName = type.type.name as keyof typeof typeUIClasses.text;
-	const { bg, bgOpacity, bgHover } = getTypeClasses(typeName);
+	const { bg, bgOpacity, bgHover, text } = getTypeClasses(type.type.name);
 
 	function isActive(route: string, baseUrl: string): boolean {
 		if (route === 'information') return page.url.pathname === baseUrl;
@@ -62,8 +60,10 @@
 		<Button
 			class={isActive(navTabProp.title, navTabProp.base_url)
 				? `${bg} ${bgHover} cursor-pointer rounded-2xl text-lg font-bold capitalize focus:ring-0`
-				: `${bgOpacity} ${bgHover} cursor-pointer rounded-2xl text-lg font-bold capitalize focus:ring-0`}
+				: `${bgOpacity} ${bgHover} ${text} cursor-pointer rounded-2xl text-lg font-bold  capitalize hover:text-white focus:ring-0`}
 		>
+			<!-- `${bgOpacity} ${bgHover} cursor-pointer rounded-2xl text-lg font-bold text-gray-900 capitalize hover:text-white focus:ring-0 dark:text-white`} -->
+
 			{#if navTabProp.icon}
 				{@const Icon = icons[navTabProp.icon]}
 				<Icon class="me-2" size="20" />

@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { PokemonStat, PokemonType } from 'pokeapi-typescript';
 	import type { StatRange } from '$lib/types/pokemon.type';
-	import { typeUIClasses } from '$lib/constants/ui/type';
 	import { icons } from '$lib/constants/ui/icons';
 	import { getTypeClasses } from '$lib/utils/type.util';
 	import { Progressbar } from 'flowbite-svelte';
@@ -12,8 +11,7 @@
 		stat,
 		type
 	}: { statRangeItem: StatRange; stat: PokemonStat; type: PokemonType } = $props();
-	const typeName = type.type.name as keyof typeof typeUIClasses.text;
-	const { text, bgOpacity, bg } = getTypeClasses(typeName);
+	const { text, bgOpacity, bg } = getTypeClasses(type.type.name);
 	const range = statRangeItem.value;
 	const progress = (stat.base_stat / 200) * 100;
 </script>

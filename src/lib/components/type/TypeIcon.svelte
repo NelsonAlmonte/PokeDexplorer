@@ -1,10 +1,8 @@
 <script lang="ts">
-	import type { typeUIClasses } from '$lib/constants/ui/type';
 	import { getTypeClasses } from '$lib/utils/type.util';
 
 	let { type }: { type: string } = $props();
-	const typeName = type as keyof typeof typeUIClasses.text;
-	const { icon } = getTypeClasses(typeName);
+	const { icon } = getTypeClasses(type);
 </script>
 
 <div>

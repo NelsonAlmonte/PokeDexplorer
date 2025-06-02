@@ -1,12 +1,10 @@
 <script lang="ts">
 	import type { EvolutionDetail, PokemonType } from 'pokeapi-typescript';
-	import type { typeUIClasses } from '$lib/constants/ui/type';
 	import { getTypeClasses } from '$lib/utils/type.util';
 	import { MoveDown, MoveRight } from '@lucide/svelte';
 
 	let { detail, type }: { detail: EvolutionDetail; type: PokemonType } = $props();
-	const typeName = type.type.name as keyof typeof typeUIClasses.text;
-	const { text, bgOpacity } = getTypeClasses(typeName);
+	const { text, bgOpacity } = getTypeClasses(type.type.name);
 	const conditions = Object.fromEntries(
 		Object.entries(detail)
 			.filter(

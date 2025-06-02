@@ -1,6 +1,5 @@
 <script lang="ts">
 	import type { Ability, PokemonType } from 'pokeapi-typescript';
-	import type { typeUIClasses } from '$lib/constants/ui/type';
 	import { getTypeClasses } from '$lib/utils/type.util';
 	import { slide } from 'svelte/transition';
 
@@ -9,8 +8,7 @@
 		type,
 		isHiddenAbility
 	}: { ability: Ability; type: PokemonType; isHiddenAbility: Boolean } = $props();
-	const typeName = type.type.name as keyof typeof typeUIClasses.text;
-	const { text, bgOpacity, bgHover } = getTypeClasses(typeName);
+	const { text, bgOpacity, bgHover } = getTypeClasses(type.type.name);
 	let collapse = $state({ isHidden: true, label: 'Show more' });
 
 	function manageCollapse() {

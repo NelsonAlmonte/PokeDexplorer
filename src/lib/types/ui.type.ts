@@ -27,3 +27,17 @@ export type CardProps = {
 	type: PokemonType;
 	classes: string[];
 };
+
+export type TypeClass = {
+	light: Class;
+	dark: Class;
+};
+
+type Class = {
+	text: Record<string, string>;
+	bg_opacity: Record<string, string>;
+	from: Record<string, string>;
+	bg: Record<string, string>;
+	bg_hover: Record<string, string>;
+	icon: Record<string, string>;
+};

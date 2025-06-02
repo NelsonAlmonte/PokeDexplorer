@@ -7,3 +7,7 @@ export const modalState = $state({
 export const navbarState = $state({
 	isHidden: true
 });
+
+export const themeState = $state({
+	theme: 'light'
+});

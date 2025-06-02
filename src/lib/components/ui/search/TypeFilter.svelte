@@ -1,15 +1,13 @@
 <script lang="ts">
-	import { typeUIClasses } from '$lib/constants/ui/type';
 	import { getTypeClasses } from '$lib/utils/type.util';
 	import { searchState } from '$lib/store/search.svelte';
 	import TypeIcon from '$lib/components/type/TypeIcon.svelte';
 
 	let { type }: { type: string } = $props();
-	const typeName = type as keyof typeof typeUIClasses.text;
-	const { text, bg, border, bgHover } = getTypeClasses(typeName);
+	const { text, bg, bgOpacity, bgHover } = getTypeClasses(type);
 	const typeClass = searchState.selectedTypes.includes(type)
 		? `${bg} active`
-		: `${border} default border-1`;
+		: `${bgOpacity} default`;
 
 	function toggleType(event: MouseEvent): void {
 		const currentTarget = event.currentTarget as HTMLButtonElement;
@@ -17,14 +15,14 @@
 
 		if (searchState.selectedTypes.includes(selectedType)) {
 			currentTarget.classList.remove('active');
-			currentTarget.classList.remove(bg);
-			currentTarget.classList.add(border);
+			currentTarget.classList.remove(...bg.split(' '));
+			currentTarget.classList.add(...bgOpacity.split(' '));
 			currentTarget.classList.add('default');
-			currentTarget.classList.add('border-1');
 			searchState.selectedTypes = searchState.selectedTypes.filter((type) => type !== selectedType);
 		} else {
 			currentTarget.classList.add('active');
-			currentTarget.classList.add(bg);
+			currentTarget.classList.add(...bg.split(' '));
+			currentTarget.classList.remove(...bgOpacity.split(' '));
 			currentTarget.classList.remove('default');
 			searchState.selectedTypes.push(selectedType);
 		}

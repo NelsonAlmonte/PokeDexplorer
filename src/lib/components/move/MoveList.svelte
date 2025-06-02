@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { MoveCollection } from '$lib/types/move.type';
 	import type { PokemonProfile } from '$lib/types/pokemon.type';
-	import type { typeUIClasses } from '$lib/constants/ui/type';
 	import type { AlertProps } from '$lib/types/ui.type';
 	import MoveItem from '$lib/components/move//MoveItem.svelte';
 	import GenerationList from '$lib/components/move/GenerationList.svelte';
@@ -12,8 +11,7 @@
 
 	let { moveCollection, profile }: { moveCollection: MoveCollection[]; profile: PokemonProfile } =
 		$props();
-	const typeName = profile.pokemon.types[0].type.name as keyof typeof typeUIClasses.text;
-	const { text, bg, bgOpacity, bgHover } = getTypeClasses(typeName);
+	const { text, bg, bgOpacity, bgHover } = getTypeClasses(profile.pokemon.types[0].type.name);
 	const alertProps: AlertProps = {
 		title: 'Nothing to show here!',
 		content: `${profile.pokemon.name.replaceAll('-', ' ')} didn't learn any moves in this generation.`,

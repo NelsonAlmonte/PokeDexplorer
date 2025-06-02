@@ -3,8 +3,8 @@
 
 	let { generation }: { generation: string } = $props();
 	const generationClass = searchState.selectedGenerations.includes(generation)
-		? `bg-blue-600 active`
-		: `border-blue-600 default border-1`;
+		? `bg-fighting-600 active`
+		: `bg-fighting-600/25 default`;
 
 	function toggleType(event: MouseEvent): void {
 		const currentTarget = event.currentTarget as HTMLButtonElement;
@@ -12,16 +12,16 @@
 
 		if (searchState.selectedGenerations.includes(selectedGeneration)) {
 			currentTarget.classList.remove('active');
-			currentTarget.classList.remove('bg-blue-600');
-			currentTarget.classList.add('border-blue-600');
+			currentTarget.classList.remove('bg-fighting-600');
+			currentTarget.classList.add('bg-fighting-600/25');
 			currentTarget.classList.add('default');
-			currentTarget.classList.add('border-1');
 			searchState.selectedGenerations = searchState.selectedGenerations.filter(
 				(type) => type !== selectedGeneration
 			);
 		} else {
 			currentTarget.classList.add('active');
-			currentTarget.classList.add('bg-blue-600');
+			currentTarget.classList.add('bg-fighting-600');
+			currentTarget.classList.remove('bg-fighting-600/25');
 			currentTarget.classList.remove('default');
 			searchState.selectedGenerations.push(selectedGeneration);
 		}
@@ -30,10 +30,17 @@
 
 <button
 	type="button"
-	class="{generationClass} cursor-pointer rounded-2xl px-3 py-2.5 font-bold uppercase hover:bg-blue-600"
+	class="{generationClass} hover:bg-fighting-600 dark:hover:bg-fighting-600 cursor-pointer rounded-2xl px-3 py-2.5 font-bold text-gray-900 uppercase hover:text-white dark:text-white"
 	onclick={toggleType}
 >
 	<div class="flex justify-center">
-		<span class="text-white">{generation.replaceAll('generation-', '')}</span>
+		<span>{generation.replaceAll('generation-', '')}</span>
 	</div>
 </button>
+
+<style>
+	.active {
+		color: white;
+		cursor: pointer;
+	}
+</style>

@@ -2,6 +2,8 @@
 @plugin 'flowbite/plugin';
 @source "../node_modules/flowbite-svelte/dist";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --color-normal-100: oklch(0.94 0.01 101.49 / 1);
   --color-normal-200: oklch(0.89 0.02 106.88 / 1);

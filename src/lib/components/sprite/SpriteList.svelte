@@ -1,15 +1,13 @@
 <script lang="ts">
 	import type { PokemonType } from 'pokeapi-typescript';
 	import type { SpriteGroup } from '$lib/types/sprite.type';
-	import type { typeUIClasses } from '$lib/constants/ui/type';
 	import type { CardProps } from '$lib/types/ui.type';
 	import Card from '$lib/components/ui/Card.svelte';
 	import { getTypeClasses } from '$lib/utils/type.util';
 	import { TabItem, Tabs } from 'flowbite-svelte';
 
 	let { spritesGroup, type }: { spritesGroup: SpriteGroup[]; type: PokemonType } = $props();
-	const typeName = type.type.name as keyof typeof typeUIClasses.text;
-	const { text, bg, bgOpacity, bgHover } = getTypeClasses(typeName);
+	const { text, bg, bgOpacity, bgHover } = getTypeClasses(type.type.name);
 	const cardProps: CardProps = {
 		title: 'Sprites',
 		type: type,

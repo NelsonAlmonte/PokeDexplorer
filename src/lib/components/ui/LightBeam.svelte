@@ -1,11 +1,9 @@
 <script lang="ts">
 	import type { PokemonType } from 'pokeapi-typescript';
-	import { typeUIClasses } from '$lib/constants/ui/type';
 	import { getTypeClasses } from '$lib/utils/type.util';
 
 	let { type }: { type: PokemonType } = $props();
-	const typeName = type.type.name as keyof typeof typeUIClasses.text;
-	const { from } = getTypeClasses(typeName);
+	const { from } = getTypeClasses(type.type.name);
 </script>
 
 <div

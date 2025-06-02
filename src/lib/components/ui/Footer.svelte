@@ -14,13 +14,13 @@
 			</div>
 			<div class="flex items-center gap-3 md:absolute md:left-1/2 md:-translate-x-1/2">
 				<div class="flex items-center gap-1.5">
-					<span class="text-sm text-gray-300">Made with </span>
+					<span class="text-sm text-gray-900 dark:text-gray-300">Made with </span>
 					<Heart class="text-fighting-500" size="20" />
-					<span class="text-sm text-gray-300">and </span>
+					<span class="text-sm text-gray-900 dark:text-gray-300">and </span>
 					<img width="15" src="/images/svelte-icon.webp" alt="svelte icon" />
-					<span class="text-sm text-gray-300">by </span>
+					<span class="text-sm text-gray-900 dark:text-gray-300">by </span>
 					<a
-						class="text-sm text-white underline"
+						class="text-sm text-gray-950 underline dark:text-white"
 						href="https://github.com/NelsonAlmonte"
 						target="_blank"
 					>

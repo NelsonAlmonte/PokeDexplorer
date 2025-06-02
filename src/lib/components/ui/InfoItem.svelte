@@ -1,13 +1,11 @@
 <script lang="ts">
 	import type { PokemonType } from 'pokeapi-typescript';
 	import type { InfoItem } from '$lib/types/information.type';
-	import { typeUIClasses } from '$lib/constants/ui/type';
 	import { icons } from '$lib/constants/ui/icons';
 	import { getTypeClasses } from '$lib/utils/type.util';
 
 	let { item, type }: { item: InfoItem; type: PokemonType } = $props();
-	const typeName = type.type.name as keyof typeof typeUIClasses.text;
-	const { text, bgOpacity } = getTypeClasses(typeName);
+	const { text, bgOpacity } = getTypeClasses(type.type.name);
 </script>
 
 <div class="{text} {bgOpacity} flex items-center justify-start gap-3 rounded-2xl py-1.5 capitalize">

@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { DetailedPokemonMove } from '$lib/types/move.type';
 	import type { PokemonProfile } from '$lib/types/pokemon.type';
-	import type { typeUIClasses } from '$lib/constants/ui/type';
 	import TypeItem from '$lib/components/type/TypeItem.svelte';
 	import MoveCategory from '$lib/components/move/MoveCategory.svelte';
 	import { getTypeClasses } from '$lib/utils/type.util';
@@ -12,8 +11,7 @@
 		profile,
 		isLevelUp
 	}: { move: DetailedPokemonMove; profile: PokemonProfile; isLevelUp: boolean } = $props();
-	const typeName = profile.pokemon.types[0].type.name as keyof typeof typeUIClasses.text;
-	const { text, bgOpacity } = getTypeClasses(typeName);
+	const { text, bgOpacity } = getTypeClasses(profile.pokemon.types[0].type.name);
 </script>
 
 <div
