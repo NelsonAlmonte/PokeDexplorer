@@ -14,11 +14,10 @@ import { doFetch } from '$lib/api/pokemon.api';
 export async function generateMoveCollection(
 	pokemon: PokemonUpdated,
 	moves: Move[],
-	generations: string[],
-	generation: string = ''
+	generation: string
 ): Promise<MoveCollection[]> {
 	const moveCollection: MoveCollection[] = [];
-	const movesGroup = await generateMovesGroup(pokemon, moves, generations, generation);
+	const movesGroup = await generateMovesGroup(pokemon, moves, generation);
 
 	for (const key in movesGroup) {
 		moveCollection.push({
@@ -33,21 +32,14 @@ export async function generateMoveCollection(
 async function generateMovesGroup(
 	pokemon: PokemonUpdated,
 	moves: Move[],
-	generations: string[],
-	generation: string = ''
+	generation: string
 ): Promise<MovesGroup> {
-	const versionGroups = (await getGenInfo(generations, generation)).version_groups;
+	const genInfo: Generation = await doFetch('generation', generation);
+	const versionGroups = genInfo.version_groups;
 	const genMoves = generateGenMoves(versionGroups, pokemon.moves);
 	const moveLearnMethods = await getMoveLearnMethods();
 	const movesGroup = structureMovesGroup(genMoves, moves, moveLearnMethods);
 	return movesGroup;
-}
-
-async function getGenInfo(generations: string[], generation: string = ''): Promise<Generation> {
-	let genName = generations.at(-1)!;
-	if (generation) genName = generation;
-	const genInfo: Generation = await doFetch('generation', genName);
-	return genInfo;
 }
 
 function generateGenMoves(

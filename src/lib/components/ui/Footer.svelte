@@ -3,9 +3,8 @@
 </script>
 
 <div class="container mx-auto max-w-screen-xl px-4 xl:px-0">
-	<footer class="mb-4 rounded-3xl bg-white py-2.5 shadow-sm dark:bg-gray-800">
+	<footer class="my-4 rounded-3xl bg-white py-2.5 shadow-sm dark:bg-gray-800">
 		<div class="flex flex-col gap-4 p-4 md:flex-row md:items-center md:justify-between">
-			<!-- <span class="text-xl font-bold text-white">PokéDexplorer.</span> -->
 			<div class="flex items-center space-x-3 rtl:space-x-reverse">
 				<img src="/images/logo.webp" class="h-10" alt="Logo" />
 				<span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white"
@@ -31,7 +30,7 @@
 			<div class="flex space-x-5 sm:justify-center md:mt-0">
 				<a
 					href="https://github.com/NelsonAlmonte/PokeDexplorer"
-					class="text-gray-400 hover:text-gray-900 dark:hover:text-white"
+					class="inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg p-2.5 text-sm text-gray-500 hover:bg-gray-100 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-700"
 					target="_blank"
 				>
 					<Github />

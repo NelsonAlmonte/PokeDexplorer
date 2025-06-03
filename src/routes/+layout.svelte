@@ -5,7 +5,7 @@
 	import '../app.css';
 
 	let { children, data } = $props();
-	setContext('generations', data.generations);
+	setContext('generations', data.generations) as string[];
 </script>
 
 <svelte:head>

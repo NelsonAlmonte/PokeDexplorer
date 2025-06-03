@@ -62,8 +62,6 @@
 				? `${bg} ${bgHover} cursor-pointer rounded-2xl text-lg font-bold capitalize focus:ring-0`
 				: `${bgOpacity} ${bgHover} ${text} cursor-pointer rounded-2xl text-lg font-bold  capitalize hover:text-white focus:ring-0`}
 		>
-			<!-- `${bgOpacity} ${bgHover} cursor-pointer rounded-2xl text-lg font-bold text-gray-900 capitalize hover:text-white focus:ring-0 dark:text-white`} -->
-
 			{#if navTabProp.icon}
 				{@const Icon = icons[navTabProp.icon]}
 				<Icon class="me-2" size="20" />

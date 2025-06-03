@@ -24,7 +24,7 @@
 						alt={form.name}
 					/>
 					<div class="mb-4 flex justify-center">
-						<p class="font-bold text-white capitalize">
+						<p class="font-bold text-gray-900 capitalize dark:text-white">
 							{form.name.replaceAll('-', ' ')}
 						</p>
 					</div>

@@ -7,12 +7,7 @@ export const load: PageServerLoad = async ({ params, parent, fetch }) => {
 	const generation = `generation-${params.generation}`;
 	const response = await fetch('/data/moves.json');
 	const moves: Move[] = await response.json();
-	const moveCollection = await generateMoveCollection(
-		profile.pokemon,
-		moves,
-		profile.generations,
-		generation
-	);
+	const moveCollection = await generateMoveCollection(profile.pokemon, moves, generation);
 
 	return { moveCollection, generation };
 };

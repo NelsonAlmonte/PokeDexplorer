@@ -32,8 +32,8 @@
 			{#each moveCollection as moveGroup, index}
 				<TabItem
 					open={index === 0}
-					activeClasses="inline-block rounded-2xl text-center font-bold text-white {bg} cursor-pointer p-4"
-					inactiveClasses="inline-block rounded-2xl text-center font-bold text-gray-400 hover:text-white {bgOpacity} {bgHover} cursor-pointer p-4"
+					activeClasses="{bg} inline-block rounded-2xl text-center font-bold text-white cursor-pointer p-4"
+					inactiveClasses="{text} {bgOpacity} {bgHover} inline-block rounded-2xl text-center font-bold hover:text-white cursor-pointer p-4"
 				>
 					<span slot="title" class="capitalize">{moveGroup.label}</span>
 					<div class="columns-1 gap-4 xl:columns-2">

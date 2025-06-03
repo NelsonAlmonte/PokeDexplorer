@@ -1,6 +1,5 @@
 <script lang="ts">
 	import type { PageProps } from './$types';
-	import type { typeUIClasses } from '$lib/constants/ui/type';
 	import type { AlertProps } from '$lib/types/ui.type';
 	import EvolutionChain from '$lib/components/evolution/EvolutionChain.svelte';
 	import FormList from '$lib/components/form/FormList.svelte';
@@ -8,9 +7,8 @@
 	import { getTypeClasses } from '$lib/utils/type.util';
 
 	let { data }: PageProps = $props();
-	const type = $derived(data.profile.pokemon.types[0]);
-	const typeName = data.profile.pokemon.types[0].type.name as keyof typeof typeUIClasses.text;
-	const { text, bgOpacity } = getTypeClasses(typeName);
+	const type = data.profile.pokemon.types[0];
+	const { text, bgOpacity } = getTypeClasses(type.type.name);
 	const alertProps: AlertProps = {
 		title: 'Nothing to show here!',
 		content: `${data.profile.pokemon.name.replaceAll('-', ' ')} doesn't evolve or change forms.`,

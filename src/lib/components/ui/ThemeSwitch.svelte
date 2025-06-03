@@ -2,7 +2,6 @@
 	import { browser } from '$app/environment';
 	import { themeState } from '$lib/store/ui.svelte';
 	import { Moon, Sun } from '@lucide/svelte';
-	import { Button } from 'flowbite-svelte';
 	import { onMount } from 'svelte';
 
 	onMount(() => {
@@ -30,12 +29,15 @@
 </script>
 
 <button
-	class="me-2 cursor-pointer text-gray-400 hover:text-gray-900 dark:hover:text-white"
+	class="inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg p-2.5 text-sm text-gray-500 hover:bg-gray-100 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-700"
 	onclick={toggleTheme}
 >
 	{#if themeState.theme === 'dark'}
+		<span class="sr-only">Toggle light mode</span>
+
 		<Sun />
 	{:else}
+		<span class="sr-only">Toggle dark mode</span>
 		<Moon />
 	{/if}
 </button>

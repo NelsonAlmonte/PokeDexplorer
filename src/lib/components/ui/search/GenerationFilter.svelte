@@ -30,7 +30,7 @@
 
 <button
 	type="button"
-	class="{generationClass} hover:bg-fighting-600 dark:hover:bg-fighting-600 cursor-pointer rounded-2xl px-3 py-2.5 font-bold text-gray-900 uppercase hover:text-white dark:text-white"
+	class="{generationClass} hover:bg-fighting-600 dark:hover:bg-fighting-600 text-fighting-700 dark:text-fighting-500 cursor-pointer rounded-2xl px-3 py-2.5 font-bold uppercase hover:text-white"
 	onclick={toggleType}
 >
 	<div class="flex justify-center">

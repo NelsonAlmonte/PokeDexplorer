@@ -18,7 +18,7 @@
 </script>
 
 <div class="{bgOpacity} rounded-2xl px-4 py-3">
-	<div class="mb-4 flex items-baseline gap-2">
+	<div class="mb-4 flex flex-wrap items-baseline gap-2">
 		<h5 class="{text} text-xl font-bold capitalize">{ability.name.replaceAll('-', ' ')}</h5>
 		<span class={text}>•</span>
 		<span class={text}>
