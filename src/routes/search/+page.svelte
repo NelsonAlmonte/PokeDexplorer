@@ -7,6 +7,7 @@
 	import { feedState } from '$lib/store/feed.svelte.js';
 	import { alerts } from '$lib/constants/ui/alert.js';
 	import { InfiniteLoader, LoaderState } from 'svelte-infinite';
+	import { MetaTags } from 'svelte-meta-tags';
 
 	let { data } = $props();
 	const loaderState = new LoaderState();
@@ -33,6 +34,8 @@
 		}
 	}
 </script>
+
+<MetaTags {...data.metaTags} />
 
 <InfiniteLoader {loaderState} triggerLoad={loadMore}>
 	<PokemonList pokemons={feedState.search} />

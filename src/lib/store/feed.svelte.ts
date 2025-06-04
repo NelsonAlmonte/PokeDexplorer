@@ -1,11 +1,6 @@
-import type { Feed } from '$lib/types/feed.type';
+import type { PokemonUpdated } from '$lib/types/pokemon.type';
 
-export const feedState = $state<Feed>({
-	pokemon: {
-		count: 0,
-		next: '',
-		previous: '',
-		results: []
-	},
-	search: []
+export const feedState = $state({
+	pokemon: [] as PokemonUpdated[],
+	search: [] as PokemonUpdated[]
 });

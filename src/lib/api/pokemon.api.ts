@@ -8,18 +8,15 @@ type FetchResult<T> = {
 };
 const cache: Record<string, Record<string, unknown>> = {};
 
-export async function fetchPokemons(offset: number): Promise<NamedApiResourceList<PokemonUpdated>> {
+export async function fetchPokemons(offset: number): Promise<PokemonUpdated[]> {
 	const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=12&offset=${offset}`);
 
 	if (!response.ok) throw new Error('Error when retrieving the response');
 
 	const data: NamedApiResourceList<NamedApiResource<PokemonUpdated>> = await response.json();
-	const transformedPokemons = await Promise.all(data.results.map(transformPokemon));
+	const pokemons = await Promise.all(data.results.map(transformPokemon));
 
-	return {
-		...data,
-		results: transformedPokemons
-	};
+	return pokemons;
 }
 
 async function transformPokemon(
