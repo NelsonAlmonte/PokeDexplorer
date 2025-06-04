@@ -1,3 +1,4 @@
+import { error } from '@sveltejs/kit';
 import type {
 	NamedApiResource,
 	NamedApiResourceList,
@@ -34,7 +35,11 @@ async function generateMovesGroup(
 	moves: Move[],
 	generation: string
 ): Promise<MovesGroup> {
-	const genInfo: Generation = await doFetch('generation', generation);
+	const { data, err } = await doFetch<Generation>('generation', generation);
+
+	if (err) error(500, { message: 'error' });
+
+	const genInfo = data!;
 	const versionGroups = genInfo.version_groups;
 	const genMoves = generateGenMoves(versionGroups, pokemon.moves);
 	const moveLearnMethods = await getMoveLearnMethods();
@@ -69,10 +74,15 @@ function generateGenMoves(
 }
 
 async function getMoveLearnMethods(): Promise<string[]> {
-	const moveLearnMethods: NamedApiResourceList<NamedApiResource<MoveLearnMethod>> = await doFetch(
+	const { data, err } = await doFetch<NamedApiResourceList<NamedApiResource<MoveLearnMethod>>>(
 		'move-learn-method',
 		''
 	);
+
+	if (err) error(500, { message: 'error' });
+
+	const moveLearnMethods = data!;
+
 	return moveLearnMethods.results.map((value) => value.name);
 }
 

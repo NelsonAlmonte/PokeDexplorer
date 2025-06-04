@@ -1,6 +1,12 @@
 import type { icons } from '$lib/constants/ui/icons';
 import type { PokemonType } from 'pokeapi-typescript';
 
+export type AlertTypes = {
+	error: AlertProps;
+	no_data: AlertProps;
+	empty: AlertProps;
+};
+
 export type AlertProps = {
 	title: string;
 	content: string;

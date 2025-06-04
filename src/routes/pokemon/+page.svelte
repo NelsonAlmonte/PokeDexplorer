@@ -4,7 +4,7 @@
 	import Loading from '$lib/components/ui/Loading.svelte';
 	import { fetchPokemons } from '$lib/api/pokemon.api.js';
 	import { feedState } from '$lib/store/feed.svelte.js';
-	import { errorAlert, noDataAlert } from '$lib/constants/ui/alert.js';
+	import { alerts } from '$lib/constants/ui/alert.js';
 	import { InfiniteLoader, LoaderState } from 'svelte-infinite';
 
 	let { data } = $props();
@@ -29,11 +29,11 @@
 	<PokemonList pokemons={feedState.pokemon.results} />
 
 	{#snippet error()}
-		<Alert alertProps={errorAlert} />
+		<Alert alertProps={alerts.error} />
 	{/snippet}
 
 	{#snippet noData()}
-		<Alert alertProps={noDataAlert} />
+		<Alert alertProps={alerts.no_data} />
 	{/snippet}
 
 	{#snippet loading()}

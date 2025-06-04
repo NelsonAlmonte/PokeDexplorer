@@ -1,3 +1,4 @@
+import { error } from '@sveltejs/kit';
 import type { DamageRelation, TypeDefense } from '$lib/types/pokemon.type';
 import type { PokemonType, Type, TypeRelations } from 'pokeapi-typescript';
 import { doFetch } from '$lib/api/pokemon.api';
@@ -5,12 +6,14 @@ import { doFetch } from '$lib/api/pokemon.api';
 export async function generateTypeDefenses(types: PokemonType[]): Promise<TypeDefense[]> {
 	const typeDefenses: TypeDefense[] = [];
 	const damageRelation = await generateDamageRelation(types);
+
 	for (const key in damageRelation) {
 		typeDefenses.push({
 			label: key.replaceAll('_', ' '),
 			value: damageRelation[key]
 		});
 	}
+
 	return typeDefenses;
 }
 
@@ -41,9 +44,9 @@ async function generateDamageRelation(
 	for (const type of typesInfo) {
 		for (const relationKey of damageRelationKeys) {
 			const currentRelationKey = relationKey.key as keyof TypeRelations;
+
 			for (const relationType of type.damage_relations[currentRelationKey]) {
 				const name = relationType.name;
-
 				const existing = damageRelation[currentRelationKey].find((item) => item.type === name);
 
 				if (existing) {
@@ -57,13 +60,20 @@ async function generateDamageRelation(
 			}
 		}
 	}
+
 	return damageRelation;
 }
 
 async function fetchTypesInfo(types: PokemonType[]): Promise<Type[]> {
 	const typesInfo: Type[] = [];
+
 	for (const type of types) {
-		typesInfo.push((await doFetch('type', type.type.name)) as Type);
+		const { data, err } = await doFetch<Type>('type', type.type.name);
+
+		if (err) error(500, { message: 'error' });
+
+		typesInfo.push(data!);
 	}
+
 	return typesInfo;
 }

@@ -1,19 +1,30 @@
-import { doFetch } from '$lib/api/pokemon.api';
+import { error } from '@sveltejs/kit';
 import type { Generation, Move, NamedApiResource, NamedApiResourceList } from 'pokeapi-typescript';
+import { doFetch } from '$lib/api/pokemon.api';
 import { writeFile } from 'fs/promises';
 import path from 'path';
 
-const movesResourceList: NamedApiResourceList<NamedApiResource<Generation>> = await doFetch(
+const { data, err } = await doFetch<NamedApiResourceList<NamedApiResource<Generation>>>(
 	'move',
 	'?offset=0&limit=100000'
 );
+
+if (err) error(500, { message: 'error' });
+
+const movesResourceList = data!;
 const moveNames: string[] = movesResourceList.results.map((move) => move.name);
 const movesInfo: Pick<
 	Move,
 	'name' | 'power' | 'accuracy' | 'damage_class' | 'type' | 'machines'
 >[] = [];
+
 for (const moveName of moveNames) {
-	const move: Move = await doFetch('move', moveName);
+	const { data, err } = await doFetch<Move>('move', moveName);
+
+	if (err) error(500, { message: 'error' });
+
+	const move = data!;
+
 	movesInfo.push({
 		name: move.name,
 		power: move.power,

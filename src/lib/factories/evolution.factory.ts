@@ -1,3 +1,4 @@
+import { error } from '@sveltejs/kit';
 import type { ChainLink, EvolutionChain } from 'pokeapi-typescript';
 import type { PokemonSpeciesUpdated, PokemonUpdated } from '$lib/types/pokemon.type';
 import type { DetailedChainLink, DetailedEvolutionChain } from '$lib/types/evolution.type';
@@ -8,9 +9,13 @@ export async function generateEvolutionChain(
 	pokemonSpecies: PokemonSpeciesUpdated
 ): Promise<DetailedEvolutionChain> {
 	const evolutionChainId = extractIdFromUrl(pokemonSpecies.evolution_chain.url);
-	const evolutionChain: EvolutionChain = await doFetch('evolution-chain', evolutionChainId);
-	const detailedEvolutionChain = evolutionChain;
-	detailedEvolutionChain.chain = await buildDetailedEvolutionChain(evolutionChain.chain, pokemons);
+	const { data, err } = await doFetch<EvolutionChain>('evolution-chain', evolutionChainId);
+
+	if (err) error(500, { message: 'error' });
+
+	const EvolutionChain = data!;
+	const detailedEvolutionChain = EvolutionChain;
+	detailedEvolutionChain.chain = await buildDetailedEvolutionChain(EvolutionChain.chain, pokemons);
 
 	return detailedEvolutionChain as DetailedEvolutionChain;
 }
