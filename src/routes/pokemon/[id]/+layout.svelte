@@ -5,6 +5,7 @@
 	import TypeIconBackground from '$lib/components/type/TypeIconBackground.svelte';
 	import PokemonHeader from '$lib/components/pokemon/PokemonHeader.svelte';
 	import NavTabs from '$lib/components/ui/NavTabs.svelte';
+	import Footer from '$lib/components/ui/Footer.svelte';
 
 	let { data, children }: LayoutProps = $props();
 	const pokemon = $derived(data.profile.pokemon);
@@ -34,3 +35,4 @@
 		{@render children()}
 	</div>
 {/key}
+<Footer />

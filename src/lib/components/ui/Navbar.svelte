@@ -1,6 +1,11 @@
 <script lang="ts">
 	import { modalState, navbarState } from '$lib/store/ui.svelte';
-	import ThemeSwitch from './ThemeSwitch.svelte';
+	import ThemeSwitch from '$lib/components/ui/ThemeSwitch.svelte';
+	import { ArrowLeft } from '@lucide/svelte';
+	import { page } from '$app/state';
+	import { fly, slide } from 'svelte/transition';
+
+	let isRootRoute = $derived(page.url.pathname === '/');
 </script>
 
 <div class="container mx-auto max-w-screen-xl px-4 xl:px-0">
@@ -8,16 +13,24 @@
 		class="relative z-10 mt-4 rounded-3xl border-gray-200 bg-white py-2.5 shadow-sm dark:border-gray-700 dark:bg-gray-800"
 	>
 		<div class="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between p-4">
-			<a
-				href="/pokemon"
-				class="flex items-center space-x-3 rtl:space-x-reverse"
-				data-sveltekit-noscroll
-			>
-				<img src="/images/logo.webp" class="h-10" alt="Logo" />
-				<span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white"
-					>PokéDexplorer</span
-				>
-			</a>
+			<div class="flex items-center space-x-3 rtl:space-x-reverse">
+				{#if !isRootRoute}
+					<button
+						class="inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg p-2.5 text-sm text-gray-500 hover:bg-gray-100 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-700"
+						onclick={() => history.back()}
+						transition:fly={{ x: -20, duration: 200 }}
+					>
+						<ArrowLeft size="20" />
+						<span class="sr-only">Project repository</span>
+					</button>
+				{/if}
+				<a class="flex items-center space-x-3 rtl:space-x-reverse" href="/" data-sveltekit-noscroll>
+					<img src="/images/logo.webp" class="h-10" alt="Logo" />
+					<span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white"
+						>PokéDexplorer</span
+					>
+				</a>
+			</div>
 			<div class="flex">
 				<div class="md:hidden">
 					<ThemeSwitch />
@@ -47,31 +60,31 @@
 						/>
 					</svg>
 				</button>
-				<div
-					class="{navbarState.isHidden ? 'hidden' : ''} w-full md:block md:w-auto"
-					id="navbar-solid-bg"
+			</div>
+			<div
+				class="{navbarState.isHidden ? 'hidden' : ''} w-full md:block md:w-auto"
+				id="navbar-solid-bg"
+			>
+				<ul
+					class="mt-4 flex flex-col rounded-lg bg-gray-50 font-medium md:mt-0 md:flex-row md:items-center md:border-0 md:bg-transparent rtl:space-x-reverse dark:border-gray-700 dark:bg-gray-700 md:dark:bg-transparent"
 				>
-					<ul
-						class="mt-4 flex flex-col rounded-lg bg-gray-50 font-medium md:mt-0 md:flex-row md:items-center md:border-0 md:bg-transparent rtl:space-x-reverse dark:border-gray-700 dark:bg-gray-800 md:dark:bg-transparent"
-					>
-						<li class="md:h-5">
-							<a
-								href="/pokemon"
-								class="md:hover:text-fighting-700 md:dark:hover:text-fighting-500 block rounded-sm px-3 py-2 text-gray-900 hover:bg-gray-100 md:me-4 md:border-0 md:p-0 md:hover:bg-transparent dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-								data-sveltekit-noscroll>Home</a
-							>
-						</li>
-						<li class="md:h-5">
-							<button
-								class="md:hover:text-fighting-700 md:dark:hover:text-fighting-500 block cursor-pointer rounded-sm px-3 py-2 text-gray-900 hover:bg-gray-100 md:me-1 md:border-0 md:p-0 md:hover:bg-transparent dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-								onclick={() => (modalState.search.isOpen = true)}>Search</button
-							>
-						</li>
-						<li class="hidden md:block">
-							<ThemeSwitch />
-						</li>
-					</ul>
-				</div>
+					<li class="md:h-5">
+						<a
+							href="/"
+							class="md:hover:text-fighting-700 md:dark:hover:text-fighting-500 block rounded-sm px-3 py-2 text-gray-900 hover:bg-gray-100 md:me-4 md:border-0 md:p-0 md:hover:bg-transparent dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+							data-sveltekit-noscroll>Home</a
+						>
+					</li>
+					<li class="md:h-5">
+						<button
+							class="md:hover:text-fighting-700 md:dark:hover:text-fighting-500 block cursor-pointer rounded-sm px-3 py-2 text-gray-900 hover:bg-gray-100 md:me-1 md:border-0 md:p-0 md:hover:bg-transparent dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+							onclick={() => (modalState.search.isOpen = true)}>Search</button
+						>
+					</li>
+					<li class="hidden md:block">
+						<ThemeSwitch />
+					</li>
+				</ul>
 			</div>
 		</div>
 	</nav>

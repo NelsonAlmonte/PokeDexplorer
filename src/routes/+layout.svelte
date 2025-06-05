@@ -8,10 +8,6 @@
 	setContext('generations', data.generations) as string[];
 </script>
 
-<svelte:head>
-	<title>PokéDexplorer</title>
-</svelte:head>
-
 <Navbar />
 <div class="container mx-auto max-w-screen-xl px-4 xl:px-0">
 	{@render children()}

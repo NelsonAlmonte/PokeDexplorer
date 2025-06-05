@@ -1,11 +1,20 @@
 import { error } from '@sveltejs/kit';
 import type { LayoutServerLoad } from './$types';
+import type { Generation, NamedApiResource, NamedApiResourceList } from 'pokeapi-typescript';
 import type { MetaTagsProps } from 'svelte-meta-tags';
-import { fetchPokemons } from '$lib/api/pokemon.api';
+import { doFetch, fetchPokemons } from '$lib/api/pokemon.api';
 
 export const load: LayoutServerLoad = async ({ url }) => {
 	try {
 		const pokemons = await fetchPokemons(0);
+		const { data } = await doFetch<NamedApiResourceList<NamedApiResource<Generation>>>(
+			'generation',
+			''
+		);
+
+		if (!data) error(500, { message: 'error' });
+
+		const generations = data.results.map((generation) => generation.name);
 		const metaTags = {
 			title: `PokéDexplorer`,
 			description: `Explore and search Pokémon with detailed information including abilities, evolutions, forms, stats, moves, type matchups, sprites, and sounds.`,
@@ -35,7 +44,7 @@ export const load: LayoutServerLoad = async ({ url }) => {
 			}
 		} satisfies MetaTagsProps;
 
-		return { pokemons, metaTags };
+		return { pokemons, generations, metaTags };
 	} catch {
 		error(500, { message: 'error' });
 	}
