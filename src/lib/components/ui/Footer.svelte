@@ -2,7 +2,7 @@
 	import { Github, Heart } from '@lucide/svelte';
 </script>
 
-<div class="container mx-auto max-w-screen-xl px-4 xl:px-0">
+<div class="container mx-auto max-w-screen-xl">
 	<footer class="my-4 rounded-3xl bg-white py-2.5 shadow-sm dark:bg-gray-800">
 		<div class="flex flex-col gap-4 p-4 md:flex-row md:items-center md:justify-between">
 			<div class="flex items-center space-x-3 rtl:space-x-reverse">

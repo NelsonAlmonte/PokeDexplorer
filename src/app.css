@@ -1,9 +1,7 @@
 @import 'tailwindcss';
 @plugin 'flowbite/plugin';
 @source "../node_modules/flowbite-svelte/dist";
-
 @custom-variant dark (&:where(.dark, .dark *));
-
 @theme {
   --color-normal-100: oklch(0.94 0.01 101.49 / 1);
   --color-normal-200: oklch(0.89 0.02 106.88 / 1);
@@ -185,3 +183,48 @@
   --color-fairy-800: oklch(0.37 0.05 349.43 / 1);
   --color-fairy-900: oklch(0.25 0.03 347.99 / 1);
 }
+
+@media (prefers-reduced-motion) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
+@keyframes move-out {
+  from {
+    clip-path: circle(100% at var(--theme-button-cord));
+  }
+
+  to {
+    clip-path: circle(0% at var(--theme-button-cord));
+  }
+}
+
+
+
+html.theme-transition::view-transition-old(root) {
+	animation: move-out 450ms cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+html.theme-transition::view-transition-new(root) {
+  z-index: 9;
+}
+
+
+
+/* ::view-transition-old(theme-transition) {
+  animation: 450ms cubic-bezier(0.4, 0, 0.2, 1) both move-out;
+  z-index: 10;
+}
+
+::view-transition-new(theme-transition) {
+  z-index: 9;
+} */
+
+
+/* body {
+  view-transition-name: body;
+} */
+

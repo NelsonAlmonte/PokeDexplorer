@@ -14,17 +14,50 @@
 		localStorage.setItem('theme', themeState.theme);
 	});
 
-	function toggleTheme() {
+	function toggleTheme(event: MouseEvent): void {
+		if (document.startViewTransition) {
+			document.startViewTransition(() => applyTheme(event));
+		} else {
+			applyTheme(event);
+		}
+	}
+
+	function applyTheme(event: MouseEvent): void {
+		// const html = document.documentElement;
+		// let currentTheme = themeState.theme;
+		// html.style.viewTransitionName = 'theme-transition';
+
+		// html.classList.remove('light', 'dark');
+
+		// currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+
+		// html.style.setProperty('--theme-button-cord', getCoords(event));
+		// html.classList.add(currentTheme);
+		// themeState.theme = currentTheme;
+		// localStorage.setItem('theme', currentTheme);
 		const html = document.documentElement;
 		let currentTheme = themeState.theme;
 
-		html.classList.remove('light', 'dark');
+		html.classList.add('theme-transition');
+		html.style.viewTransitionName = 'root';
 
 		currentTheme = currentTheme === 'light' ? 'dark' : 'light';
-
+		html.style.setProperty('--theme-button-cord', getCoords(event));
+		html.classList.remove('light', 'dark');
 		html.classList.add(currentTheme);
 		themeState.theme = currentTheme;
 		localStorage.setItem('theme', currentTheme);
+
+		setTimeout(() => {
+			html.classList.remove('theme-transition');
+		}, 500);
+	}
+
+	function getCoords(event: MouseEvent): string {
+		const x = `${(event.clientX / window.innerWidth) * 100}%`;
+		const y = `${(event.clientY / window.innerHeight) * 100}%`;
+
+		return `${x} ${y}`;
 	}
 </script>
 
@@ -34,7 +67,6 @@
 >
 	{#if themeState.theme === 'dark'}
 		<span class="sr-only">Toggle light mode</span>
-
 		<Sun />
 	{:else}
 		<span class="sr-only">Toggle dark mode</span>
