@@ -5,6 +5,7 @@
 	import { page } from '$app/state';
 
 	let isRootRoute = $derived(page.url.pathname === '/');
+	let isSearchRoute = $derived(page.url.pathname.includes('search'));
 </script>
 
 <nav
@@ -12,13 +13,13 @@
 >
 	<div class="flex flex-wrap items-center justify-between p-4">
 		<div class="flex items-center space-x-3 rtl:space-x-reverse">
-			{#if !isRootRoute}
+			{#if !isRootRoute && !isSearchRoute}
 				<button
 					class="inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg p-2.5 text-sm text-gray-500 hover:bg-gray-100 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-700"
 					onclick={() => history.back()}
 				>
 					<ArrowLeft size="20" />
-					<span class="sr-only">Project repository</span>
+					<span class="sr-only">Back button</span>
 				</button>
 			{/if}
 			<a
