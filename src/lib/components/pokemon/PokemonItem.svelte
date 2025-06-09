@@ -32,7 +32,7 @@
 					<PokemonName {pokemon} />
 				</div>
 			</a>
-			<div class="mb-8 flex items-center justify-center gap-6">
+			<div class="mb-8 flex items-center justify-center gap-4">
 				{#each pokemon.types as type}
 					<TypeItem type={type.type.name} value={0} />
 				{/each}

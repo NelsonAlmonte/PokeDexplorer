@@ -18,11 +18,16 @@
 		{#each forms as form}
 			<div class="flex flex-col">
 				<a href="/pokemon/{form.name}">
-					<img
-						class="z-10 w-50"
-						src={form.sprites.other['official-artwork'].front_default}
-						alt={form.name}
-					/>
+					{#if form.sprites.other['official-artwork'].front_default}
+						<img
+							class="z-10 w-50"
+							src={form.sprites.other['official-artwork'].front_default}
+							alt={form.name}
+						/>
+					{:else}
+						<img class="z-10 w-50" src="/images/pokeball.webp" alt={form.name} />
+					{/if}
+
 					<div class="mb-4 flex justify-center">
 						<p class="font-bold text-gray-900 capitalize dark:text-white">
 							{form.name.replaceAll('-', ' ')}

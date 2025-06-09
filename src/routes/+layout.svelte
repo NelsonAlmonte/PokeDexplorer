@@ -33,11 +33,11 @@
 <SearchModal />
 
 <style>
-	:global(html:not(.theme-transition)::view-transition-old(root)) {
+	html:not(.theme-transition)::view-transition-old(root) {
 		animation: fade-out 300ms ease;
 	}
 
-	:global(html:not(.theme-transition)::view-transition-new(root)) {
+	html:not(.theme-transition)::view-transition-new(root) {
 		animation: fade-in 300ms ease;
 	}
 </style>

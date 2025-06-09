@@ -49,7 +49,7 @@
 		const url = new URL(`${window.location.origin}/search`);
 		const params = new URLSearchParams(url.search);
 
-		if (searchState.name !== '') params.set('name', searchState.name.trim());
+		if (searchState.name !== '') params.set('name', searchState.name.toLocaleLowerCase().trim());
 		if (searchState.selectedTypes.length) params.set('types', searchState.selectedTypes.join(','));
 		if (searchState.selectedGenerations.length)
 			params.set('generations', searchState.selectedGenerations.join(','));

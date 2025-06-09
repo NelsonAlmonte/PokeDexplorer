@@ -18,7 +18,7 @@
 <div class="z-10 -mt-4 mb-8">
 	<PokemonName pokemon={profile.pokemon} />
 </div>
-<div class="mb-8 flex items-center justify-center gap-6">
+<div class="mb-8 flex items-center justify-center gap-4">
 	{#each profile.pokemon.types as type}
 		<TypeItem type={type.type.name} value={0} />
 	{/each}

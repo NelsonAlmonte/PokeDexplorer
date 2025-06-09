@@ -13,11 +13,7 @@
 	const loaderState = new LoaderState();
 
 	afterNavigate((nav) => {
-		if (nav.from?.route.id === '/search') {
-			feedState.search = [];
-		} else {
-			feedState.search = data.results;
-		}
+		if (nav.from?.route.id === '/search') feedState.search = [];
 
 		if (feedState.search.length <= 0) feedState.search = data.results;
 	});
