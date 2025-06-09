@@ -23,18 +23,6 @@
 	}
 
 	function applyTheme(event: MouseEvent): void {
-		// const html = document.documentElement;
-		// let currentTheme = themeState.theme;
-		// html.style.viewTransitionName = 'theme-transition';
-
-		// html.classList.remove('light', 'dark');
-
-		// currentTheme = currentTheme === 'light' ? 'dark' : 'light';
-
-		// html.style.setProperty('--theme-button-cord', getCoords(event));
-		// html.classList.add(currentTheme);
-		// themeState.theme = currentTheme;
-		// localStorage.setItem('theme', currentTheme);
 		const html = document.documentElement;
 		let currentTheme = themeState.theme;
 
@@ -50,7 +38,7 @@
 
 		setTimeout(() => {
 			html.classList.remove('theme-transition');
-		}, 500);
+		}, 600);
 	}
 
 	function getCoords(event: MouseEvent): string {
