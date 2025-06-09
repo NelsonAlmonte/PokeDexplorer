@@ -126,7 +126,6 @@ To run this project, you need to have the following installed:
 
 - [Node.js](https://nodejs.org/) (version 18 or newer)
 - [npm](https://www.npmjs.com/) (comes with Node.js)
-- [Angular CLI](https://angular.io/cli) (latest version)
 
 ### Installation
 
